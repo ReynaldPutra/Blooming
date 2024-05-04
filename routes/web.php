@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,8 +31,11 @@ Route::get('/changePassword', [Controller::class, 'viewChange'])->name('viewChan
 Route::put('/changePassword', [Controller::class, 'runChangePassword'])->name('runChangePassword');
 Route::get('/logout', [Controller::class, 'runLogout'])->name('logout');
 
-Route::get('/showProduct', [Controller::class, 'viewProducts'])->name('viewProducts');
-Route::get('/products/{product:id}', [Controller::class, 'viewProductDetail'])->name('productDetail');
+// Product
+Route::get('/showProduct', [ProductController::class, 'viewProducts'])->name('viewProducts');
+Route::get('/products/{product:id}', [ProductController::class, 'viewProductDetail'])->name('productDetail');
+Route::get('/showProduct/{category}', [ProductController::class, 'filterProduct'])->name('filterProduct');
+Route::get('/showProduct/{category}/{order}', [ProductController::class, 'orderProducts'])->name('orderProducts');
 
 // Admin
 Route::get('/viewItem', [AdminController::class, 'viewManageItem'])->middleware('authenticaterole:admin')->name('viewItem');

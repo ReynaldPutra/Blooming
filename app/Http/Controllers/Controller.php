@@ -22,7 +22,9 @@ class Controller extends BaseController
     //HOME
     public function viewHome()
     {
-        return view('home');
+        $data_recycle = item::where("category", "=", "Recycle")->orderBy('created_at', 'desc')->take(4)->get();
+        $data_second = item::where("category", "=", "Second")->orderBy('created_at', 'desc')->take(4)->get();
+        return view('home', compact('data_recycle', 'data_second'));
     }
 
     //PROFILE
@@ -155,23 +157,4 @@ class Controller extends BaseController
 
         return redirect('/changePassword')->with('success', 'Password Successfully Changed!');
     }
-
-    //PRODUCTS
-
-    public function viewProducts()
-    {
-        return view('product.showProduct', [
-            'title' => 'Show Products',
-            'products' => Item::latest()->filter()->paginate(3),
-        ]);
-    }
-
-    public function viewProductDetail(Item $product)
-    {
-        return view('product.productDetail', [
-            "title" => "Product Detail",
-            "product" => $product,
-        ]);
-    }
-
 }

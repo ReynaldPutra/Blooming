@@ -6,27 +6,35 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
 
-     <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css')}}" >
+    @include('style/css')
      <link rel="stylesheet" href="{{ asset('/css/layout.css') }}"/>
+     <link rel="icon" type="image/svg" href="asset/icon_tab.svg">
+     <script defer src="js/script.js"></script>
+     @yield('style')
 
 </head>
-    @yield('style')
 <body>
 
   <nav class="navbar navbar-expand-lg navbar-light">
-
-        <button class="navbar-toggler navbar-dark mb-2 border-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand pe-4" href="{{ url('/') }}"><img width="250" src="/asset/logo.svg" alt="#" /></a>
+        <button class="navbar-toggler navbar-light mb-2 border-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto left">
+        
+          <div class="collapse navbar-collapse " id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto left pt-1">
 
               <li class="nav-item">
-                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link" href="/">HOME</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/showProduct">Show Product</a>
+                <a class="nav-link" href="/showProduct">FLOWERS</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/showProduct">ABOUT US</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/showProduct">CONTACT</a>
               </li>
 
 
@@ -40,14 +48,6 @@
                       <a class="dropdown-item" href="/addItem">Add Item</a>
                     </div>
                   </li>
-                <form action="/showProduct" type="get" class="searchbar">
-                    <div class="input-group justify-content-center">
-                      <input type="text" class="form-control" name="search" value = "{{request('search')}}" placeholder="Search product..." aria-label="Search product..." aria-describedby="button-addon2">
-                      <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit">Search</button>
-                      </div>
-                    </div>
-                  </form>
             @elseif(Session::get('user') && Session::get('user')['role']==='customer')
             <li class="nav-item">
               <a class="nav-link" href="/cartList">My Cart</a>
@@ -55,20 +55,12 @@
               <li class="nav-item">
                 <a class="nav-link" href="/transactionHistory">Transaction History</a>
                 </li>
-            <form action="/showProduct" type="get" class="searchbar">
-                    <div class="input-group justify-content-center">
-                      <input type="text" class="form-control" name="search" value = "{{request('search')}}" placeholder="Search product..." aria-label="Search product..." aria-describedby="button-addon2">
-                      <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit">Search</button>
-                      </div>
-                    </div>
-            </form>
             @endif
 
 
         </ul>
 
-          <ul class="navbar-nav ms-auto ml-lg-5">
+          <ul class="navbar-nav ms-auto pt-1">
             @if(Session::get('user'))
             <li class="nav-item dropdown" style="padding-right:1em">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -85,10 +77,10 @@
               </li>
             @else
             <li class="nav-item">
-                <a class="nav-link" href="/login">Login</a>
+                <a class="nav-link" href="/login">LOGIN</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/register">Register</a>
+                <a class="nav-link" href="/register">REGISTER</a>
             </li>
             @endif
           </ul>
@@ -99,13 +91,70 @@
     <div class="content">
         @yield('content')
     </div>
+    
+    <footer class="footer text-white pt-5 pb-4">
+      <div class=" container text-md-left">
+        <div class="row text-md-left">
+          <div class="col-md-3 col-lg-3 col-xl-3 me-4 mt-3">
+            <img src="asset/logo_white.svg" width="250px" class="mb-2" alt="logo">
+            <p style="margin-left:3px">Premier florist shop, curated bouquets, unforgettable moments, nature's grace, enchanting floral arrangements</p>
+          </div>
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+            <h5 class="text-uppercase mb-3 font-weight-bold ">Store</h5>
+            <h6 class=" mb-2 font-weight-bold ">Blooming Florist Jakarta</h6>
+            <p>Ruko Cordoba Blok G No. 3 <br>Pantai Indah Kapuk</p>
+            <h6 class="mb-2 font-weight-bold ">Blooming Florist Bandung</h6>
+            <p>Ruko Puri Dago No. 10 <br>Antapani</p>
+          </div>
+          <div class="col-md-3 col-lg-3 col-xl-2 mx-auto mt-3 pe-0">
+            <h5 class="text-uppercase mb-3 font-weight-bold ">Opening Hours</h5>
+            <h6 class="mb-2 font-weight-bold ">Monday - Saturday</h6>
+            <p>08:00 - 22:00</p>
+            <h6 class="mb-2 font-weight-bold ">Sunday</h6>
+            <p>10:00 - 17:00</p>
+          </div>
+          <div class="col-md-4 col-lg-3 col-xl-2 mx-auto mt-3">
+            <h5 class="text-uppercase mb-3 font-weight-bold ">Contact</h5>
+            <h6 class="mb-2 font-weight-bold ">Email</h6>
+            <p>admin@mail.com</p>
+            <h6 class="mb-2 font-weight-bold ">Whatsapp</h6>
+            <p class="m-0">081231231234 (Jakarta)</p>
+            <p>081231231234 (Bandung)</p>
+          </div>
+        </div>
 
-    <div class="footer">
-        <h5>©2022 Copyright LC062</h5>
-    </div>
+        <hr class="mb-4">
+        <div class="row align-items-center text-md-left">
+            <div class="col-md-7 col-lg-8 me-auto">
+              <h6>Copyright ©2024 All rights reserved by: 
+                <a href="#" ><strong class="text-warning">The Provider</strong> </a>
+              </h6>
+            </div>
+            <div class="col-md-5 col-lg-4">
+                <div class="text-center text-md-right">
+                  <ul class="list-unstyled list-inline">
+                    <li class="list-inline-item">
+                      <a href="https://www.facebook.com/" class="btn-floating btn-sm text-white" style="font-size:23px;"><i class="fab fa-facebook"></i></a>
+                    </li>
+                    <li class="list-inline-item">
+                      <a href="https://twitter.com/" class="btn-floating btn-sm text-white" style="font-size:23px;"><i class="fab fa-twitter"></i></a>
+                    </li>
+                    <li class="list-inline-item">
+                      <a href="https://www.instagram.com/" class="btn-floating btn-sm text-white" style="font-size:23px;"><i class="fab fa-instagram"></i></a>
+                    </li>
+                    <li class="list-inline-item">
+                      <a href="https://www.tiktok.com/" class="btn-floating btn-sm text-white" style="font-size:23px;"><i class="fab fa-tiktok"></i></a>
+                    </li>
+                  </ul>
+                </div>
+            </div>
+        </div>
+      </div>
+    </footer>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+   @include('style/js')
+   @yield('script')
+
+
 </body>
 </html>
