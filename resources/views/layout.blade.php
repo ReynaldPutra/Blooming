@@ -25,35 +25,35 @@
           <ul class="navbar-nav mr-auto left pt-1">
 
               <li class="nav-item">
-                <a class="nav-link" href="/">HOME</a>
+                <a class="nav-link select_nav" href="/">HOME</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/showProduct">FLOWERS</a>
+                <a class="nav-link select_nav" href="/showProduct">FLOWERS</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/showProduct">ABOUT US</a>
+                <a class="nav-link select_nav" href="/aboutUs">ABOUT US</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/showProduct">CONTACT</a>
+                <a class="nav-link select_nav" href="/contact">CONTACT</a>
               </li>
 
 
             @if(Session::get('user') && Session::get('user')['role']==='admin')
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle text-uppercase" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Manage Item
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" href="/viewItem">View Item</a>
-                      <a class="dropdown-item" href="/addItem">Add Item</a>
+                      <a class="nav-link " href="/viewItem">View Item</a>
+                      <a class="nav-link" href="/addItem">Add Item</a>
                     </div>
                   </li>
             @elseif(Session::get('user') && Session::get('user')['role']==='customer')
             <li class="nav-item">
-              <a class="nav-link" href="/cartList">My Cart</a>
+              <a class="nav-link text-uppercase select_nav" href="/cartList">My Cart</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/transactionHistory">Transaction History</a>
+                <a class="nav-link text-uppercase select_nav" href="/transactionHistory">Transaction History</a>
                 </li>
             @endif
 
@@ -63,24 +63,24 @@
           <ul class="navbar-nav ms-auto pt-1">
             @if(Session::get('user'))
             <li class="nav-item dropdown" style="padding-right:1em">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle text-uppercase" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Profile
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="nav-link" href="#">{{Session::get('user')['username']}}</a>
+                <p class="nav-link text-uppercase">{{Session::get('user')['username']}}</p>
                 <a class="nav-link" href="/editProfile">Edit Profile</a>
                 <a class="nav-link" href="/changePassword">Change Password</a>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/logout">Logout</a>
+                <a class="nav-link text-uppercase select_nav" href="/logout">Logout</a>
               </li>
             @else
             <li class="nav-item">
-                <a class="nav-link" href="/login">LOGIN</a>
+                <a class="nav-link select_nav" href="/login">LOGIN</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/register">REGISTER</a>
+                <a class="nav-link select_nav" href="/register">REGISTER</a>
             </li>
             @endif
           </ul>

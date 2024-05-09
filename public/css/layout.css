@@ -37,11 +37,11 @@ a {
     color: #1e1e1e !important;
 }
 
-.nav-link {
+.select_nav {
     position: relative;
 }
 
-.nav-link:after {
+.select_nav:after {
     content: "";
     position: absolute;
     background-color: #b09774;
@@ -52,7 +52,20 @@ a {
     transition: 0.3s;
 }
 
-.nav-link:hover:after {
+.dropdown-menu {
+    width: 200px !important;
+}
+
+.dropdown-menu a {
+    color: rgba(30, 30, 30, 0.5) !important;
+    width: 100%;
+}
+
+.dropdown-menu a:hover {
+    color: #1e1e1e !important;
+}
+
+.select_nav:hover::after {
     width: 100%;
 }
 
@@ -92,6 +105,7 @@ footer h5 {
 .btn-primary {
     background: #b09774 !important;
     border-color: #b09774 !important;
+    color: white !important;
 }
 
 .btn-primary:hover {

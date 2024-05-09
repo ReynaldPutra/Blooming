@@ -6,21 +6,30 @@
 
 
 @section('content')
-    <div class="container p-5"></div>
-  <form action="/login" method="post" style="margin-left: 550px">
+    <div class="container login_deg mt-5">
+  <form action="/login" method="post" >
     @csrf
-    <h2 style="margin-top: 15px">Please Sign In</h2>
+    <h1 class="mb-1 mt-5 fw-bold">LOGIN</h1>
     <div class="form-group" style="margin-top: 25px">
       <input type="text" class="form-control" id="email" name="email" placeholder="Email" value="{{((Cookie::get('email') !== null) ? Cookie::get('email') : '')}}">
     </div>
     <div class="form-group">
       <input type="password" class="form-control" id="password" name="password" placeholder="Password" value="{{((Cookie::get('password') !== null) ? Cookie::get('password') : '')}}">
     </div>
-    <div class="form-check mb-3">
-        <input type="checkbox" class="form-check-input" id="remember" name="remember" {{Cookie::get('email') === null ? '':'checked'}}>
-        <label class="form-check-label" for="remember" name="remember">Remember me</label>
+    <div class="form-check mb-3 forget">
+        <div>
+          <input type="checkbox" class="form-check-input" id="remember" name="remember" {{Cookie::get('email') === null ? '':'checked'}}>
+          <label class="form-check-label" for="remember" name="remember">Remember me</label>
+        </div>
+        <div>
+          <a href="/forgetPassword">Forget password?</a>
+        </div>
       </div>
-    <button type="submit" class="btn btn-primary">Login</button>
+      
+      <div class="form-group register">
+      <button type="submit" class="btn btn-primary mb-3">Login</button>
+      <p>Don't have an account? <a href="/register">Register</a></p>
+   </div>
     @if($errors->any())
     <div class="alert alert-danger" role="alert">
         {{$errors->first()}}
@@ -29,7 +38,12 @@
         <div class="alert alert-success mt-4">
             {{ session()->get('register_success') }}
         </div>
+    @elseif(session()->has('failed'))
+    <div class="alert alert-danger mt-4">
+      {{ session()->get('failed') }}
+  </div>
     @endif
   </form>
+</div>
 
 @endsection

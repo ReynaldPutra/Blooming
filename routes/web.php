@@ -20,15 +20,25 @@ use Illuminate\Support\Facades\Route;
 // All
 Route::get('/', [Controller::class, 'viewHome'])->name('home');
 Route::get('/home', [Controller::class, 'viewHome']);
+Route::get('/aboutUs', [Controller::class, 'viewAboutUs']);
+
+Route::get('/contact', [Controller::class, 'viewContact']);
+Route::post('/post_message', [Controller::class, 'post_message']);
 
 Route::get('/register', [Controller::class, 'viewRegister'])->name('register');
 Route::post('/register', [Controller::class, 'runRegister']);
 Route::get('/login', [Controller::class, 'viewLogin'])->name('login');
 Route::post('/login', [Controller::class, 'runLogin']);
+Route::get('/forgetPassword', [Controller::class, 'forgetPassword'])->name('forgetPassword');
+Route::post('/forgetPassword', [Controller::class, 'runForgetPassword']);
+
+Route::get('/resetPassword/{token}', [Controller::class, 'resetPassword'])->name('resetPassword');
+Route::post('/resetPassword', [Controller::class, 'runResetPassword']);
+
 Route::get('/editProfile', [Controller::class, 'viewEdit'])->name('viewEdit');
 Route::put('/editProfile', [Controller::class, 'runEditProfile'])->name('runEditProfile');
 Route::get('/changePassword', [Controller::class, 'viewChange'])->name('viewChange');
-Route::put('/changePassword', [Controller::class, 'runChangePassword'])->name('runChangePassword');
+Route::post('/changePassword', [Controller::class, 'runChangePassword'])->name('runChangePassword');
 Route::get('/logout', [Controller::class, 'runLogout'])->name('logout');
 
 // Product
