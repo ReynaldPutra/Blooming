@@ -37,21 +37,7 @@
                 <a class="nav-link select_nav" href="/contact">CONTACT</a>
               </li>
 
-
-            @if(Session::get('user') && Session::get('user')['role']==='admin')
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-uppercase" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Manage Item
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a class="nav-link " href="/viewItem">View Item</a>
-                      <a class="nav-link" href="/addItem">Add Item</a>
-                    </div>
-                  </li>
-            @elseif(Session::get('user') && Session::get('user')['role']==='customer')
-            <li class="nav-item">
-              <a class="nav-link text-uppercase select_nav" href="/cartList">My Cart</a>
-              </li>
+            @if(Session::get('user') && Session::get('user')['role']==='customer')
               <li class="nav-item">
                 <a class="nav-link text-uppercase select_nav" href="/transactionHistory">Transaction History</a>
                 </li>
@@ -62,19 +48,34 @@
 
           <ul class="navbar-nav ms-auto pt-1">
             @if(Session::get('user'))
+            
+            @if(Session::get('user')['role']==='customer')
+            <li class="nav-item cart">
+              <a class="nav-link icon" href="/cartList"><i class="fas fa-shopping-cart"></i></a>
+              <span>{{ $cart_count }}</span>
+            </li>
+            @elseif(Session::get('user')['role']==='admin')
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-uppercase icon" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Manage Item
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="nav-link " href="/viewItem">View Item</a>
+                <a class="nav-link" href="/addItem">Add Item</a>
+              </div>
+            </li>
+            @endif
             <li class="nav-item dropdown" style="padding-right:1em">
-                <a class="nav-link dropdown-toggle text-uppercase" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Profile
+                <a class="nav-link dropdown-toggle icon" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-user"></i>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <p class="nav-link text-uppercase">{{Session::get('user')['username']}}</p>
                 <a class="nav-link" href="/editProfile">Edit Profile</a>
                 <a class="nav-link" href="/changePassword">Change Password</a>
+                <a class="nav-link " href="/logout">Logout</a>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link text-uppercase select_nav" href="/logout">Logout</a>
-              </li>
             @else
             <li class="nav-item">
                 <a class="nav-link select_nav" href="/login">LOGIN</a>

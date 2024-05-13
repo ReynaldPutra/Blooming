@@ -8,6 +8,7 @@ use App\Models\Item;
 use App\Models\TransactionDetail;
 use App\Models\TransactionHeader;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,11 +17,18 @@ class UserController extends Controller
     //CART
     public function viewCart()
     {
+
+        $id = Auth::user()->id;
+        $cart_count = Carts::join('cart_details', 'carts.id', '=', 'cart_details.cart_id')
+            ->where('carts.user_id', $id)
+            ->sum('cart_details.qty');
+
         return view('user.cartList', [
             'title' => 'Cart Page',
             'cartitems' => Carts::latest('carts.created_at')->where('carts.user_id', '=', strval(Session::get('user')['id']))
                 ->join('cart_details', 'carts.id', '=', 'cart_details.cart_id')->join('items', 'items.id', '=', 'cart_details.item_id')
                 ->groupBy('carts.id')->selectRaw('sum(qty*price) as sum,sum(qty) as ctr, carts.id')->first(),
+            'cart_count' => $cart_count,
         ]);
     }
 
@@ -53,10 +61,16 @@ class UserController extends Controller
 
     public function viewUpdateCart(Item $product)
     {
+        $id = Auth::user()->id;
+        $cart_count = Carts::join('cart_details', 'carts.id', '=', 'cart_details.cart_id')
+            ->where('carts.user_id', $id)
+            ->sum('cart_details.qty');
+
         return view('user.updateCart', [
             'title' => "Update Cart Item",
             "product" => $product,
             "qty" => Carts::where('user_id', '=', strval(Session::get('user')['id']))->first()->cartDetail()->where('cart_details.item_id', '=', $product->id)->first()['qty'],
+            "cart_count" => $cart_count,
         ]);
     }
     public function runUpdateCartqty(Request $req)
@@ -90,12 +104,16 @@ class UserController extends Controller
 
     public function viewTransaction()
     {
-
+        $id = Auth::user()->id;
+        $cart_count = Carts::join('cart_details', 'carts.id', '=', 'cart_details.cart_id')
+            ->where('carts.user_id', $id)
+            ->sum('cart_details.qty');
         return view('user.transactionHistory', [
             'title' => 'Transaction History',
             'histories' => TransactionHeader::latest('transaction_headers.created_at')->where('transaction_headers.user_id', '=', strval(Session::get('user')['id']))
                 ->join('transaction_details', 'transaction_headers.id', '=', 'transaction_details.transaction_id')->join('items', 'items.id', '=', 'transaction_details.item_id')
                 ->groupBy(['transaction_headers.id', 'transaction_headers.created_at'])->selectRaw('sum(qty*price) as sum,sum(qty) as ctr, transaction_headers.id, transaction_headers.created_at as created')->get(),
+            'cart_count' => $cart_count,
         ]);
     }
 

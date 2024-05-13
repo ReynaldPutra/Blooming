@@ -29,12 +29,38 @@ a {
     padding: 0.2em 0;
     margin: 0 1em;
     user-select: none;
-
     font-weight: 600;
 }
 
 .active {
     color: #1e1e1e !important;
+}
+
+.icon {
+    color: #1e1e1e !important;
+}
+
+.icon:hover {
+    color: #b09774 !important;
+}
+
+.cart {
+    display: relative;
+}
+
+.cart span {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    position: absolute;
+    top: 33%;
+    right: 7.8%;
 }
 
 .select_nav {
@@ -54,6 +80,7 @@ a {
 
 .dropdown-menu {
     width: 200px !important;
+    right: 20px !important;
 }
 
 .dropdown-menu a {

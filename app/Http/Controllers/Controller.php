@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\ResetPasswordMail;
 use App\Mail\sendMail;
+use App\Models\Carts;
 use App\Models\Item;
 use App\Models\PasswordReset;
 use App\Models\User;
@@ -29,23 +30,40 @@ class Controller extends BaseController
     {
         $data_recycle = item::where("category", "=", "Recycle")->orderBy('created_at', 'desc')->take(4)->get();
         $data_second = item::where("category", "=", "Second")->orderBy('created_at', 'desc')->take(4)->get();
+        if (Auth::id()) {
+            $id = Auth::user()->id;
+            $cart_count = Carts::join('cart_details', 'carts.id', '=', 'cart_details.cart_id')
+                ->where('carts.user_id', $id)
+                ->sum('cart_details.qty');
+            return view('home', compact('data_recycle', 'data_second', 'cart_count'));
+        }
         return view('home', compact('data_recycle', 'data_second'));
     }
 
     //ABOUT US
     public function viewAboutUs()
     {
+        if (Auth::id()) {
+            $id = Auth::user()->id;
+            $cart_count = Carts::join('cart_details', 'carts.id', '=', 'cart_details.cart_id')
+                ->where('carts.user_id', $id)
+                ->sum('cart_details.qty');
+            return view('aboutUs', compact('cart_count'));
+        }
         return view('aboutUs');
     }
 
     //CONTACT
     public function viewContact()
     {
+        if (Auth::id()) {
+            $id = Auth::user()->id;
+            $cart_count = Carts::join('cart_details', 'carts.id', '=', 'cart_details.cart_id')
+                ->where('carts.user_id', $id)
+                ->sum('cart_details.qty');
+            return view('contact', compact('cart_count'));
+        }
         return view('contact');
-    }
-    public function test_view()
-    {
-        return view('emails.contact_mail');
     }
 
     public function post_message(Request $request)
@@ -230,8 +248,12 @@ class Controller extends BaseController
 
     public function viewEdit()
     {
+
         $user = auth()->user();
-        return view('editProfile', compact('user'));
+        $cart_count = Carts::join('cart_details', 'carts.id', '=', 'cart_details.cart_id')
+            ->where('carts.user_id', $user->id)
+            ->sum('cart_details.qty');
+        return view('editProfile', compact('user', 'cart_count'));
     }
 
     public function runEditProfile(Request $request)
@@ -253,7 +275,10 @@ class Controller extends BaseController
     public function viewChange()
     {
         $user = auth()->user();
-        return view('changePassword', compact('user'));
+        $cart_count = Carts::join('cart_details', 'carts.id', '=', 'cart_details.cart_id')
+            ->where('carts.user_id', $user->id)
+            ->sum('cart_details.qty');
+        return view('changePassword', compact('user', 'cart_count'));
     }
 
     public function runChangePassword(Request $request)
