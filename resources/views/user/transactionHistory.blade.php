@@ -1,22 +1,30 @@
 @extends('layout')
 @section('title','Transaction History')
 
+@section('style')
+<link rel="stylesheet" href="{{ asset('/css/transactionHistory.css') }}"/>
+@endsection
+
 @section('content')
-    <div class="container mb-5 p-4">
-        <h1>My Transaction History</h1>
+    <div class="container hero-content">
+        <h1 class="mb-1 mt-5 mb-5 fw-bold text-uppercase text-center">Transaction History</h1>
         @if($histories!=null && count($histories)>0)
 
     <div class="accordion mt-4" id="accordion">
         @foreach($histories as $history)
         <div class="card">
-            <div class="card-header bg-light" id="heading{{$loop->iteration}}">
+            <div class="card-header bg-light btn_deg" id="heading{{$loop->iteration}}">
             <h5 class="mb-0 d-flex align-items-center">
-                <button class="btn btn-link btn-block text-left text-primary text-decoration-none" type="button" data-toggle="collapse" data-target="#collapse{{$loop->iteration}}" aria-expanded="true" aria-controls="collapse{{$loop->iteration}}">
+                <button class="btn btn-link btn-block   text_deg btn_deg" type="button" data-toggle="collapse" data-target="#collapse{{$loop->iteration}}" aria-expanded="true" aria-controls="collapse{{$loop->iteration}}">
                     {{trim(explode(" ",$history->created)[0])}}
+
+                    @if($loop->iteration == 1)
+                        <i class="fas fa-chevron-up text_deg  btn_deg ms-3"></i>
+                    @else
+                        <i class="fas fa-chevron-down text_deg  btn_deg ms-3"></i>
+                    @endif
                 </button>
-                <button class="btn btn-link btn-block text-left text-primary text-decoration-none ms-auto" type="button" data-toggle="collapse" data-target="#collapse{{$loop->iteration}}" aria-expanded="true" aria-controls="collapse{{$loop->iteration}}">
-                    ˅
-                </button>
+                
             </h5>
             </div>
             <div id="collapse{{$loop->iteration}}" class="collapse @if($loop->iteration == 1) show @endif" aria-labelledby="heading{{$loop->iteration}}" data-parent="#accordion">
@@ -54,7 +62,9 @@
                             @endforeach
                         </tbody>
                         </table>
-                        <span class="ms-auto"> Grand Total : IDR {{$history->sum}}</span>
+                        <div class="text-end ">
+                            <p><strong>Grand Total : IDR {{$history->sum}}</strong> </p>
+                        </div>
                     </div>
             </div>
         </div>
@@ -65,3 +75,35 @@
     @endif
 </div>
 @endsection
+
+@section('script')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var buttons = document.querySelectorAll('.card-header button[data-toggle="collapse"]');
+        buttons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                var icon = this.querySelector('i');
+                var allIcons = document.querySelectorAll('.card-header button i');
+                var collapseID = this.getAttribute('data-target');
+                var collapse = document.querySelector(collapseID);
+                var isExpanded = collapse.classList.contains('show');
+
+                allIcons.forEach(function (icon) {
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                });
+
+                if (isExpanded) {
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                } else {
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                }
+            });
+        });
+    });
+</script>
+
+@endsection
+

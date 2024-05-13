@@ -57,8 +57,9 @@
 
                 <div class="product_category">
                   <div class="category_title">
-                    <h2 class="text-uppercase">Fresh Flower</h2>
-                    <a href="/showProduct" class="ms-auto">View All</a>
+                
+                    <h2 class="text-uppercase">{{ $data_recycle->get(0)->category }}</h2>
+                    <a href="/showProduct/{{ $data_recycle->get(0)->category }}" class="ms-auto">View All</a>
                   </div>
 
                   <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-4 py-3">
@@ -82,8 +83,8 @@
 
                 <div class="product_category">
                   <div class="category_title">
-                    <h2 class="text-uppercase">ARTIFICIAL FLOWER</h2>
-                    <a href="/showProduct" class="ms-auto">View All</a>
+                    <h2 class="text-uppercase">{{ $data_second->get(0)->category }}</h2>
+                    <a href="/showProduct/{{ $data_second->get(0)->category }}" class="ms-auto">View All</a>
                   </div>
                   <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-4 py-3">
                    

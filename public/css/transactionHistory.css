@@ -1,0 +1,47 @@
+.container {
+    margin-bottom: 1em;
+    height: auto;
+    width: 100%;
+}
+
+.hero-content {
+    max-width: 1280px;
+}
+
+.text_deg {
+    color: #1e1e1e;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.card-header {
+    background-color: #ffffff !important;
+    transition: 0.3s;
+}
+
+.card-header h5 {
+    flex-direction: row !important;
+}
+
+.btn {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.btn_deg {
+    transition: 0.3s;
+}
+
+.card-header.btn_deg:hover {
+    background-color: #b09774 !important;
+}
+
+.card-header.btn_deg:hover .btn_deg {
+    color: white;
+}
+
+.btn:focus,
+.btn:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
