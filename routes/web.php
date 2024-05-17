@@ -55,6 +55,7 @@ Route::get('/updateItem/{product:id}', [AdminController::class, 'viewUpdateItem'
 Route::put('/updateItem/{product:id}', [AdminController::class, 'runUpdateItem']);
 Route::delete('/deleteItem/{product:id}', [AdminController::class, 'deleteItem']);
 
+Route::get('/dashboard', [AdminController::class, 'viewDashboard'])->name('viewDashboard');
 // User
 Route::get('/cartList', [UserController::class, 'viewCart'])->name('cartList');
 Route::post('/addcart', [UserController::class, 'runAddCart']);

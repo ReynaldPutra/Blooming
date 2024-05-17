@@ -1,12 +1,13 @@
 .container {
-    margin: auto;
-    min-width: 95%;
-    margin-bottom: 2em;
+    margin-bottom: 1em;
+    height: auto;
+    width: 100%;
 }
 
 th {
-    color: #000000;
+    color: #1e1e1e;
     font-size: smaller;
+    font-weight: 700;
 }
 
 td {
@@ -15,17 +16,13 @@ td {
 }
 
 .item-img {
-    width: 32px;
-    height: 32px;
+    width: 90px;
+    height: 90px;
     border-radius: 4px;
 }
-.update-delete {
-    display: flex;
-    align-items: top;
-}
 
-.update-delete form {
-    margin-left: -2.8em;
+.update-delete {
+    text-align: center;
 }
 
 .update {
@@ -33,11 +30,95 @@ td {
     height: 2.2em;
 }
 
-.update:hover {
-    background-color: #dda50a;
+.delete {
+    width: 5em;
+    height: 2.2em;
 }
 
 .no-items {
     padding-top: 10em;
     min-height: 70vh;
+}
+
+.hero-content {
+    max-width: 1420px;
+}
+
+.page-item.active .page-link {
+    background-color: #827057;
+    border-color: #827057;
+}
+
+.page-item .page-link {
+    color: #827057;
+}
+
+.page-item.disabled .page-link {
+    background-color: #f1f1f1;
+}
+
+.rounded-full {
+    border-radius: 100%;
+}
+
+#wrapper {
+    overflow-x: hidden;
+    background-color: #e2e2e2;
+}
+
+#sidebar-wrapper {
+    min-height: 100vh;
+    margin-left: -15rem;
+    -webkit-transition: margin 0.25s ease-out;
+    -moz-transition: margin 0.25s ease-out;
+    -o-transition: margin 0.25s ease-out;
+    transition: margin 0.25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+    width: 15rem;
+}
+
+#page-content-wrapper {
+    min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+}
+
+#menu-toggle {
+    cursor: pointer;
+}
+
+.list-group-item {
+    border: none;
+    padding: 20px 30px;
+}
+
+.list-group-item.active {
+    background-color: transparent;
+    color: var(--main-text-color);
+    font-weight: bold;
+    border: none;
+}
+
+@media (min-width: 768px) {
+    #sidebar-wrapper {
+        margin-left: 0;
+    }
+
+    #page-content-wrapper {
+        min-width: 0;
+        width: 100%;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: -15rem;
+    }
 }

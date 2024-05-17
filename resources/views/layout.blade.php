@@ -16,14 +16,18 @@
 <body>
 
   <nav class="navbar navbar-expand-lg navbar-light">
-    <a class="navbar-brand pe-4" href="{{ url('/') }}"><img width="250" src="/asset/logo.svg" alt="#" /></a>
+    @if(optional(Session::get('user'))->role === 'admin')
+      <a class="navbar-brand pe-4" href="{{ url('/dashboard') }}"><img width="250" src="/asset/logo.svg" alt="#" /></a>
+    @else
+      <a class="navbar-brand pe-4" href="{{ url('/') }}"><img width="250" src="/asset/logo.svg" alt="#" /></a>
+    @endif
         <button class="navbar-toggler navbar-light mb-2 border-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
         
           <div class="collapse navbar-collapse " id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto left pt-1">
-
+            @if(optional(Session::get('user'))->role !== 'admin')
               <li class="nav-item">
                 <a class="nav-link select_nav" href="/">HOME</a>
               </li>
@@ -36,7 +40,7 @@
               <li class="nav-item">
                 <a class="nav-link select_nav" href="/contact">CONTACT</a>
               </li>
-
+            @endif
             @if(Session::get('user') && Session::get('user')['role']==='customer')
               <li class="nav-item">
                 <a class="nav-link text-uppercase select_nav" href="/transactionHistory">Transaction History</a>
@@ -53,16 +57,6 @@
             <li class="nav-item cart">
               <a class="nav-link icon" href="/cartList"><i class="fas fa-shopping-cart"></i></a>
               <span>{{ $cart_count }}</span>
-            </li>
-            @elseif(Session::get('user')['role']==='admin')
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle text-uppercase icon" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Manage Item
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="nav-link " href="/viewItem">View Item</a>
-                <a class="nav-link" href="/addItem">Add Item</a>
-              </div>
             </li>
             @endif
             <li class="nav-item dropdown" style="padding-right:1em">

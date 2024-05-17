@@ -12,8 +12,8 @@
     <h1 class="mb-1 mt-5 fw-bold">OUR FLOWERS</h1>
     <p class="mb-3">All Product Is Available </p>
     <form action="/showProduct" type="get" class="searchbar mx-auto mb-4">
-      <div class="input-group justify-content-center">
-        <input type="text" class="form-control" name="search" value = "{{request('search')}}" placeholder="Search product..." aria-label="Search product..." aria-describedby="button-addon2">
+      <div class="input-group justify-content-center ">
+        <input type="text" class="form-control " name="search" value = "{{request('search')}}" placeholder="Search product..." aria-label="Search product..." aria-describedby="button-addon2" >
         <div class="input-group-append">
           <button class="btn btn-primary" type="submit">Search</button>
         </div>
@@ -120,8 +120,9 @@
         <div class="col mx-auto " >
           <a href="/products/{{$p->id}}">
             <div class="card">
-              @if (Storage::disk('public')->exists($p->image))
-                <img src="{{Storage::url($p->image)}}" alt="card-image" class="card-img-top img_product">
+              @if (File::exists(public_path($p->image)))
+            
+                <img src="{{ asset($p->image) }}" alt="card-image" class="card-img-top img_product">
               @else
                 <img src="{{$p->image}}" alt="card-image" class="card-img-top img_product">
               @endif

@@ -47,7 +47,7 @@
                                 <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
                               </div>
                               <div class="mb-3">
-                               <textarea class="form-control" cols="30" rows="10" name="message" id="message"  placeholder="Your Message" cols="30" rows="10" required></textarea> 
+                               <textarea class="form-control" name="message" id="message"  placeholder="Your Message" cols="30" rows="10" required></textarea> 
                               </div>
                          
                             <button type="submit" class="btn btn-primary">Submit</button>

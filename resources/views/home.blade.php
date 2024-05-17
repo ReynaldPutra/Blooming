@@ -67,7 +67,11 @@
                     <div class="col mx-auto" >
                       <a href="/products/{{$data_recycle->id}}">
                         <div class="card ">
-                          <img src="{{ $data_recycle->image }}" class="card-img-top img_product" alt="...">
+                          @if (File::exists(public_path($data_recycle->image)))
+                            <img src="{{ asset($data_recycle->image) }}" class="card-img-top img_product" alt="...">
+                          @else
+                            <img src="{{ $data_recycle->image }}" class="card-img-top img_product" alt="...">
+                          @endif
                           <div class="card-body">
                             <h5 class="card-title">{{ $data_recycle->name }}</h5>
                             <p class="card-text">Rp {{$data_recycle->price}} </p>
@@ -92,7 +96,11 @@
                     <div class="col mx-auto" >
                       <a href="/products/{{$data_second->id}}">
                         <div class="card ">
-                          <img src="{{ $data_second->image }}" class="card-img-top img_product" alt="...">
+                          @if (File::exists(public_path($data_second->image)))
+                            <img src="{{ asset($data_second->image) }}" class="card-img-top img_product" alt="...">
+                          @else
+                            <img src="{{ $data_second->image }}" class="card-img-top img_product" alt="...">
+                          @endif
                           <div class="card-body">
                             <h5 class="card-title">{{ $data_second->name }}</h5>
                             <p class="card-text">Rp {{$data_second->price}} </p>

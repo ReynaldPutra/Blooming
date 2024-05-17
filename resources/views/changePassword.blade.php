@@ -6,7 +6,7 @@
 
 
 @section('content')
-    <div class="container changePassword_deg p-5">
+    <div class="container changePassword_deg">
         <form action="/changePassword" method="post" class="item-form" enctype="multipart/form-data">
             @csrf
             <h1 class="mb-1 mt-5 fw-bold">CHANGE PASSWORD</h1>

@@ -160,6 +160,11 @@ class Controller extends BaseController
             Cookie::queue(Cookie::forget('email'));
             Cookie::queue(Cookie::forget('password'));
         }
+
+        if (Session::get('user')['role'] === 'admin') {
+            return redirect('/dashboard');
+        }
+
         return redirect('/home');
     }
 

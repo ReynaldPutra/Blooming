@@ -3,19 +3,33 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\TransactionHeader;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
     public function viewManageItem()
     {
-        return view('admin.viewItem', ['products' => Item::all()]);
+        $products = Item::latest()->filter()->paginate(10);
+        return view('admin.viewItem', compact('products'));
+    }
+
+    public function viewDashboard()
+    {
+        $product_count = Item::all()->count();
+        $sales_count = TransactionHeader::all()->count();
+        $delivery_count = TransactionHeader::all()->count();
+        $order = TransactionHeader::all();
+        return view('admin.dashboard', compact('product_count', 'sales_count', 'delivery_count', 'order'));
     }
 
     public function viewAddItem()
     {
-        return view('admin.addItem');
+        $category = Item::select('category')->distinct()->get();
+
+        return view('admin.addItem', compact('category'));
     }
 
     public function runAddItem(Request $req)
@@ -33,6 +47,13 @@ class AdminController extends Controller
         $image = $req->file('image');
         $imageName = date('YmdHi') . $image->getClientOriginalName();
         $imageURL = 'images/' . $imageName;
+
+        $destinationPath = public_path('images');
+        if (!File::exists($destinationPath)) {
+            File::makeDirectory($destinationPath, 0755, true);
+        }
+        $image->move($destinationPath, $imageName);
+
         $validator['image'] = $imageURL;
         Item::create($validator);
         return redirect('/viewItem')->with('success', 'Item Successfully Added!');
@@ -40,9 +61,12 @@ class AdminController extends Controller
 
     public function viewUpdateItem(Item $product)
     {
+        $category = Item::select('category')->distinct()->get();
+
         return view('admin.updateItem', [
             'title' => "updateItem",
             "product" => $product,
+            "category" => $category,
         ]);
     }
 
