@@ -50,18 +50,20 @@ Route::get('/showProduct/{category}/{order}', [ProductController::class, 'orderP
 // Admin
 Route::get('/viewItem', [AdminController::class, 'viewManageItem'])->middleware('authenticaterole:admin')->name('viewItem');
 Route::get('/addItem', [AdminController::class, 'viewAddItem'])->name('addItem')->middleware('authenticaterole:admin');
-Route::post('/addItem', [AdminController::class, 'runAddItem']);
+Route::post('/addItem', [AdminController::class, 'runAddItem'])->middleware('authenticaterole:admin');
 Route::get('/updateItem/{product:id}', [AdminController::class, 'viewUpdateItem'])->name('updateItem')->middleware('authenticaterole:admin');
-Route::put('/updateItem/{product:id}', [AdminController::class, 'runUpdateItem']);
-Route::delete('/deleteItem/{product:id}', [AdminController::class, 'deleteItem']);
+Route::put('/updateItem/{product:id}', [AdminController::class, 'runUpdateItem'])->middleware('authenticaterole:admin');
+Route::delete('/deleteItem/{product:id}', [AdminController::class, 'deleteItem'])->middleware('authenticaterole:admin');
 
-Route::get('/dashboard', [AdminController::class, 'viewDashboard'])->name('viewDashboard');
+Route::get('/dashboard', [AdminController::class, 'viewDashboard'])->name('viewDashboard')->middleware('authenticaterole:admin');
 // User
-Route::get('/cartList', [UserController::class, 'viewCart'])->name('cartList');
-Route::post('/addcart', [UserController::class, 'runAddCart']);
-Route::get('/updateCartqty/{product:id}', [UserController::class, 'viewUpdateCart']);
-Route::put('/updateCartItem', [UserController::class, 'runUpdateCartqty']);
-Route::post('/deleteCartItem', [UserController::class, 'runDeleteCartItem']);
+Route::get('/cartList', [UserController::class, 'viewCart'])->middleware('authenticaterole:customer')->name('cartList');
+Route::post('/addcart', [UserController::class, 'runAddCart'])->middleware('authenticaterole:customer');
+Route::get('/updateCartqty/{product:id}', [UserController::class, 'viewUpdateCart'])->middleware('authenticaterole:customer');
+Route::put('/updateCartItem', [UserController::class, 'runUpdateCartqty'])->middleware('authenticaterole:customer');
+Route::post('/deleteCartItem', [UserController::class, 'runDeleteCartItem'])->middleware('authenticaterole:customer');
 
 Route::get('/transactionHistory', [UserController::class, 'viewTransaction'])->middleware('authenticaterole:customer')->name('transactionHistory');
-Route::post('/checkout', [UserController::class, 'runCheckout']);
+Route::get('/checkOutForm', [UserController::class, 'checkOutForm'])->middleware('authenticaterole:customer')->name('checkOutForm');
+
+Route::post('/checkout', [UserController::class, 'runCheckout'])->middleware('authenticaterole:customer');

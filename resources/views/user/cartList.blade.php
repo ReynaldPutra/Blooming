@@ -7,8 +7,8 @@
 @endsection
 
 @section('content')
-<div class="container p-4">
-  <h1> My Cart</h1>
+<div class="container hero-content">
+  <h1 class="mt-5 mb-5 fw-bold text-center text-uppercase"> My Cart</h1>
   @if($cartitems!=null && count($cartitems->cartDetail()->get())>0)
   @if(session()->has('success'))
   <div class="alert alert-dark alert-dismissible fade show d-flex" role="alert">
@@ -55,9 +55,8 @@
               <input type="hidden" name="item_id" value="{{$cartitems->cartDetail()->get()[$i]->item_id}}">
               <div id="action">
 
-              <a href="/updateCartqty/{{$cartitems->cartDetail()->get()[$i]->item()->first()->id}}"><button type="button" class="btn btn-warning btn-sm" >Update</button></a>
+              <a href="/updateCartqty/{{$cartitems->cartDetail()->get()[$i]->item()->first()->id}}"><button type="button" class="btn btn-primary btn-sm" >Update</button></a>
               <button  onclick="return confirm('Are You Sure To Delete This Cart?')" class="btn btn-danger btn-sm" formaction="/deleteCartItem" type="submit" >Delete</button>
-
               </div>
           </td>
       </tr>
@@ -65,34 +64,18 @@
       @endfor
     </tbody>
   </table>
-  <span > Grand Total: <span class="grand-total">IDR {{$cartitems->sum}}</span> </span>
-</div>
 
-
-<div class="checkout-form">
-    <form action="/checkout" method="post">
-      <h3>Receiver</h3>
-      @csrf
-      <input type="hidden" name="cart_id" value="{{$cartitems->id}}">
-      <div class="form-group">
-        <label for="name">Receiver name</label>
-        <input type="name" class="form-control" id="name" name="name" placeholder="Enter name" value="{{Session::get('user')['username']}}">
-      </div>
-      <div class="form-group">
-        <label for="address">Receiver address</label>
-        <input type="address" class="form-control" id="address" name="address" placeholder="Enter address" >
-      </div>
-      <button class="btn btn-warning btn-sm" type="submit" >Checkout ({{$cartitems->ctr}})</button>
-      @if($errors->any())
-      <div class="alert alert-danger" role="alert">
-          {{$errors->first()}}
-      </div>
-      @endif
-  </form>
+  <div class="d-flex ">
+    <h4> Grand Total: <span class="grand-total">IDR {{$cartitems->sum}}</span> </h4>
+    <a href="/checkOutForm" class="ms-auto"><button type="button" class="btn btn-primary btn-sm p-2 " >Check Out</button></a>
+  </div>
+    
   @else
     <h3 class="text-center pb-5 mt-5 pt-5">Cart is empty! Let’s go shopping :) </h3>
   @endif
-  </div>
+</div>
+
+
 
   @endsection
 

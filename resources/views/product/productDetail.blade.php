@@ -9,11 +9,12 @@
 @section('content')
 @if($product)
 <div class="container">
+  <h1 class="mb-1 mt-5 mb-4 fw-bold text-center">FLOWER DETAIL</h1>
   <div class="row row-cols-1 row-cols-md-2  g-4 py-3">
     <div class="col mx-auto img-col" >
       <div class="img-box">
-        @if (Storage::disk('public')->exists($product->image))
-          <img src="{{Storage::url($product->image)}}" alt="product-image">
+        @if (File::exists(public_path($product->image)))
+          <img src="{{ asset($product->image) }}" alt="product-image">
         @else
           <img src="{{$product->image}}" alt="product-image">
         @endif

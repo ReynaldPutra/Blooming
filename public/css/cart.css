@@ -1,6 +1,7 @@
 .container {
-    min-height: 60vh;
-    margin-bottom: 2em;
+    margin-bottom: 1em;
+    height: auto;
+    width: 100%;
 }
 
 .trash img {

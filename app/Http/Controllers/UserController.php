@@ -120,8 +120,23 @@ class UserController extends Controller
     public function runCheckout(Request $req)
     {
         $rules = [
-            'name' => 'required',
-            "address" => 'required',
+            'email' => 'required|email',
+            'senderName' => 'required|string',
+            'senderPhone' => 'required|string|max:20',
+            'recipientName' => 'required|string',
+            'recipientNumber' => 'required|string|max:20',
+            'deliveryOption' => 'required|in:car,motorcycle',
+            'datepicker' => 'required|date',
+            'deliveryTime' => 'required|string|in:9am - 2pm,3pm - 5pm',
+            'province' => 'required|string',
+            'city' => 'required|string',
+            'postalCode' => 'required|string|max:7',
+            'deliveryAddress' => 'required|string',
+            'paymentMethod' => 'required|string',
+            'subTotal' => 'string',
+            'deliveryPrice' => 'string',
+            'serviceFee' => 'string',
+            'totalPrice' => 'string',
         ];
 
         $validator = Validator::make($req->all(), $rules);
@@ -130,12 +145,28 @@ class UserController extends Controller
         }
 
         $transheader = new TransactionHeader();
-        $transheader->receiver_name = $req->name;
-        $transheader->receiver_address = $req->address;
         $transheader->user_id = Session::get('user')['id'];
+        $transheader->sender_email = $req->email;
+        $transheader->sender_name = $req->senderName;
+        $transheader->sender_phone = $req->senderPhone;
+        $transheader->receiver_name = $req->recipientName;
+        $transheader->receiver_phone = $req->recipientNumber;
+        $transheader->delivery_option = $req->deliveryOption;
+        $transheader->delivery_date = date('Y-m-d', strtotime($req->datepicker));
+        $transheader->delivery_time = $req->deliveryTime;
+        $transheader->province = $req->province;
+        $transheader->city = $req->city;
+        $transheader->postal_code = $req->postalCode;
+        $transheader->delivery_address = $req->deliveryAddress;
+        $transheader->payment_method = $req->paymentMethod;
+        $transheader->subtotal = $req->subTotal;
+        $transheader->delivery_cost = $req->deliveryPrice;
+        $transheader->service_fee = $req->serviceCost;
+        $transheader->total_price = $req->totalPrice;
+        $transheader->delivery_status = "Processing";
         $transheader->save();
-        $cartdetail = CartDetail::where('cart_id', '=', $req->cart_id)->get();
 
+        $cartdetail = CartDetail::where('cart_id', '=', $req->cart_id)->get();
         foreach ($cartdetail as $detail) {
             $transdetail = new TransactionDetail();
             $transdetail->transaction_id = $transheader->id;
@@ -145,5 +176,19 @@ class UserController extends Controller
         }
         CartDetail::where('cart_id', '=', $req->cart_id)->delete();
         return redirect()->route('transactionHistory');
+    }
+
+    public function checkOutForm()
+    {
+        $id = Auth::user()->id;
+        $cart_count = Carts::join('cart_details', 'carts.id', '=', 'cart_details.cart_id')
+            ->where('carts.user_id', $id)
+            ->sum('cart_details.qty');
+
+        $cart_items = Carts::latest('carts.created_at')->where('carts.user_id', '=', strval(Session::get('user')['id']))
+            ->join('cart_details', 'carts.id', '=', 'cart_details.cart_id')->join('items', 'items.id', '=', 'cart_details.item_id')
+            ->groupBy('carts.id')->selectRaw('sum(qty*price) as sum,sum(qty) as ctr, carts.id')->first();
+
+        return view('user.checkOutForm', compact('cart_count', 'cart_items'));
     }
 }
