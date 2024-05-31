@@ -13,7 +13,43 @@ class AdminController extends Controller
     public function viewManageItem()
     {
         $products = Item::latest()->filter()->paginate(10);
-        return view('admin.viewItem', compact('products'));
+        return view('admin.manageItem', compact('products'));
+    }
+    public function viewOrder()
+    {
+        $orders = TransactionHeader::latest()->get();
+        return view('admin.viewOrder', compact('orders'));
+    }
+    public function viewOrderDetail($id)
+    {
+        $orderDetail = TransactionHeader::latest('transaction_headers.created_at')->where('transaction_headers.id', '=', $id)
+            ->join('transaction_details', 'transaction_headers.id', '=', 'transaction_details.transaction_id')
+            ->join('items', 'items.id', '=', 'transaction_details.item_id')
+            ->selectRaw('transaction_headers.*')->first();
+
+        // dd($orderDetail);
+        return view('admin.viewOrderDetail', compact('orderDetail'));
+    }
+
+    public function runUpdateDeliver($id)
+    {
+        $orders = TransactionHeader::latest()->get();
+
+        $order = TransactionHeader::find($id);
+
+        if ($order) {
+            if ($order->delivery_status == 'Delivered') {
+                return redirect()->back()->with('success', 'Order Already Delivered');
+            }
+            $order->delivery_status = 'Delivered';
+            $order->save();
+
+            return redirect()->back()->with('success', 'Order delivered successfully');
+        } else {
+            return redirect()->back()->with('error', 'Order not found.');
+        }
+
+        return view('admin.viewOrder', compact('orders'));
     }
 
     public function viewDashboard()

@@ -34,6 +34,7 @@ class CreateTransactionHeadersTable extends Migration
             $table->string("service_fee");
             $table->string("total_price");
             $table->string("delivery_status");
+            $table->string("payment_status");
             $table->timestamps();
 
         });

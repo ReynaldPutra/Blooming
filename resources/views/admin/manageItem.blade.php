@@ -15,11 +15,11 @@
             <a href="/dashboard" class="list-group-item list-group-item-action bg-transparent nav-link select_nav"><i
                     class="fas fa-th-large me-2"></i>Dashboard</a>
             <a href="/viewItem" class="list-group-item list-group-item-action bg-transparent  nav-link select_nav"><i
-                    class="fas fa-boxes me-2"></i>View Item</a>
+                    class="fas fa-boxes me-2"></i>Manage Item</a>
             <a href="/addItem" class="list-group-item list-group-item-action bg-transparent   nav-link select_nav"><i
                     class="fas fa-plus me-2"></i>Add Item</a>
-            <a href="#" class="list-group-item list-group-item-action bg-transparent  nav-link select_nav"><i
-                    class="fas fa-truck-loading me-2"></i>View Order</a>
+            <a href="/viewOrder" class="list-group-item list-group-item-action bg-transparent  nav-link select_nav"><i
+                    class="fas fa-truck-loading me-2"></i>Manage Order</a>
         
         
         </div>

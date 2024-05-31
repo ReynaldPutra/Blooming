@@ -62,8 +62,27 @@
                             @endforeach
                         </tbody>
                         </table>
-                        <div class="text-end ">
-                            <p><strong>Grand Total : IDR {{$history->sum}}</strong> </p>
+                        <div class="d-flex justify-content-between history_detail">
+                            <div>
+                                @if($history->delivery_status === "Processing")
+                                    <p >Delivery Status :  <strong style="color: blue">{{$history->delivery_status}}</strong> </p>
+                                @else
+                                    <p >Delivery Status :  <strong style="color: green">{{$history->delivery_status}}</strong> </p>
+                                @endif
+
+                                @if($history->payment_status === "Paid")
+                                    <p>Payment Status :  <strong style="color: green">{{$history->payment_status}}</strong> </p>
+                                @else
+                                    <p>Payment Status :  <strong style="color: blue">{{$history->payment_status}}</strong> </p>
+                                @endif
+                                
+                            </div>
+                            <div class="me-5">
+                                <p>Sub Total : <strong>IDR {{$history->subtotal}}</strong> </p>
+                                <p>Delivery {{$history->delivery_option}} : <strong>IDR {{$history->delivery_cost}}</strong> </p>
+                                <p>Service 2% : <strong>IDR {{$history->service_fee}}</strong> </p>
+                                <p>Grand Total : <strong>IDR {{$history->total_price}}</strong> </p>
+                            </div>
                         </div>
                     </div>
             </div>

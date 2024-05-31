@@ -111,8 +111,10 @@ class UserController extends Controller
         return view('user.transactionHistory', [
             'title' => 'Transaction History',
             'histories' => TransactionHeader::latest('transaction_headers.created_at')->where('transaction_headers.user_id', '=', strval(Session::get('user')['id']))
-                ->join('transaction_details', 'transaction_headers.id', '=', 'transaction_details.transaction_id')->join('items', 'items.id', '=', 'transaction_details.item_id')
-                ->groupBy(['transaction_headers.id', 'transaction_headers.created_at'])->selectRaw('sum(qty*price) as sum,sum(qty) as ctr, transaction_headers.id, transaction_headers.created_at as created')->get(),
+                ->join('transaction_details', 'transaction_headers.id', '=', 'transaction_details.transaction_id')
+                ->join('items', 'items.id', '=', 'transaction_details.item_id')
+                ->groupBy(['transaction_headers.id', 'transaction_headers.created_at', 'transaction_headers.subtotal', 'transaction_headers.delivery_cost', 'transaction_headers.service_fee', 'transaction_headers.total_price', 'transaction_headers.delivery_option', 'transaction_headers.delivery_status', 'transaction_headers.payment_status'])
+                ->selectRaw('sum(qty) as ctr,transaction_headers.subtotal, transaction_headers.delivery_cost, transaction_headers.service_fee, transaction_headers.total_price, transaction_headers.delivery_option, transaction_headers.delivery_status, transaction_headers.payment_status , transaction_headers.id, transaction_headers.created_at as created')->get(),
             'cart_count' => $cart_count,
         ]);
     }
@@ -164,6 +166,7 @@ class UserController extends Controller
         $transheader->service_fee = $req->serviceCost;
         $transheader->total_price = $req->totalPrice;
         $transheader->delivery_status = "Processing";
+        $transheader->payment_status = "Paid";
         $transheader->save();
 
         $cartdetail = CartDetail::where('cart_id', '=', $req->cart_id)->get();

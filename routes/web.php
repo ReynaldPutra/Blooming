@@ -56,6 +56,10 @@ Route::put('/updateItem/{product:id}', [AdminController::class, 'runUpdateItem']
 Route::delete('/deleteItem/{product:id}', [AdminController::class, 'deleteItem'])->middleware('authenticaterole:admin');
 
 Route::get('/dashboard', [AdminController::class, 'viewDashboard'])->name('viewDashboard')->middleware('authenticaterole:admin');
+Route::get('/viewOrder', [AdminController::class, 'viewOrder'])->name('viewOrder')->middleware('authenticaterole:admin');
+Route::get('/viewOrderDetail/{id}', [AdminController::class, 'viewOrderDetail'])->name('viewOrderDetail')->middleware('authenticaterole:admin');
+Route::get('/runUpdateDeliver/{id}', [AdminController::class, 'runUpdateDeliver'])->middleware('authenticaterole:admin');
+
 // User
 Route::get('/cartList', [UserController::class, 'viewCart'])->middleware('authenticaterole:customer')->name('cartList');
 Route::post('/addcart', [UserController::class, 'runAddCart'])->middleware('authenticaterole:customer');

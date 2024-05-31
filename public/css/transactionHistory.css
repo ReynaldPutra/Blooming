@@ -45,3 +45,7 @@
     outline: none !important;
     box-shadow: none !important;
 }
+
+.history_detail p {
+    font-weight: 600;
+}
