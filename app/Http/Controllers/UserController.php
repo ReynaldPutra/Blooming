@@ -23,11 +23,19 @@ class UserController extends Controller
             ->where('carts.user_id', $id)
             ->sum('cart_details.qty');
 
+        $cartitems = Carts::latest('carts.created_at')->where('carts.user_id', '=', strval(Session::get('user')['id']))
+            ->join('cart_details', 'carts.id', '=', 'cart_details.cart_id')->join('items', 'items.id', '=', 'cart_details.item_id')
+            ->groupBy('carts.id')->selectRaw('sum(qty*price) as sum,sum(qty) as ctr, carts.id')->first();
+
+        if ($cartitems) {
+            foreach ($cartitems->cartDetail as $cartDetail) {
+                $cartDetail->detail_item = json_decode($cartDetail->detail_item);
+            }
+        }
+
         return view('user.cartList', [
             'title' => 'Cart Page',
-            'cartitems' => Carts::latest('carts.created_at')->where('carts.user_id', '=', strval(Session::get('user')['id']))
-                ->join('cart_details', 'carts.id', '=', 'cart_details.cart_id')->join('items', 'items.id', '=', 'cart_details.item_id')
-                ->groupBy('carts.id')->selectRaw('sum(qty*price) as sum,sum(qty) as ctr, carts.id')->first(),
+            'cartitems' => $cartitems,
             'cart_count' => $cart_count,
         ]);
     }
@@ -54,9 +62,10 @@ class UserController extends Controller
             $cartDetail->cart_id = $cartId;
             $cartDetail->item_id = $validator['id'];
             $cartDetail->qty = $validator['qty'];
+            $cartDetail->detail_item = null;
             $cartDetail->save();
         }
-        return back()->with('success', 'Added!');
+        return back()->with('success', 'Added to Cart!');
     }
 
     public function viewUpdateCart(Item $product)
@@ -108,13 +117,24 @@ class UserController extends Controller
         $cart_count = Carts::join('cart_details', 'carts.id', '=', 'cart_details.cart_id')
             ->where('carts.user_id', $id)
             ->sum('cart_details.qty');
+
+        $history = TransactionHeader::latest('transaction_headers.created_at')->where('transaction_headers.user_id', '=', strval(Session::get('user')['id']))
+            ->join('transaction_details', 'transaction_headers.id', '=', 'transaction_details.transaction_id')
+            ->join('items', 'items.id', '=', 'transaction_details.item_id')
+            ->groupBy(['transaction_headers.id', 'transaction_headers.created_at', 'transaction_headers.subtotal', 'transaction_headers.delivery_cost', 'transaction_headers.service_fee', 'transaction_headers.total_price', 'transaction_headers.delivery_option', 'transaction_headers.delivery_status', 'transaction_headers.payment_status'])
+            ->selectRaw('sum(qty) as ctr,transaction_headers.subtotal, transaction_headers.delivery_cost, transaction_headers.service_fee, transaction_headers.total_price, transaction_headers.delivery_option, transaction_headers.delivery_status, transaction_headers.payment_status , transaction_headers.id, transaction_headers.created_at as created')->get();
+
+        if ($history) {
+            foreach ($history as $transaction) {
+                foreach ($transaction->transactionDetail as $detail) {
+                    $detail->detail_item = json_decode($detail->detail_item);
+                }
+            }
+        }
+
         return view('user.transactionHistory', [
             'title' => 'Transaction History',
-            'histories' => TransactionHeader::latest('transaction_headers.created_at')->where('transaction_headers.user_id', '=', strval(Session::get('user')['id']))
-                ->join('transaction_details', 'transaction_headers.id', '=', 'transaction_details.transaction_id')
-                ->join('items', 'items.id', '=', 'transaction_details.item_id')
-                ->groupBy(['transaction_headers.id', 'transaction_headers.created_at', 'transaction_headers.subtotal', 'transaction_headers.delivery_cost', 'transaction_headers.service_fee', 'transaction_headers.total_price', 'transaction_headers.delivery_option', 'transaction_headers.delivery_status', 'transaction_headers.payment_status'])
-                ->selectRaw('sum(qty) as ctr,transaction_headers.subtotal, transaction_headers.delivery_cost, transaction_headers.service_fee, transaction_headers.total_price, transaction_headers.delivery_option, transaction_headers.delivery_status, transaction_headers.payment_status , transaction_headers.id, transaction_headers.created_at as created')->get(),
+            'histories' => $history,
             'cart_count' => $cart_count,
         ]);
     }
@@ -175,6 +195,7 @@ class UserController extends Controller
             $transdetail->transaction_id = $transheader->id;
             $transdetail->item_id = $detail->item_id;
             $transdetail->qty = $detail->qty;
+            $transdetail->detail_item = $detail->detail_item;
             $transdetail->save();
         }
         CartDetail::where('cart_id', '=', $req->cart_id)->delete();
@@ -193,5 +214,45 @@ class UserController extends Controller
             ->groupBy('carts.id')->selectRaw('sum(qty*price) as sum,sum(qty) as ctr, carts.id')->first();
 
         return view('user.checkOutForm', compact('cart_count', 'cart_items'));
+    }
+
+    public function customOrder()
+    {
+        $id = Auth::user()->id;
+        $cart_count = Carts::join('cart_details', 'carts.id', '=', 'cart_details.cart_id')
+            ->where('carts.user_id', $id)
+            ->sum('cart_details.qty');
+
+        return view('user.customerOrder', compact('cart_count'));
+    }
+
+    public function runAddCartCustom(Request $req)
+    {
+
+        $detailItem = json_encode($req->except('_token'));
+
+        if (!Session::get('user')) {
+            return redirect()->route('login');
+        }
+        if (Carts::where('user_id', '=', strval(Session::get('user')['id']))->get()->count() == 0) {
+            $cart = new Carts();
+            $cart->user_id = Session::get('user')['id'];
+            $cart->save();
+        }
+
+        $cartId = Carts::where('user_id', '=', strval(Session::get('user')['id']))->select('id')->first()['id'];
+        $itemId = Item::where('category', '=', 'Custom')->select('id')->first()['id'];
+
+        if (CartDetail::where([['cart_id', '=', $cartId], ['item_id', '=', $itemId]])->get()->count() != 0) {
+            return back()->withErrors('You can only add 1 custom order to cart');
+        } else {
+            $cartDetail = new CartDetail();
+            $cartDetail->cart_id = $cartId;
+            $cartDetail->item_id = $itemId;
+            $cartDetail->qty = 1;
+            $cartDetail->detail_item = $detailItem;
+            $cartDetail->save();
+        }
+        return back()->with('message', 'Added to Cart!');
     }
 }

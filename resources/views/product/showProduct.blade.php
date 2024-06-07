@@ -129,7 +129,7 @@
               
               <div class="card-body">
                 <h5 class="card-title">{{ $p->name }}</h5>
-                <p class="card-text">Rp {{$p->price}} </p>
+                <p class="card-text">Rp {{ number_format($p->price,0,',','.')}} </p>
               </div>
             </div>
           </a>

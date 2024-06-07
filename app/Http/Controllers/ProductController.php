@@ -10,7 +10,7 @@ class ProductController extends Controller
 {
     public function viewProducts()
     {
-        $product = Item::latest()->filter()->paginate(16);
+        $product = Item::whereNotIn('category', ['Custom'])->latest()->filter()->paginate(16);
         $category = Item::select('category')->distinct()->get();
 
         if (Auth::id()) {

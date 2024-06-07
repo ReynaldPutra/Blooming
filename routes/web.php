@@ -71,3 +71,6 @@ Route::get('/transactionHistory', [UserController::class, 'viewTransaction'])->m
 Route::get('/checkOutForm', [UserController::class, 'checkOutForm'])->middleware('authenticaterole:customer')->name('checkOutForm');
 
 Route::post('/checkout', [UserController::class, 'runCheckout'])->middleware('authenticaterole:customer');
+
+Route::get('/customOrder', [UserController::class, 'customOrder'])->middleware('authenticaterole:customer')->name('customOrder');
+Route::post('/addCartCustom', [UserController::class, 'runAddCartCustom'])->middleware('authenticaterole:customer');

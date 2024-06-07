@@ -44,7 +44,10 @@
             @if(Session::get('user') && Session::get('user')['role']==='customer')
               <li class="nav-item">
                 <a class="nav-link text-uppercase select_nav" href="/transactionHistory">Transaction History</a>
-                </li>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-uppercase select_nav" href="/customOrder">Custom Order</a>
+              </li>
             @endif
 
 

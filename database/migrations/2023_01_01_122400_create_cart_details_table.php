@@ -18,6 +18,7 @@ class CreateCartDetailsTable extends Migration
             $table->foreignId('cart_id')->restricted('cart_headers', 'id');
             $table->primary(['cart_id', 'item_id']);
             $table->integer('qty');
+            $table->json('detail_item')->nullable();
             $table->timestamps();
         });
     }

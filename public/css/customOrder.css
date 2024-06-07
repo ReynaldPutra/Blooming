@@ -1,0 +1,45 @@
+.container {
+    margin-bottom: 1em;
+    height: auto;
+    width: 100%;
+}
+
+.hero-content {
+    max-width: 1400px;
+}
+
+.text_deg {
+    width: 700px;
+    font-size: 14px;
+    text-align: justify;
+}
+
+.head {
+    font-weight: 600;
+}
+
+input[type="radio"]:checked {
+    background-color: #b09774 !important;
+    border-color: #b09774 !important;
+}
+
+input[type="radio"]:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+input[type="checkbox"].form-check-input:checked {
+    background-color: #b09774;
+    border: none;
+}
+
+input[type="checkbox"]:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+@media (max-width: 768px) {
+    .hero-content {
+        font-size: 12px;
+    }
+}

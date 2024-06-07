@@ -74,7 +74,7 @@
                           @endif
                           <div class="card-body">
                             <h5 class="card-title">{{ $data_recycle->name }}</h5>
-                            <p class="card-text">Rp {{$data_recycle->price}} </p>
+                            <p class="card-text">Rp {{number_format($data_recycle->price,0,',','.')}} </p>
                           </div>
                         </div>
                       </a>
@@ -103,7 +103,7 @@
                           @endif
                           <div class="card-body">
                             <h5 class="card-title">{{ $data_second->name }}</h5>
-                            <p class="card-text">Rp {{$data_second->price}} </p>
+                            <p class="card-text">Rp {{number_format($data_second->price,0,',','.')}} </p>
                           </div>
                         </div>
                       </a>

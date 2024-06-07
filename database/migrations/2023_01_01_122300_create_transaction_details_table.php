@@ -14,10 +14,11 @@ class CreateTransactionDetailsTable extends Migration
     public function up()
     {
         Schema::create('transaction_details', function (Blueprint $table) {
-            $table->char('item_id', 3)->foreignId()->restricted('items','id');
-            $table->foreignId('transaction_id')->restricted('transaction_headers','id');
-            $table->primary(['transaction_id','item_id']);
+            $table->char('item_id', 3)->foreignId()->restricted('items', 'id');
+            $table->foreignId('transaction_id')->restricted('transaction_headers', 'id');
+            $table->primary(['transaction_id', 'item_id']);
             $table->integer('qty');
+            $table->json('detail_item')->nullable();
             $table->timestamps();
         });
     }
