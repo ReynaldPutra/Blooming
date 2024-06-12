@@ -12,7 +12,7 @@ class AdminController extends Controller
 {
     public function viewManageItem()
     {
-        $products = Item::latest()->filter()->paginate(10);
+        $products = Item::whereNotIn('category', ['Custom'])->latest()->filter()->paginate(10);
         return view('admin.manageItem', compact('products'));
     }
     public function viewOrder()
@@ -56,7 +56,7 @@ class AdminController extends Controller
     {
         $product_count = Item::all()->count();
         $sales_count = TransactionHeader::all()->count();
-        $delivery_count = TransactionHeader::all()->count();
+        $delivery_count = TransactionHeader::where('delivery_status','Delivered')->count();
         $order = TransactionHeader::all();
         return view('admin.dashboard', compact('product_count', 'sales_count', 'delivery_count', 'order'));
     }

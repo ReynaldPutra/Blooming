@@ -9,9 +9,9 @@
 <div class="d-flex" id="wrapper">
     <!-- Sidebar -->
     <div class="bg-white" id="sidebar-wrapper">
-        
+
         <div class="list-group list-group-flush my-3">
-           
+
             <a href="/dashboard" class="list-group-item list-group-item-action bg-transparent nav-link select_nav"><i
                     class="fas fa-th-large me-2"></i>Dashboard</a>
             <a href="/viewItem" class="list-group-item list-group-item-action bg-transparent  nav-link select_nav"><i
@@ -20,15 +20,15 @@
                     class="fas fa-plus me-2"></i>Add Item</a>
             <a href="/viewOrder" class="list-group-item list-group-item-action bg-transparent  nav-link select_nav"><i
                     class="fas fa-truck-loading me-2"></i>Manage Order</a>
-        
-        
+
+
         </div>
     </div>
     <div id="page-content-wrapper">
         <div class="d-flex align-items-center px-5  mt-5">
             <i class="fas fa-align-right primary-text fs-4 me-3" id="menu-toggle"></i>
         </div>
-    
+
 
         <div class="container-fluid px-4">
           <h1 class=" fw-bold text-center text-uppercase">Manage Item</h1>
@@ -40,7 +40,7 @@
             </button>
           </div>
           @endif
-        
+
           <form action="/viewItem" type="get" class="searchbar mx-auto mb-5 mt-4">
             <div class="input-group justify-content-center ">
               <input type="text" class="form-control " name="search" value = "{{request('search')}}" placeholder="Search product..." aria-label="Search product..." aria-describedby="button-addon2" >
@@ -49,7 +49,7 @@
               </div>
             </div>
           </form>
-        
+
             @if($products->count())
             <div class="table-responsive mt-4">
               <table class="table table-striped table-bordered table-sm">
@@ -76,11 +76,11 @@
                         @else
                           <img class="item-img" src="{{$p->image}}" alt="product-image">
                         @endif
-        
+
                       </td>
                       <td>{{$p->name}}</td>
                       <td>{{$p->description}}</td>
-                      <td>{{$p->price}}</td>
+                      <td>Rp {{number_format($p->price,0,',','.')}}</td>
                       <td>{{$p->category}}</td>
                       <td class="update-delete" class="btn-group">
                         <a href="/updateItem/{{$p->id}}" class="btn btn-sm btn-primary update mt-2">Update</a>
@@ -106,7 +106,7 @@
             <p class="text-center"><a href="/addItem" class="text-decoration-none" >Add an item first 👉</a></p>
           </div>
         @endif
-            
+
         </div>
     </div>
 </div>
@@ -132,7 +132,7 @@
 
     toggleButton.onclick = function () {
         el.classList.toggle("toggled");
-        if (toggleButton.classList.contains("fa-align-left")) { 
+        if (toggleButton.classList.contains("fa-align-left")) {
             toggleButton.classList.remove("fa-align-left");
             toggleButton.classList.add("fa-align-right");
         } else {

@@ -9,9 +9,9 @@
 <div class="d-flex" id="wrapper">
     <!-- Sidebar -->
     <div class="bg-white" id="sidebar-wrapper">
-        
+
         <div class="list-group list-group-flush my-3">
-           
+
             <a href="/dashboard" class="list-group-item list-group-item-action bg-transparent nav-link select_nav"><i
                     class="fas fa-th-large me-2"></i>Dashboard</a>
             <a href="/manageItem" class="list-group-item list-group-item-action bg-transparent  nav-link select_nav"><i
@@ -20,15 +20,15 @@
                     class="fas fa-plus me-2"></i>Add Item</a>
             <a href="/viewOrder" class="list-group-item list-group-item-action bg-transparent  nav-link select_nav"><i
                     class="fas fa-truck-loading me-2"></i>Manage Order</a>
-        
-        
+
+
         </div>
     </div>
     <div id="page-content-wrapper">
         <div class="d-flex align-items-center px-5  mt-5">
             <i class="fas fa-align-right primary-text fs-4 me-3" id="menu-toggle"></i>
         </div>
-    
+
 
         <div class="container-fluid px-4">
           <h1 class=" fw-bold text-center text-uppercase">Manage Order</h1>
@@ -40,7 +40,7 @@
             </button>
           </div>
           @endif
-        
+
           <div class="table-responsive">
             <table class="table table-striped table-hover align-middle mt-4">
                 <thead class="table-dark">
@@ -64,7 +64,7 @@
                             <td scope="row">{{ $loop->iteration }}</td>
                             <td>{{ $order->sender_name }}</td>
                             <td>{{ $order->receiver_name }}</td>
-                            <td>{{ $order->total_price }}</td>
+                            <td>Rp  {{ number_format($order->total_price,0,',','.') }}</td>
                             <td>{{ $order->delivery_date }}</td>
                             <td>{{ $order->delivery_option }}</td>
                             <td>{{ $order->delivery_time }}</td>
@@ -79,16 +79,16 @@
                                 @else
                                     <a href="/runUpdateDeliver/{{ $order->id }}"><button  onclick="return confirm('Are You Sure To Deliver This Product?')" type="button" class="btn  btn-md btn_delivery">Deliver</button></a>
                                 @endif
-                    
+
                             </td>
                         </tr>
 
-                        
+
                     @endforeach
                 </tbody>
             </table>
         </div>
-            
+
         </div>
     </div>
 </div>
@@ -114,7 +114,7 @@
 
     toggleButton.onclick = function () {
         el.classList.toggle("toggled");
-        if (toggleButton.classList.contains("fa-align-left")) { 
+        if (toggleButton.classList.contains("fa-align-left")) {
             toggleButton.classList.remove("fa-align-left");
             toggleButton.classList.add("fa-align-right");
         } else {

@@ -55,15 +55,24 @@
                                 <td>
                                     @if($transaction_detail->detail_item)
 
-                                        {{ $transaction_detail->detail_item->size }} <br>
+                                    <strong>Size</strong> <br>
+                                       <li> {{ $transaction_detail->detail_item->size }}</li>
+
+                                       <strong>Flower</strong>
                                         @foreach($transaction_detail->detail_item->flower as $flower)
-                                            {{ $flower }} <br>
-                                        @endforeach 
-                                        @foreach($transaction_detail->detail_item->fillers as $filler)
-                                            {{ $filler }}<br>
+                                            <li>{{ $flower }}</li>
                                         @endforeach
-                                        {{ $transaction_detail->detail_item->leaves }}<br>
-                                        {{ $transaction_detail->detail_item->color }}<br>
+
+                                        <strong>Filler</strong> <br>
+                                        @foreach($transaction_detail->detail_item->fillers as $filler)
+                                            <li>{{ $filler }}</li>
+                                        @endforeach
+                                        <strong>Leaves</strong> <br>
+                                        <li>{{ $transaction_detail->detail_item->leaves }}</li>
+                                        <strong>Paper</strong> <br>
+                                        <li>{{ $transaction_detail->detail_item->color }}</li>
+                                        <strong>Ribbon</strong> <br>
+                                        <li>{{ $transaction_detail->detail_item->ribbon }}<br></li>
                                     @else
                                         <!-- Handle case when detail_item is null or invalid -->
                                     @endif

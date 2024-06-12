@@ -12,7 +12,7 @@
     <div class="text-center">
         <h1 class="mb-1 mt-5 fw-bold">CHECK OUT</h1>
     </div>
-    
+
     <div class="mt-5 ">
             <div class="row">
                 <div class="col-md-6 col-sm-12 col-xs-12">
@@ -26,7 +26,7 @@
                         @endif
                         <form method="POST" action="/checkout">
                             @csrf
-                            
+
                             <h3 class="mb-3">Sender</h3>
                             <div class="form-group mb-3">
                                 <label for="email">Sender Email</label>
@@ -94,7 +94,7 @@
 
                             <div class="form-group mb-3">
                                 <label for="deliveryAddress">Delivery Address</label>
-                                <textarea class="form-control" name="deliveryAddress" id="deliveryAddress"  placeholder="Delivery Address" cols="30" rows="5" required></textarea>  
+                                <textarea class="form-control" name="deliveryAddress" id="deliveryAddress"  placeholder="Delivery Address" cols="30" rows="5" required></textarea>
                             </div>
 
                             <h3 class="mb-3">Payment</h3>
@@ -126,13 +126,13 @@
 
 
                             <button type="submit" class="btn btn-primary">Complete Order</button>
-                            
+
                             <input type="hidden" name="cart_id" value="{{ $cart_items->id }}">
                             <input type="hidden" id="subTotalInput" name="subTotal">
                             <input type="hidden" id="deliveryPriceInput" name="deliveryPrice">
                             <input type="hidden" id="serviceCostInput" name="serviceCost">
                             <input type="hidden" id="totalPriceInput" name="totalPrice">
-                    
+
                         </form>
                     </div>
                 </div>
@@ -159,36 +159,36 @@
                                 <img src="{{$cart_items->cartDetail()->get()[$i]->item()->first()->image}}" alt="card-image" width="90" height="90">
                                 @endif
                             <td>{{$cart_items->cartDetail()->get()[$i]->item()->first()->name}}</td>
-                            <td>IDR {{$cart_items->cartDetail()->get()[$i]->item()->first()->price}}</td>
+                            <td>Rp {{ number_format($cart_items->cartDetail()->get()[$i]->item()->first()->price,0,',','.')}}</td>
                             <td class="qty">
                                 {{$cart_items->cartDetail()->get()[$i]->qty}}
                             </td>
-                    
-                            <td class="total-price">IDR {{$cart_items->cartDetail()->get()[$i]->qty*$cart_items->cartDetail()->get()[$i]->item()->first()->price}}</td>
+
+                            <td class="total-price">Rp {{number_format($cart_items->cartDetail()->get()[$i]->qty*$cart_items->cartDetail()->get()[$i]->item()->first()->price,0,',','.')}}</td>
                           </tr>
-                       
+
                           @endfor
                         </tbody>
                       </table>
                       <div class="d-flex justify-content-between">
-                          <h5>Sub Total</h5> 
-                          <h5><strong id="cart-sum" data-sum="{{ $cart_items->sum }}"> IDR {{$cart_items->sum}}</strong></h5> 
+                          <h5>Sub Total</h5>
+                          <h5><strong id="cart-sum" data-sum="{{ $cart_items->sum }}"> Rp {{number_format($cart_items->sum,0,',','.')}}</strong></h5>
                       </div>
                       <div class="d-flex justify-content-between">
-                        <h5 id="deliveryType">Delivery by Car</h5> 
-                        <h5><strong id="deliveryCost"> IDR 40000</strong></h5> 
+                        <h5 id="deliveryType">Delivery by Car</h5>
+                        <h5><strong id="deliveryCost"> Rp 40.000</strong></h5>
                     </div>
                     <div class="d-flex justify-content-between">
-                        <h5>Service 2%</h5> 
-                        <h5><strong id="serviceCost"> IDR 0</strong></h5> 
+                        <h5>Service 2%</h5>
+                        <h5><strong id="serviceCost"> Rp 0</strong></h5>
                     </div>
                     <hr>
                     <div class="d-flex justify-content-between">
-                        <h4>Total Price</h4> 
-                        <h4><strong id="totalPrice"> IDR 0</strong></h4> 
+                        <h4>Total Price</h4>
+                        <h4><strong id="totalPrice"> Rp 0</strong></h4>
                     </div>
                 </div>
-            </div>    
+            </div>
     </div>
 </div>
 
@@ -214,7 +214,7 @@
         clearBtn: true,
     });
 
-    
+
     var deliveryPrice  = 40000;
     calculateServiceCost(deliveryPrice);
     });
@@ -246,11 +246,11 @@
         var deliveryPrice;
         if (option === 'car') {
             deliveryPrice = 40000;
-            deliveryCost.innerHTML = 'IDR ' + deliveryPrice;
+            deliveryCost.innerHTML = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(deliveryPrice);
             deliveryType.innerHTML = 'Delivery by Car';
         } else if (option === 'motorcycle') {
             deliveryPrice = 20000;
-            deliveryCost.innerHTML = 'IDR ' + deliveryPrice;
+            deliveryCost.innerHTML = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(deliveryPrice);
             deliveryType.innerHTML = 'Delivery by Motorcycle';
         }
         calculateServiceCost(deliveryPrice);
@@ -263,31 +263,31 @@
 
         if (isNaN(subTotal) || isNaN(deliveryPrice)) {
         console.error('Invalid subTotal or deliveryPrice:', subTotalString, deliveryPrice);
-        return; 
+        return;
     }
         var serviceCost = (subTotal + deliveryPrice) * 0.02;
-        
-        document.getElementById('serviceCost').innerHTML = 'IDR ' + serviceCost.toFixed(0);
+
+        document.getElementById('serviceCost').innerHTML = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(serviceCost);
 
         calculateTotalPrice(subTotal,deliveryPrice,serviceCost);
     }
 
     function calculateTotalPrice(subTotal,deliveryPrice,serviceCost) {
-        var totalPrice = parseFloat(subTotal + deliveryPrice + serviceCost);  
+        var totalPrice = parseFloat(subTotal + deliveryPrice + serviceCost);
         if (isNaN(totalPrice) ) {
             console.error('Invalid totalPrice', totalPrice);
-            return; 
-        }  
+            return;
+        }
 
-        document.getElementById('totalPrice').innerHTML = 'IDR ' + totalPrice.toFixed(0);
-        document.getElementById('subTotalInput').value = subTotal.toFixed(0);
+    document.getElementById('totalPrice').innerHTML = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(totalPrice);
+    document.getElementById('subTotalInput').value = subTotal.toFixed(0);
         document.getElementById('deliveryPriceInput').value = deliveryPrice.toFixed(0);
         document.getElementById('serviceCostInput').value = serviceCost.toFixed(0);
         document.getElementById('totalPriceInput').value = totalPrice.toFixed(0);
     }
-   
 
-   
+
+
 
 </script>
 @endsection

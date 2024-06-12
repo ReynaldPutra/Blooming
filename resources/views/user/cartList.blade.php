@@ -45,21 +45,21 @@
               <img src="{{ $cartDetail->item->image }}" alt="card-image" width="200" height="200">
             @endif
           <td>{{ $cartDetail->item->name }}</td>
-          <td>IDR {{ $cartDetail->item->price }}</td>
+          <td>Rp {{ number_format($cartDetail->item->price,0,',','.') }}</td>
           <td class="qty">
               {{ $cartDetail->qty }}
           </td>
 
           <td>
             @if($cartDetail->detail_item)
-           
+
                 <strong>Size</strong> <br>
                 <li>{{ $cartDetail->detail_item->size }} <br></li>
 
                 <strong>Flower</strong> <br>
                 @foreach($cartDetail->detail_item->flower as $flower)
                 <li>{{ $flower }} <br></li>
-                @endforeach 
+                @endforeach
 
                 <strong>Filler</strong> <br>
                 @foreach($cartDetail->detail_item->fillers as $filler)
@@ -74,13 +74,13 @@
 
                 <strong>Ribbon</strong> <br>
                 <li>{{ $cartDetail->detail_item->ribbon }}<br></li>
-              
+
             @else
                 <!-- Handle case when detail_item is null or invalid -->
             @endif
           </td>
 
-          <td class="total-price">IDR {{ $cartDetail->qty * $cartDetail->item->price }}</td>
+          <td class="total-price">Rp  {{ number_format($cartDetail->qty * $cartDetail->item->price,0,',','.') }}</td>
           <td>
               <input type="hidden" name="cart_id" value="{{ $cartDetail->cart_id }}">
               <input type="hidden" name="item_id" value="{{ $cartDetail->item_id }}">
@@ -96,7 +96,7 @@
     </table>
 
     <div class="d-flex">
-      <h4>Grand Total: <span class="grand-total">IDR {{ $cartitems->sum }}</span></h4>
+      <h4>Grand Total: <span class="grand-total">Rp {{ number_format($cartitems->sum,0,',','.') }}</span></h4>
       <a href="/checkOutForm" class="ms-auto"><button type="button" class="btn btn-primary btn-sm p-2">Check Out</button></a>
     </div>
   @else

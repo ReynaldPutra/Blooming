@@ -229,7 +229,7 @@ class UserController extends Controller
     public function runAddCartCustom(Request $req)
     {
 
-        $detailItem = json_encode($req->except('_token'));
+        $detailItem = json_encode($req->except('_token','total_price'));
 
         if (!Session::get('user')) {
             return redirect()->route('login');
@@ -241,6 +241,14 @@ class UserController extends Controller
         }
 
         $cartId = Carts::where('user_id', '=', strval(Session::get('user')['id']))->select('id')->first()['id'];
+
+        $itemCustom = Item::where('category', '=', 'Custom')->first();
+
+        if ($itemCustom) {
+            $itemCustom->price = $req->total_price;
+            $itemCustom->save();
+        }
+
         $itemId = Item::where('category', '=', 'Custom')->select('id')->first()['id'];
 
         if (CartDetail::where([['cart_id', '=', $cartId], ['item_id', '=', $itemId]])->get()->count() != 0) {

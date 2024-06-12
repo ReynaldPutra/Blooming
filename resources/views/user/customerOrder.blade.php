@@ -25,31 +25,40 @@
                     @endif
                     <form method="POST" action="/addCartCustom">
                         @csrf
-                        
+
                         <div class="form-group mb-3">
                             <h4 class="mb-3"><strong>Choose Size</strong></h4>
-                            <div class="d-flex flex-wrap">
-                                <div class="form-check me-3">
-                                    <input class="form-check-input" type="radio" name="size" id="sizeSmall" value="Small"  checked>
-                                    <label class="form-check-label" for="sizeSmall">
-                                        <h5>Small</h5>
-                                    </label>
+                            <div class="row size_deg mb-4">
+                                <div class="col-6 col-md-2 mb-3">
+                                    <div class="form-check ">
+                                        <input class="form-check-input" type="radio" name="size" id="sizeSmall" value="Small 5 Stem"  checked>
+                                        <label class="form-check-label" for="sizeSmall">
+                                            <img class="img-fluid mb-3" src="/asset/small.png" alt="small" />
+                                            <h5>Small <br>5 stem</h5>
+                                        </label>
+                                    </div>
                                 </div>
-                                <div class="form-check me-3">
-                                    <input class="form-check-input" type="radio" name="size" id="sizeMedium" value="Medium" >
-                                    <label class="form-check-label" for="sizeMedium">
-                                        <h5>Medium</h5>
-                                    </label>
+                                <div class="col-6 col-md-2 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="size" id="sizeMedium" value="Medium 15 Stem" >
+                                        <label class="form-check-label" for="sizeMedium">
+                                            <img class="img-fluid mb-3" src="/asset/medium.png" alt="medium" />
+                                            <h5>Medium <br>15 stem</h5>
+                                        </label>
+                                    </div>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="size" id="sizeLarge" value="Large" >
-                                    <label class="form-check-label" for="sizeLarge">
-                                        <h5>Large</h5>
-                                    </label>
+                                <div class="col-6 col-md-2 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="size" id="sizeLarge" value="Large 30 Stem" >
+                                        <label class="form-check-label" for="sizeLarge">
+                                            <img class="img-fluid mb-3" src="/asset/large.png" alt="large" />
+                                            <h5>Large <br>30 stem</h5>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="form-group mb-3">
                             <h4 class="mb-3"><strong>Flower</strong></h4>
                             <div class="row flower mb-4">
@@ -134,7 +143,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="flower-container"></div>
+
                         </div>
 
                         <h4 class="mb-3"><strong>Fillers</strong></h4>
@@ -155,6 +164,9 @@
                                     </label>
                                 </div>
                             </div>
+                        </div>
+                        <div id="flower-container">
+                            <h4>Total Price: <span id="total-price"> 0</span></h4>
                         </div>
 
                         <h4 class="mb-3"><strong>Leaves</strong></h4>
@@ -284,12 +296,12 @@
                                 </div>
                             </div>
                         </div>
-
+                        <input type="hidden" name="total_price" id="hidden-total-price" value="0">
                         <button type="submit" class="btn btn-primary">Add to Cart</button>
                     </form>
                 </div>
             </div>
-        </div>    
+        </div>
     </div>
 </div>
 @endsection
@@ -308,7 +320,7 @@
     if (checkedCount > maxAllowed) {
         var alertMessage = document.createElement('div');
         alertMessage.classList.add('alert', 'alert-danger');
-        
+
         var closeButton = document.createElement('button');
         closeButton.classList.add('close','float-end','border-1','bg-danger','text-light','border-danger' ,'ms-auto' ,'px-2' ,'rounded');
         closeButton.innerHTML = '&times;';
@@ -327,7 +339,6 @@
         if (existingAlert) {
             checkboxContainer.removeChild(existingAlert);
         }
-
 
         checkboxContainer.appendChild(alertMessage);
         return false;
@@ -349,5 +360,97 @@ function handleCheckboxChange(maxAllowed, checkboxGroup) {
 
 
 handleCheckboxChange(3, 'flower');
+
+document.addEventListener('DOMContentLoaded', function () {
+        const flowerPrices = {
+            "Peach Rose": 15000,
+            "White Rose": 15000,
+            "Pink Rose": 15000,
+            "Red Rose": 10000,
+            "Pink Carnation": 10000,
+            "Purple Carnation": 10000,
+            "Sunflower": 12000,
+            "Yellow PomPom": 10000,
+            "White PomPom": 10000,
+            "Soft Pink Gompie": 15000
+        };
+
+        const fillerPrices = {
+            "Small": {
+                "Caspea": 10000,
+                "White Carnation Spray": 15000
+            },
+            "Medium": {
+                "Caspea": 25000,
+                "White Carnation Spray": 30000
+            },
+            "Large": {
+                "Caspea": 35000,
+                "White Carnation Spray": 40000
+            }
+        };
+
+        const fillerCheckboxes = document.querySelectorAll('input[name="fillers[]"]');
+        const flowerCheckboxes = document.querySelectorAll('input[name="flower[]"]');
+        const sizeRadios = document.querySelectorAll('input[name="size"]');
+        const totalPriceElement = document.getElementById('total-price');
+        const hiddenTotalPriceElement = document.getElementById('hidden-total-price');
+
+
+        flowerCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updatePrice);
+        });
+
+        fillerCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updatePrice);
+        });
+
+        sizeRadios.forEach(radio => {
+            radio.addEventListener('change', updatePrice);
+        });
+
+        function updatePrice() {
+            const selectedSizeAndStem = document.querySelector('input[name="size"]:checked').value;
+            const selectedSize = selectedSizeAndStem.split(" ")[0];
+            const selectedFlowers = Array.from(document.querySelectorAll('input[name="flower[]"]:checked')).map(cb => cb.value);
+            const selectedFillers = Array.from(document.querySelectorAll('input[name="fillers[]"]:checked')).map(cb => cb.value);
+
+            let totalPrice = 0;
+            if (selectedFlowers.length > 0) {
+                if (selectedSize === 'Small') {
+                    if (selectedFlowers.length === 1) {
+                        totalPrice = 5 * flowerPrices[selectedFlowers[0]];
+                    } else if (selectedFlowers.length === 2) {
+                        totalPrice = 2 * flowerPrices[selectedFlowers[0]] + 3 * flowerPrices[selectedFlowers[1]];
+                    } else if (selectedFlowers.length === 3) {
+                        totalPrice = 2 * flowerPrices[selectedFlowers[0]] + 2 * flowerPrices[selectedFlowers[1]] + 1 * flowerPrices[selectedFlowers[2]];
+                    }
+                } else if (selectedSize === 'Medium') {
+                    if (selectedFlowers.length === 1) {
+                        totalPrice = 15 * flowerPrices[selectedFlowers[0]];
+                    } else if (selectedFlowers.length === 2) {
+                        totalPrice = 7.5 * flowerPrices[selectedFlowers[0]] + 7.5 * flowerPrices[selectedFlowers[1]];
+                    } else if (selectedFlowers.length === 3) {
+                        totalPrice = 5 * flowerPrices[selectedFlowers[0]] + 5 * flowerPrices[selectedFlowers[1]] + 5 * flowerPrices[selectedFlowers[2]];
+                    }
+                } else if (selectedSize === 'Large') {
+                    if (selectedFlowers.length === 1) {
+                        totalPrice = 30 * flowerPrices[selectedFlowers[0]];
+                    } else if (selectedFlowers.length === 2) {
+                        totalPrice = 15 * flowerPrices[selectedFlowers[0]] + 15 * flowerPrices[selectedFlowers[1]];
+                    } else if (selectedFlowers.length === 3) {
+                        totalPrice = 10 * flowerPrices[selectedFlowers[0]] + 10 * flowerPrices[selectedFlowers[1]] + 10 * flowerPrices[selectedFlowers[2]];
+                    }
+                }
+            }
+
+            selectedFillers.forEach(filler => {
+                totalPrice += fillerPrices[selectedSize][filler];
+            });
+
+            totalPriceElement.textContent = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(totalPrice);
+            hiddenTotalPriceElement.value = totalPrice;
+        }
+    });
 </script>
 @endsection

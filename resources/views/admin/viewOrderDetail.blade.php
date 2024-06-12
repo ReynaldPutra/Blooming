@@ -9,9 +9,9 @@
 <div class="d-flex" id="wrapper">
     <!-- Sidebar -->
     <div class="bg-white" id="sidebar-wrapper">
-        
+
         <div class="list-group list-group-flush my-3">
-           
+
             <a href="/dashboard" class="list-group-item list-group-item-action bg-transparent nav-link select_nav"><i
                     class="fas fa-th-large me-2"></i>Dashboard</a>
             <a href="/manageItem" class="list-group-item list-group-item-action bg-transparent  nav-link select_nav"><i
@@ -20,8 +20,8 @@
                     class="fas fa-plus me-2"></i>Add Item</a>
             <a href="/viewOrder" class="list-group-item list-group-item-action bg-transparent  nav-link select_nav"><i
                     class="fas fa-truck-loading me-2"></i>Manage Order</a>
-        
-        
+
+
         </div>
     </div>
     <div id="page-content-wrapper">
@@ -29,7 +29,7 @@
             <i class="fas fa-align-right primary-text fs-4 me-3" id="menu-toggle"></i>
             <a href="/viewOrder"><button type="button" class="btn btn-primary btn-md" >Back</button></a>
         </div>
-    
+
 
         <div class="container-fluid px-4">
           <h1 class=" fw-bold text-center text-uppercase">Manage Order</h1>
@@ -48,30 +48,30 @@
                         <div class="checkout-form mb-5">
                             <form method="POST" action="#">
                                 @csrf
-                                
+
                                 <h3 class="mb-3">Sender</h3>
                                 <div class="form-group mb-3">
                                     <label for="email">Sender Email</label>
                                     <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{ $orderDetail->sender_email }}" required disabled>
                                 </div>
-    
+
                                 <div class="form-group mb-3">
                                     <label for="senderName">Sender Name</label>
                                     <input type="text" class="form-control me-3" id="senderName" name="senderName" value="{{ $orderDetail->sender_name }}" required disabled>
                                 </div>
-    
+
                                 <div class="form-group mb-3">
                                     <label for="senderPhone">Sender Phone</label>
                                     <input type="number" class="form-control me-3 mb-3" id="senderPhone" name="senderPhone" value="{{ $orderDetail->sender_phone }}" required disabled>
                                 </div>
-    
-    
+
+
                                 <h3 class="mb-3">Delivery</h3>
                                 <div class="form-group mb-3">
                                     <label for="recipientName">Recipient Name</label>
                                         <input type="text" class="form-control me-3" id="recipientName" name="recipientName"  value="{{ $orderDetail->receiver_name }}"required disabled>
                                 </div>
-    
+
                                 <div class="form-group mb-3">
                                     <label for="recipientPhone">Recipient Phone</label>
                                     <input type="number" class="form-control me-3 mb-3" id="recipientPhone" name="recipientPhone" value="{{ $orderDetail->receiver_phone }}" required disabled>
@@ -81,23 +81,23 @@
                                     <label for="deliveryOptions">Delivery Type</label>
                                     <input type="text" class="form-control me-3 mb-3" id="deliveryOptions" name="deliveryOptions" value="{{ $orderDetail->delivery_option }}" required disabled>
                                 </div>
-    
+
                                 <div class="form-group mb-3">
                                     <label for="datepicker" class="form-label">Delivery Date</label>
                                     <input type="text" class="form-control" id="datepicker" name="datepicker" value="{{ $orderDetail->delivery_date }}" disabled>
                                 </div>
-    
+
 
                                 <div class="form-group mb-3">
                                     <label for="deliveryTime" class="form-label">Delivery Time</label>
                                     <input type="text" class="form-control" id="deliveryTime" name="deliveryTime" value="{{ $orderDetail->delivery_time }}" disabled>
                                 </div>
-                            
+
                                 <div class="form-group mb-3">
                                     <label for="province">Province</label>
                                     <input type="text" class="form-control me-3 mb-3" id="province" name="province" value="{{ $orderDetail->province }}" required disabled>
                                 </div>
-    
+
                                 <div class="form-group mb-3">
                                 <label for="city">City</label>
                                     <div class="d-flex mb-3">
@@ -105,10 +105,10 @@
                                         <input type="number" class="form-control" id="postalCode" name="postalCode" value="{{ $orderDetail->postal_code }}"  required disabled>
                                     </div>
                                 </div>
-    
+
                                 <div class="form-group mb-3">
                                     <label for="deliveryAddress">Delivery Address</label>
-                                    <textarea class="form-control" name="deliveryAddress" id="deliveryAddress"  cols="30" rows="5" required disabled>{{ $orderDetail->delivery_address }}" </textarea>  
+                                    <textarea class="form-control" name="deliveryAddress" id="deliveryAddress"  cols="30" rows="5" required disabled>{{ $orderDetail->delivery_address }}" </textarea>
                                 </div>
 
                             </form>
@@ -137,38 +137,38 @@
                                     <img src="{{$orderDetail->transactionDetail()->get()[$i]->item()->first()->image}}" alt="card-image" width="90" height="90">
                                     @endif
                                 <td>{{$orderDetail->transactionDetail()->get()[$i]->item()->first()->name}}</td>
-                                <td>IDR {{$orderDetail->transactionDetail()->get()[$i]->item()->first()->price}}</td>
+                                <td>Rp {{number_format($orderDetail->transactionDetail()->get()[$i]->item()->first()->price,0,',','.')}}</td>
                                 <td class="qty">
                                     {{$orderDetail->transactionDetail()->get()[$i]->qty}}
                                 </td>
-                        
-                                <td class="total-price">IDR {{$orderDetail->transactionDetail()->get()[$i]->qty*$orderDetail->transactionDetail()->get()[$i]->item()->first()->price}}</td>
+
+                                <td class="total-price">Rp {{number_format($orderDetail->transactionDetail()->get()[$i]->qty*$orderDetail->transactionDetail()->get()[$i]->item()->first()->price,0,',','.')}}</td>
                               </tr>
-                           
+
                               @endfor
                             </tbody>
                           </table>
                           <div class="d-flex justify-content-between">
-                              <h5>Sub Total</h5> 
-                              <h5><strong id="cart-sum" > IDR {{ $orderDetail->subtotal }}</strong></h5> 
+                              <h5>Sub Total</h5>
+                              <h5><strong id="cart-sum" > Rp {{number_format( $orderDetail->subtotal,0,',','.') }}</strong></h5>
                           </div>
                           <div class="d-flex justify-content-between">
-                            <h5 id="deliveryType">Delivery by Car</h5> 
-                            <h5><strong id="deliveryCost"> IDR {{ $orderDetail->delivery_cost }}</strong></h5> 
+                            <h5 id="deliveryType">Delivery by Car</h5>
+                            <h5><strong id="deliveryCost"> Rp {{ number_format($orderDetail->delivery_cost,0,',','.') }}</strong></h5>
                         </div>
                         <div class="d-flex justify-content-between">
-                            <h5>Service 2%</h5> 
-                            <h5><strong id="serviceCost"> IDR {{ $orderDetail->service_fee }}</strong></h5> 
+                            <h5>Service 2%</h5>
+                            <h5><strong id="serviceCost"> Rp {{ number_format($orderDetail->service_fee,0,',','.') }}</strong></h5>
                         </div>
                         <hr>
                         <div class="d-flex justify-content-between">
-                            <h4>Total Price</h4> 
-                            <h4><strong id="totalPrice"> IDR {{ $orderDetail->total_price }}</strong></h4> 
+                            <h4>Total Price</h4>
+                            <h4><strong id="totalPrice"> Rp {{ number_format($orderDetail->total_price,0,',','.') }}</strong></h4>
                         </div>
                     </div>
-                </div>    
+                </div>
         </div>
-            
+
         </div>
     </div>
 </div>
@@ -194,7 +194,7 @@
 
     toggleButton.onclick = function () {
         el.classList.toggle("toggled");
-        if (toggleButton.classList.contains("fa-align-left")) { 
+        if (toggleButton.classList.contains("fa-align-left")) {
             toggleButton.classList.remove("fa-align-left");
             toggleButton.classList.add("fa-align-right");
         } else {
