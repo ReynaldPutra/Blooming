@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -19,31 +22,33 @@ use Illuminate\Support\Facades\Route;
  */
 
 // All
-Route::get('/', [Controller::class, 'viewHome'])->name('home');
-Route::get('/home', [Controller::class, 'viewHome']);
-Route::get('/aboutUs', [Controller::class, 'viewAboutUs']);
+Route::get('/', [HomeController::class, 'viewHome'])->name('home');
+Route::get('/home', [HomeController::class, 'viewHome']);
+Route::get('/aboutUs', [HomeController::class, 'viewAboutUs']);
 
-Route::get('/contact', [Controller::class, 'viewContact']);
-Route::post('/post_message', [Controller::class, 'post_message']);
+//CONTACT
+Route::get('/contact', [ContactController::class, 'viewContact']);
+Route::post('/post_message', [ContactController::class, 'post_message']);
 
+//REGISTER
 Route::get('/register', [RegisterController::class, 'viewRegister'])->name('register');
 Route::post('/register', [RegisterController::class, 'runRegister']);
-
 Route::get('/verify-email/{token}', [RegisterController::class, 'verifyEmail'])->name('verify.email');
 
-Route::get('/login', [Controller::class, 'viewLogin'])->name('login');
-Route::post('/login', [Controller::class, 'runLogin']);
-Route::get('/forgetPassword', [Controller::class, 'forgetPassword'])->name('forgetPassword');
-Route::post('/forgetPassword', [Controller::class, 'runForgetPassword']);
+// LOGIN
+Route::get('/login', [LoginController::class, 'viewLogin'])->name('login');
+Route::post('/login', [LoginController::class, 'runLogin']);
+Route::get('/forgetPassword', [LoginController::class, 'forgetPassword'])->name('forgetPassword');
+Route::post('/forgetPassword', [LoginController::class, 'runForgetPassword']);
+Route::get('/resetPassword/{token}', [LoginController::class, 'resetPassword'])->name('resetPassword');
+Route::post('/resetPassword', [LoginController::class, 'runResetPassword']);
 
-Route::get('/resetPassword/{token}', [Controller::class, 'resetPassword'])->name('resetPassword');
-Route::post('/resetPassword', [Controller::class, 'runResetPassword']);
-
-Route::get('/editProfile', [Controller::class, 'viewEdit'])->name('viewEdit');
-Route::put('/editProfile', [Controller::class, 'runEditProfile'])->name('runEditProfile');
-Route::get('/changePassword', [Controller::class, 'viewChange'])->name('viewChange');
-Route::post('/changePassword', [Controller::class, 'runChangePassword'])->name('runChangePassword');
-Route::get('/logout', [Controller::class, 'runLogout'])->name('logout');
+// PROFILE
+Route::get('/editProfile', [ProfileController::class, 'viewEdit'])->name('viewEdit');
+Route::put('/editProfile', [ProfileController::class, 'runEditProfile'])->name('runEditProfile');
+Route::get('/changePassword', [ProfileController::class, 'viewChange'])->name('viewChange');
+Route::post('/changePassword', [ProfileController::class, 'runChangePassword'])->name('runChangePassword');
+Route::get('/logout', [ProfileController::class, 'runLogout'])->name('logout');
 
 // Product
 Route::get('/showProduct', [ProductController::class, 'viewProducts'])->name('viewProducts');
@@ -73,7 +78,6 @@ Route::post('/deleteCartItem', [UserController::class, 'runDeleteCartItem'])->mi
 
 Route::get('/transactionHistory', [UserController::class, 'viewTransaction'])->middleware('authenticaterole:customer')->name('transactionHistory');
 Route::get('/checkOutForm', [UserController::class, 'checkOutForm'])->middleware('authenticaterole:customer')->name('checkOutForm');
-
 Route::post('/checkout', [UserController::class, 'runCheckout'])->middleware('authenticaterole:customer');
 
 Route::get('/customOrder', [UserController::class, 'customOrder'])->middleware('authenticaterole:customer')->name('customOrder');
