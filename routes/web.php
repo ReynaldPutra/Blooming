@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -22,9 +22,9 @@ use Illuminate\Support\Facades\Route;
  */
 
 // All
-Route::get('/', [HomeController::class, 'viewHome'])->name('home');
-Route::get('/home', [HomeController::class, 'viewHome']);
-Route::get('/aboutUs', [HomeController::class, 'viewAboutUs']);
+Route::get('/', [Controller::class, 'viewHome'])->name('home');
+Route::get('/home', [Controller::class, 'viewHome']);
+Route::get('/aboutUs', [Controller::class, 'viewAboutUs']);
 
 //CONTACT
 Route::get('/contact', [ContactController::class, 'viewContact']);
