@@ -43,7 +43,7 @@ class UserController extends Controller
     public function runAddCart(Request $req)
     {
         $validator = $req->validate([
-            'qty' => 'required|gte:1',
+            'qty' => 'required|integer|gte:1',
             "id" => 'exists:items',
         ]);
         if (!Session::get('user')) {
@@ -229,7 +229,7 @@ class UserController extends Controller
     public function runAddCartCustom(Request $req)
     {
 
-        $detailItem = json_encode($req->except('_token','total_price'));
+        $detailItem = json_encode($req->except('_token', 'total_price'));
 
         if (!Session::get('user')) {
             return redirect()->route('login');

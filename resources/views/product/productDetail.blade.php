@@ -54,7 +54,7 @@
                 <input type="hidden" name="id" value="{{$product->id}}">
                 <div class="form-group" style="display: flex; justify-content: center; align-content: center">
                     <label for="qty" class="me-3">Quantity:  </label>
-                    <input class="form-control mb-2 @error('qty') is-invalid  @enderror" type="number" name="qty" value="{{old('qty')}}">
+                    <input class="form-control mb-2 @error('qty') is-invalid  @enderror" type="number" name="qty"  value="{{old('qty')}}" oninput="validity.valid||(value='');">
                   </div>
                   <button class="btn btn-primary" type="submit">Add to Cart</button>
               @error('qty')
@@ -89,3 +89,12 @@
 
 @endsection
 
+@section('script')
+<script>
+  document.querySelector('input[name="qty"]').addEventListener('input', function () {
+    if (this.value !== '' && this.value < 1) {
+      this.value = 1;
+    }
+  });
+</script>
+@endsection

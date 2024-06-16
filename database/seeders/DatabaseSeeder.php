@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Item;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
@@ -33,6 +34,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'admin@gmail.com',
                 'role' => 'admin',
                 'password' => Hash::make('12345678'),
+                'verified_at' => Carbon::now(),
             ],
 
         );
@@ -42,6 +44,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'user@gmail.com',
                 'role' => 'customer',
                 'password' => Hash::make('12345678'),
+                'verified_at' => Carbon::now(),
             ],
         );
     }

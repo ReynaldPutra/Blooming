@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\ResetPasswordMail;
 use App\Mail\sendMail;
+use App\Mail\VerifyEmail;
 use App\Models\Carts;
 use App\Models\Item;
 use App\Models\PasswordReset;
@@ -87,39 +88,6 @@ class Controller extends BaseController
     }
 
     //PROFILE
-    public function viewRegister()
-    {
-        if (Session::get('user')) {
-            return redirect()->route('home');
-        }
-
-        return view('register');
-    }
-
-    public function runRegister(Request $req)
-    {
-        $rules = [
-            'fullname' => 'required|string|min:3',
-            'email' => 'unique:users,email|email',
-            'password' => 'required|string|min:6',
-            'confirmPassword' => 'required|same:password',
-        ];
-
-        $validator = Validator::make($req->all(), $rules);
-        if ($validator->fails()) {
-            return back()->withErrors($validator);
-        }
-
-        $user = new User();
-        $user->username = $req->fullname;
-        $user->email = $req->email;
-        $user->role = 'customer';
-        $user->password = Hash::make($req->password, [
-            'rounds' => 12,
-        ]);
-        $user->save();
-        return redirect()->route('login')->with('register_success', 'Account Successfully Registered!');
-    }
 
     public function viewLogin()
     {
@@ -142,16 +110,33 @@ class Controller extends BaseController
             return back()->withErrors($validator);
         }
 
+        $user = Auth::getProvider()->retrieveByCredentials([
+            'email' => $req->email,
+        ]);
+
         $credentials = [
             'email' => $req->email,
             'password' => $req->password,
         ];
 
-        if (!Auth::attempt($credentials)) {
+        if (!$user || !Auth::attempt($credentials)) {
             return back()->withErrors('invalid credentials');
         }
 
+        if (!$user->verified_at) {
+
+            $user->email_verification_token = Str::random(32);
+            $user->save();
+
+            $verificationLink = route('verify.email', ['token' => $user->email_verification_token]);
+            Mail::to($user->email)->send(new VerifyEmail($user, $verificationLink));
+
+            Auth::logout();
+            return back()->withErrors('Please verify your email before logging in.');
+        }
+
         Session::put('user', Auth::user());
+
         if ($req->remember === 'on') {
 
             Cookie::queue('email', $req->email, 20);

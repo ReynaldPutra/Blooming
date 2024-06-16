@@ -55,10 +55,12 @@
 .qty-form button {
     font-size: 8px;
     width: 12em;
+    border: 1px solid #827057;
 }
 
 .qty-form button:hover {
-    background-color: #1c6758;
+    background-color: #827057;
+    color: white;
 }
 
 .error-message {
