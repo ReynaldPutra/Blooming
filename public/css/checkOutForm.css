@@ -21,8 +21,13 @@ textarea {
     resize: none;
 }
 
-button {
+.checkout-form button {
     width: 100%;
+}
+
+.required {
+    color: rgb(224, 0, 0);
+    font-weight: bold;
 }
 
 .accordion {

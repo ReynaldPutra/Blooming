@@ -16,7 +16,7 @@ class CreateItemsTable extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->char('id', 3)->primary();
             $table->string('name')->unique();
-            $table->string('category');
+            $table->foreignId('category_id')->restricted('categories', 'id')->onDelete('cascade');;
             $table->string('description');
             $table->integer('price');
             $table->string('image');

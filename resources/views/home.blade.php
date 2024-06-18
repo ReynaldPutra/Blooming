@@ -54,27 +54,27 @@
               </div>
 
               <div class="product_catalog mb-5">
-
+                @isset($category_1)
                 <div class="product_category">
                   <div class="category_title">
                 
-                    <h2 class="text-uppercase">{{ $data_recycle->get(0)->category }}</h2>
-                    <a href="/showProduct/{{ $data_recycle->get(0)->category }}" class="ms-auto">View All</a>
+                    <h2 class="text-uppercase">{{ $category_1[0]->category->name }}</h2>
+                    <a href="/showProduct/{{  urlencode($category_1[0]->category->name) }}" class="ms-auto">View All</a>
                   </div>
 
                   <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-4 py-3">
-                    @foreach ($data_recycle as $data_recycle)
+                    @foreach ($category_1 as $category_1)
                     <div class="col mx-auto" >
-                      <a href="/products/{{$data_recycle->id}}">
+                      <a href="/products/{{$category_1->id}}">
                         <div class="card ">
-                          @if (File::exists(public_path($data_recycle->image)))
-                            <img src="{{ asset($data_recycle->image) }}" class="card-img-top img_product" alt="...">
+                          @if (File::exists(public_path($category_1->image)))
+                            <img src="{{ asset($category_1->image) }}" class="card-img-top img_product" alt="...">
                           @else
-                            <img src="{{ $data_recycle->image }}" class="card-img-top img_product" alt="...">
+                            <img src="{{ $category_1->image }}" class="card-img-top img_product" alt="...">
                           @endif
                           <div class="card-body">
-                            <h5 class="card-title">{{ $data_recycle->name }}</h5>
-                            <p class="card-text">Rp {{number_format($data_recycle->price,0,',','.')}} </p>
+                            <h5 class="card-title">{{ $category_1->name }}</h5>
+                            <p class="card-text">Rp {{number_format($category_1->price,0,',','.')}} </p>
                           </div>
                         </div>
                       </a>
@@ -83,27 +83,28 @@
 
                   </div>
                 </div>
+                @endisset
 
-
+                @isset($category_2)
                 <div class="product_category">
                   <div class="category_title">
-                    <h2 class="text-uppercase">{{ $data_second->get(0)->category }}</h2>
-                    <a href="/showProduct/{{ $data_second->get(0)->category }}" class="ms-auto">View All</a>
+                    <h2 class="text-uppercase">{{ $category_2[0]->category->name }}</h2>
+                    <a href="/showProduct/{{ urlencode($category_2[0]->category->name) }}" class="ms-auto">View All</a>
                   </div>
                   <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-4 py-3">
                    
-                    @foreach ($data_second as $data_second)
+                    @foreach ($category_2 as $category_2)
                     <div class="col mx-auto" >
-                      <a href="/products/{{$data_second->id}}">
+                      <a href="/products/{{$category_2->id}}">
                         <div class="card ">
-                          @if (File::exists(public_path($data_second->image)))
-                            <img src="{{ asset($data_second->image) }}" class="card-img-top img_product" alt="...">
+                          @if (File::exists(public_path($category_2->image)))
+                            <img src="{{ asset($category_2->image) }}" class="card-img-top img_product" alt="...">
                           @else
-                            <img src="{{ $data_second->image }}" class="card-img-top img_product" alt="...">
+                            <img src="{{ $category_2->image }}" class="card-img-top img_product" alt="...">
                           @endif
                           <div class="card-body">
-                            <h5 class="card-title">{{ $data_second->name }}</h5>
-                            <p class="card-text">Rp {{number_format($data_second->price,0,',','.')}} </p>
+                            <h5 class="card-title">{{ $category_2->name }}</h5>
+                            <p class="card-text">Rp {{number_format($category_2->price,0,',','.')}} </p>
                           </div>
                         </div>
                       </a>
@@ -112,6 +113,12 @@
 
                   </div>
                 </div>
+                @endisset
+                {{-- @if ($categories_count === 0)
+                <div class="alert alert-info">
+                    No categories available.
+                </div>
+            @endif --}}
         </div>
     </section>
 @endsection

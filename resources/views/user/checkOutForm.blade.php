@@ -18,8 +18,8 @@
                 <div class="col-md-6 col-sm-12 col-xs-12">
                     <div class="checkout-form mb-5">
                         @if($errors->any())
-                                <div class="alert alert-danger" role="alert"></div>
-                            {{$errors->first()}}
+                                <div class="alert alert-danger" role="alert">{{$errors->first()}}</div>
+                            
                         @endif
                         @if(Session::has('message'))
                             <p class="alert alert-success">{{ Session::get('message') }}</p>
@@ -29,30 +29,32 @@
 
                             <h3 class="mb-3">Sender</h3>
                             <div class="form-group mb-3">
-                                <label for="email">Sender Email</label>
+                                <label for="email">Sender Email <span class="required">*</span></label>
                                 <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{Session::get('user')['email']}}" required>
                             </div>
 
                             <div class="form-group mb-3">
-                                <label for="senderName">Sender Name</label>
+                                <label for="senderName">Sender Name <span class="required">*</span></label>
                                 <input type="text" class="form-control me-3" id="senderName" name="senderName" placeholder="Sender Name" required>
                             </div>
 
                             <div class="form-group mb-3">
-                                <label for="senderPhone">Sender Phone</label>
-                                <input type="number" class="form-control me-3 mb-3" id="senderPhone" name="senderPhone" placeholder="Sender Phone" required >
+                                <label for="senderPhone">Sender Phone <span class="required">*</span></label>
+                                <input type="number" class="form-control me-3 mb-3" id="senderPhone" name="senderPhone" placeholder="08XX-XXXX-XXXX" required>
+                                <div id="senderPhoneValidationMessage" class="text-danger"></div>
                             </div>
 
 
                             <h3 class="mb-3">Delivery</h3>
                             <div class="form-group mb-3">
-                                <label for="recipientName">Recipient Name</label>
+                                <label for="recipientName">Recipient Name <span class="required">*</span></label>
                                     <input type="text" class="form-control me-3" id="recipientName" name="recipientName" placeholder="Recipient Name" required>
                             </div>
 
                             <div class="form-group mb-3">
-                                <label for="recipientNumber">Recipient Phone</label>
-                                <input type="number" class="form-control me-3 mb-3" id="recipientNumber" name="recipientNumber" placeholder="Recipient Number" required >
+                                <label for="recipientNumber">Recipient Phone <span class="required">*</span></label>
+                                <input type="number" class="form-control me-3 mb-3" id="recipientNumber" name="recipientNumber" placeholder="08XX-XXXX-XXXX" required >
+                                <div id="recipientPhoneValidationMessage" class="text-danger"></div>
                             </div>
 
                             <div class="form-group mb-3">
@@ -67,12 +69,12 @@
                             </div>
 
                             <div class="form-group mb-3">
-                                <label for="datepicker" class="form-label">Delivery Date</label>
-                                <input type="text" class="form-control" id="datepicker" name="datepicker" placeholder="Select date">
+                                <label for="datepicker" class="form-label">Delivery Date <span class="required">*</span></label>
+                                <input type="text" class="form-control" id="datepicker" name="datepicker" placeholder="Select date" required>
                             </div>
 
                             <div class="form-group mb-3">
-                                <label for="deliveryTime">Delivery Time</label>
+                                <label for="deliveryTime">Delivery Time <span class="required">*</span></label>
                                 <select name="deliveryTime" id="deliveryTime" class="form-control">
                                     <option value="9am - 2pm">9am - 2pm</option>
                                     <option value="3pm - 5pm">3pm - 5pm</option>
@@ -80,20 +82,20 @@
                             </div>
 
                             <div class="form-group mb-3">
-                                <label for="province">Province</label>
+                                <label for="province">Province <span class="required">*</span></label>
                                 <input type="text" class="form-control me-3 mb-3" id="province" name="province" placeholder="Province" required>
                             </div>
 
                             <div class="form-group mb-3">
-                            <label for="city">City</label>
+                            <label for="city">City <span class="required">*</span></label>
                                 <div class="d-flex mb-3">
-                                    <input type="text" class="form-control me-3" id="city" name="city" placeholder="City" >
+                                    <input type="text" class="form-control me-3" id="city" name="city" placeholder="City" required>
                                     <input type="number" class="form-control" id="postalCode" name="postalCode" placeholder="Postal Code" required>
                                 </div>
                             </div>
 
                             <div class="form-group mb-3">
-                                <label for="deliveryAddress">Delivery Address</label>
+                                <label for="deliveryAddress">Delivery Address <span class="required">*</span></label>
                                 <textarea class="form-control" name="deliveryAddress" id="deliveryAddress"  placeholder="Delivery Address" cols="30" rows="5" required></textarea>
                             </div>
 
@@ -183,7 +185,7 @@
                         <h5><strong id="serviceCost"> Rp 0</strong></h5>
                     </div>
                     <hr>
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between mb-5">
                         <h4>Total Price</h4>
                         <h4><strong id="totalPrice"> Rp 0</strong></h4>
                     </div>
@@ -221,6 +223,7 @@
 
     document.querySelector('form').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent the form from submitting immediately
+    
     var modal = document.getElementById('loadingModal');
     var loader = document.getElementById('loader');
     var modalMessage = document.getElementById('modalMessage');
@@ -265,7 +268,7 @@
         console.error('Invalid subTotal or deliveryPrice:', subTotalString, deliveryPrice);
         return;
     }
-        var serviceCost = (subTotal + deliveryPrice) * 0.02;
+        var serviceCost = Math.round((subTotal + deliveryPrice) * 0.02);
 
         document.getElementById('serviceCost').innerHTML = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(serviceCost);
 
@@ -286,6 +289,42 @@
         document.getElementById('totalPriceInput').value = totalPrice.toFixed(0);
     }
 
+ 
+     // Select the input field and validation message element
+     const senderPhoneInput = document.getElementById('senderPhone');
+    const recipientNumberInput = document.getElementById('recipientNumber');
+    const senderPhoneValidationMessage = document.getElementById('senderPhoneValidationMessage');
+    const recipientPhoneValidationMessage = document.getElementById('recipientPhoneValidationMessage');
+
+   
+    function validateSenderPhoneNumber() {
+        const phoneNumber = senderPhoneInput.value.trim();
+
+        // Check if phone number starts with "08" and has a length of 10 to 13 digits
+        if (!phoneNumber.startsWith('08') || !/^\d{10,13}$/.test(phoneNumber)) {
+            senderPhoneValidationMessage.textContent = 'Phone number must start with "08" and have a length of 10 to 13 digits.';
+            return false;
+        } else {
+            senderPhoneValidationMessage.textContent = ''; // Clear previous error message
+            return true;
+        }
+    }
+
+    function validateRecipientPhoneNumber() {
+        const phoneNumber = recipientNumberInput.value.trim();
+
+        // Check if phone number starts with "08" and has a length of 10 to 13 digits
+        if (!phoneNumber.startsWith('08') || !/^\d{10,13}$/.test(phoneNumber)) {
+            recipientPhoneValidationMessage.textContent = 'Phone number must start with "08" and have a length of 10 to 13 digits.';
+            return false;
+        } else {
+            recipientPhoneValidationMessage.textContent = ''; // Clear previous error message
+            return true;
+        }
+    }
+
+    senderPhoneInput.addEventListener('input', validateSenderPhoneNumber);
+    recipientNumberInput.addEventListener('input', validateRecipientPhoneNumber);
 
 
 

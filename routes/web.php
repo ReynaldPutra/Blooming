@@ -64,6 +64,13 @@ Route::get('/updateItem/{product:id}', [AdminController::class, 'viewUpdateItem'
 Route::put('/updateItem/{product:id}', [AdminController::class, 'runUpdateItem'])->middleware('authenticaterole:admin');
 Route::delete('/deleteItem/{product:id}', [AdminController::class, 'deleteItem'])->middleware('authenticaterole:admin');
 
+Route::get('/viewCategory', [AdminController::class, 'viewManageCategory'])->middleware('authenticaterole:admin')->name('viewManageCategory');
+Route::get('/addCategory', [AdminController::class, 'viewAddCategory'])->name('viewAddCategory')->middleware('authenticaterole:admin');
+Route::post('/addCategory', [AdminController::class, 'runAddCategory'])->middleware('authenticaterole:admin');
+Route::get('/updateCategory/{product:id}', [AdminController::class, 'viewUpdateCategory'])->name('updateCategory')->middleware('authenticaterole:admin');
+Route::put('/updateCategory/{product:id}', [AdminController::class, 'runUpdateCategory'])->middleware('authenticaterole:admin');
+Route::delete('/deleteCategory/{product:id}', [AdminController::class, 'deleteCategory'])->middleware('authenticaterole:admin');
+
 Route::get('/dashboard', [AdminController::class, 'viewDashboard'])->name('viewDashboard')->middleware('authenticaterole:admin');
 Route::get('/viewOrder', [AdminController::class, 'viewOrder'])->name('viewOrder')->middleware('authenticaterole:admin');
 Route::get('/viewOrderDetail/{id}', [AdminController::class, 'viewOrderDetail'])->name('viewOrderDetail')->middleware('authenticaterole:admin');

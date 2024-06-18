@@ -21,9 +21,9 @@
             <a href="/addItem" class="list-group-item list-group-item-action bg-transparent   nav-link select_nav"><i
               class="fas fa-box me-2"></i>Add Item</a>
             <a href="/viewCategory" class="list-group-item list-group-item-action bg-transparent  nav-link select_nav"><i
-              class="fas fa-layer-group me-2"></i>Manage Category</a>
+                class="fas fa-layer-group me-2"></i>Manage Category</a>
             <a href="/addCategory" class="list-group-item list-group-item-action bg-transparent   nav-link select_nav"><i
-                class="fas fa-plus me-2"></i>Add Category</a>
+                  class="fas fa-plus me-2"></i>Add Category</a>
 
 
         </div>
@@ -35,7 +35,7 @@
 
 
         <div class="container-fluid px-4">
-          <h1 class=" fw-bold text-center text-uppercase">Manage Item</h1>
+          <h1 class=" fw-bold text-center text-uppercase">Manage Category</h1>
           @if(session()->has('success'))
           <div class="alert alert-dark alert-dismissible fade show d-flex" role="alert">
             <span>{{session('success')}}</span>
@@ -45,7 +45,7 @@
           </div>
           @endif
 
-          <form action="/viewItem" type="get" class="searchbar mx-auto mb-5 mt-4">
+          <form action="/viewCategory" type="get" class="searchbar mx-auto mb-5 mt-4">
             <div class="input-group justify-content-center ">
               <input type="text" class="form-control " name="search" value = "{{request('search')}}" placeholder="Search product..." aria-label="Search product..." aria-describedby="button-addon2" >
               <div class="input-group-append">
@@ -54,45 +54,33 @@
             </div>
           </form>
 
-            @if($products->count())
+            @if($category->count())
             <div class="table-responsive mt-4">
               <table class="table table-striped table-bordered table-sm">
-                <thead>
+                <thead class="table-dark">
                   <tr>
                     <th>No</th>
-                    <th>Item ID</th>
-                    <th>Item Image</th>
-                    <th>Item Name</th>
-                    <th>Item Description</th>
-                    <th>Item Price</th>
-                    <th>Item Category</th>
+                    <th>Category ID</th>
+                    <th>Category Name</th>
+                    <th>Category Description</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($products as $p)
+                  @foreach ($category as $p)
                     <tr>
                       <td>{{$loop->iteration}}</td>
                       <td>{{$p->id}}</td>
-                      <td>
-                        @if (File::exists(public_path($p->image)))
-                          <img class="item-img" src="{{ asset($p->image) }}" alt="product-image">
-                        @else
-                          <img class="item-img" src="{{$p->image}}" alt="product-image">
-                        @endif
-
-                      </td>
                       <td>{{$p->name}}</td>
                       <td>{{$p->description}}</td>
-                      <td>Rp {{number_format($p->price,0,',','.')}}</td>
-                      <td>{{$p->category->name}}</td>
+
                       <td class="update-delete" class="btn-group">
-                        <a href="/updateItem/{{$p->id}}" class="btn btn-sm btn-primary update mt-2">Update</a>
-                        <form action="/deleteItem/{{$p->id}}" method="post" class="btn btn-sm " style="padding:0; margin-left:0">
+                        <a href="/updateCategory/{{$p->id}}" class="btn btn-sm btn-primary update ">Update</a>
+                        <form action="/deleteCategory/{{$p->id}}" method="post" class="btn btn-sm " style="padding:0; margin-left:0">
                           @method('delete')
                           @csrf
                           <input type="hidden" name="id" value="{{$p->id}}" >
-                          <button  onclick="return confirm('Are You Sure To Delete This Product?')" type="submit"  class="btn btn-sm btn-danger delete">Delete</button>
+                          <button  onclick="return confirm('Are You Sure To Delete This Category? All the Item with this Category will be Delete !!')" type="submit"  class="btn btn-sm btn-danger delete">Delete</button>
                         </form>
                       </td>
                     </tr>
@@ -101,7 +89,7 @@
                 </table>
             </div>
             <div class="d-flex justify-content-center mt-3 mb-5">
-              {{ $products->links() }}
+              {{ $category->links() }}
           </div>
           @else
           <div class="no-items mt-5">

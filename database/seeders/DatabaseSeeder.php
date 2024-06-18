@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Item;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -17,6 +18,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
+        Category::create(['name' => 'Fresh Flower', 'description' => 'Fresh Flower']);
+        Category::create(['name' => 'Artificial Flower', 'description' => 'DIY Hand Made Flower']);
+        $customCategory = Category::create(['name' => 'Custom', 'description' => 'Custom Made Flower']);
+
         Item::factory(20)->create();
         Item::create(
             [
@@ -24,7 +30,7 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Custom Flower',
                 'price' => 150000,
                 'image' => "https://picsum.photos/seed/custom/640/480/",
-                'category' => 'Custom',
+                'category_id' => $customCategory->id,
                 'description' => 'This is Custom Order',
             ]
         );

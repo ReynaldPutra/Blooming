@@ -18,7 +18,7 @@
         </button>
       </div>
     @endif
-
+    <div class="table-responsive mb-5">
     <table class="table table-striped cart-table">
       <thead class="thead-dark">
         <tr>
@@ -94,8 +94,8 @@
         @endforeach
       </tbody>
     </table>
-
-    <div class="d-flex">
+  </div>
+    <div class="d-flex mb-5">
       <h4>Grand Total: <span class="grand-total">Rp {{ number_format($cartitems->sum,0,',','.') }}</span></h4>
       <a href="/checkOutForm" class="ms-auto"><button type="button" class="btn btn-primary btn-sm p-2">Check Out</button></a>
     </div>

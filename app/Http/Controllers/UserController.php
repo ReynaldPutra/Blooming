@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CartDetail;
 use App\Models\Carts;
+use App\Models\Category;
 use App\Models\Item;
 use App\Models\TransactionDetail;
 use App\Models\TransactionHeader;
@@ -144,9 +145,9 @@ class UserController extends Controller
         $rules = [
             'email' => 'required|email',
             'senderName' => 'required|string',
-            'senderPhone' => 'required|string|max:20',
+            'senderPhone' => ['required', 'regex:/^08[0-9]{8,11}$/'],
             'recipientName' => 'required|string',
-            'recipientNumber' => 'required|string|max:20',
+            'recipientNumber' => ['required', 'regex:/^08[0-9]{8,11}$/'],
             'deliveryOption' => 'required|in:car,motorcycle',
             'datepicker' => 'required|date',
             'deliveryTime' => 'required|string|in:9am - 2pm,3pm - 5pm',
@@ -161,7 +162,12 @@ class UserController extends Controller
             'totalPrice' => 'string',
         ];
 
-        $validator = Validator::make($req->all(), $rules);
+        $messages = [
+            'senderPhone.regex' => 'Sender Phone must start with 08 and be between 10 to 13 digits long.',
+            'recipientNumber.regex' => 'Recipient Phone must start with 08 and be between 10 to 13 digits long.',
+        ];
+
+        $validator = Validator::make($req->all(), $rules, $messages);
         if ($validator->fails()) {
             return back()->withErrors($validator);
         }
@@ -242,14 +248,14 @@ class UserController extends Controller
 
         $cartId = Carts::where('user_id', '=', strval(Session::get('user')['id']))->select('id')->first()['id'];
 
-        $itemCustom = Item::where('category', '=', 'Custom')->first();
+        $itemCustom = Item::where('category_id', '=', Category::where('name', 'Custom')->value('id'))->first();
 
         if ($itemCustom) {
             $itemCustom->price = $req->total_price;
             $itemCustom->save();
         }
 
-        $itemId = Item::where('category', '=', 'Custom')->select('id')->first()['id'];
+        $itemId = Item::where('category_id', '=', Category::where('name', 'Custom')->value('id'))->select('id')->first()['id'];
 
         if (CartDetail::where([['cart_id', '=', $cartId], ['item_id', '=', $itemId]])->get()->count() != 0) {
             return back()->withErrors('You can only add 1 custom order to cart');

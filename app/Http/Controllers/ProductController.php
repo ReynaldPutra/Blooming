@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Carts;
+use App\Models\Category;
 use App\Models\Item;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,8 +11,13 @@ class ProductController extends Controller
 {
     public function viewProducts()
     {
-        $product = Item::whereNotIn('category', ['Custom'])->latest()->filter()->paginate(16);
-        $category = Item::select('category')->distinct()->get();
+        $product = Item::whereNotIn('category_id', function ($query) {
+            $query->select('id')->from('categories')->where('name', 'Custom');
+        })
+            ->latest()
+            ->filter()
+            ->paginate(16);
+        $category = Category::where('name', '!=', 'Custom')->get();
 
         if (Auth::id()) {
             $id = Auth::user()->id;
@@ -58,8 +64,10 @@ class ProductController extends Controller
 
     public function filterProduct($category)
     {
-        $product = Item::where('category', $category)->latest()->filter()->paginate(16);
-        $categoryData = Item::select('category')->distinct()->get();
+
+        $category = urldecode($category);
+        $product = Item::where('category_id', Category::where('name', $category)->value('id'))->latest()->filter()->paginate(16);
+        $categoryData = Category::where('name', '!=', 'Custom')->get();
         if (Auth::id()) {
             $id = Auth::user()->id;
             $cart_count = Carts::join('cart_details', 'carts.id', '=', 'cart_details.cart_id')
@@ -87,6 +95,8 @@ class ProductController extends Controller
 
     public function orderProducts($category, $order)
     {
+
+        $category = urldecode($category);
         if ($order === 'High') {
             $order = "DESC";
         } elseif ($order === 'Low') {
@@ -94,12 +104,18 @@ class ProductController extends Controller
         }
 
         if ($category == 'All') {
-            $product = Item::latest()->filter()->orderBy('price', $order)->paginate(16);
+            $product = Item::whereNotIn('category_id', function ($query) {
+                $query->select('id')->from('categories')->where('name', 'Custom');
+            })
+                ->latest()
+                ->filter()
+                ->orderBy('price', $order)
+                ->paginate(16);
         } else {
-            $product = Item::where('category', $category)->orderBy('price', $order)->latest()->filter()->paginate(16);
+            $product = Item::where('category_id', Category::where('name', $category)->value('id'))->orderBy('price', $order)->latest()->filter()->paginate(16);
         }
 
-        $categoryData = Item::select('category')->distinct()->get();
+        $categoryData = Category::where('name', '!=', 'Custom')->get();
         if (Auth::id()) {
             $id = Auth::user()->id;
             $cart_count = Carts::join('cart_details', 'carts.id', '=', 'cart_details.cart_id')

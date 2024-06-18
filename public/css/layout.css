@@ -45,7 +45,7 @@ a {
 }
 
 .cart {
-    display: relative;
+    position: relative;
 }
 
 .cart span {
@@ -59,8 +59,8 @@ a {
     align-items: center;
     border-radius: 50%;
     position: absolute;
-    top: 33%;
-    right: 7.8%;
+    top: -5px;
+    right: -5px;
 }
 
 .select_nav {

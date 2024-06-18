@@ -18,9 +18,9 @@ class Item extends Model
         'id',
         'name',
         'price',
-        'category',
+        'category_id',
         'image',
-        'description'
+        'description',
     ];
     public function cartDetail()
     {
@@ -30,17 +30,27 @@ class Item extends Model
     {
         return $this->hasMany(TransactionDetail::class, 'item_id');
     }
-    public static function generateId($len = 3){
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public static function generateId($len = 3)
+    {
         $id = Str::random($len);
         $check = DB::table('items')->where('id', '=', $id)->get(['id']);
-        if (isset($check[0]->id)) return self::generateId();
+        if (isset($check[0]->id)) {
+            return self::generateId();
+        }
 
         return $id;
     }
-    public function scopeFilter($query){
+    public function scopeFilter($query)
+    {
         if (request('search')) {
             return
-                $query->where('name', 'like', '%' . request('search') . '%');
+            $query->where('name', 'like', '%' . request('search') . '%');
         }
     }
 }

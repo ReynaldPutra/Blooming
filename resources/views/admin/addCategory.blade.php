@@ -1,6 +1,6 @@
 
 @extends('layout')
-@section('title','Add Item')
+@section('title','Add Category')
 @section('style')
 <link rel="stylesheet" href="{{ asset('/css/addItem.css') }}"/>
 @endsection
@@ -37,21 +37,14 @@
     
 
         <div class="container-fluid px-4">
-            <form action="/addItem" method="post" class="item-form" enctype="multipart/form-data">
+            <form action="/addCategory" method="post" class="item-form" enctype="multipart/form-data">
                 @csrf
                 
-                <h1 class=" fw-bold text-center text-uppercase">Add Item</h1>
+                <h1 class=" fw-bold text-center text-uppercase">Add Category</h1>
     
-                <div class="form-group">
-                    <label for="id">Item ID</label>
-                    <input type="text" id="id" name="id" class="form-control" value="{{ old('id') }}">
-                    @error('id')
-                    <p class="text-danger">{{ $message }}</p>
-                    @enderror
-                </div>
     
-                <div class="form-group">
-                    <label for="name">Item Name</label>
+                <div class="form-group mt-3">
+                    <label for="name">Category Name</label>
                     <input type="text" id="name" name="name" class="form-control" value="{{ old('name') }}">
                     @error('name')
                     <p class="text-danger">{{ $message }}</p>
@@ -59,41 +52,7 @@
                 </div>
     
                 <div class="form-group">
-                    <label for="price">Price (IDR)</label>
-                    <input type="text" id="price" name="price" class="form-control" value="{{ old('price') }}">
-                    @error('price')
-                    <p class="text-danger">{{ $message }}</p>
-                    @enderror
-                </div>
-    
-                <div class="form-group">
-                    <label for="category">Category</label>
-                    <select name="category_id" id="category" class="form-control">
-                        <option value="select">Select a category</option>
-                        @foreach($category as $c)
-                            <option value="{{ $c->id }}">{{ $c->name }}</option>
-                        @endforeach
-                    </select>
-                    @error('category')
-                    <p class="text-danger">{{ $message }}</p>
-                    @enderror
-                </div>
-    
-                <div class="form-group">
-                    <label for="image">Add Image</label> <br>
-                    <input type="file" class="form-control" name="image" id="image">
-                    @error('image')
-                    <p class="text-danger">{{ $message }}</p>
-                    @enderror
-                </div>
-    
-                <div class="preview mb-3 ">
-                    <img id="preview-image" src="https://lh3.googleusercontent.com/o1uluVg_wZgoKT8IfhU44o__tIQohnauApS0J_IJD1NM_LNKc-FBGaJWC4HZ1uwAou1VPdvMBa-NXytxLFSx1TTrkQ=s60"
-                        alt="preview image" class="img-fluid" style="max-height: 120px">
-                </div>
-    
-                <div class="form-group">
-                    <label for="desc">Description</label>
+                    <label for="desc">Category Description</label>
                     <textarea class="form-control" cols="30" rows="5" name="description" id="desc"  value="{{ old('description') }}" required ></textarea> 
                     @error('description')
                     <p class="text-danger">{{ $message }}</p>
@@ -102,7 +61,7 @@
     
                 <div class="button mt-3 mb-5">
     
-                  <button type="submit" class="btn btn-primary  ">Add Item</button>
+                  <button type="submit" class="btn btn-primary  ">Add Category</button>
                 </div>
             </form>
 

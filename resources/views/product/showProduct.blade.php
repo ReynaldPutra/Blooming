@@ -46,10 +46,10 @@
           
           @foreach($category as $c)
           <label class="d-block">
-            @if($c->category === $selectedCategory)
-            <p><a href="/showProduct/{{ urlencode($c->category) }}" class="category_selected"><strong>• {{ $c->category }}</strong></a></p>
+            @if($c->name === $selectedCategory)
+            <p><a href="/showProduct/{{ urlencode($c->name) }}" class="category_selected"><strong>• {{ $c->name }}</strong></a></p>
               @else
-            <p><a href="/showProduct/{{ urlencode($c->category) }}" class="category_filter">{{ $c->category }}</a></p>
+            <p><a href="/showProduct/{{ urlencode($c->name) }}" class="category_filter">{{ $c->name }}</a></p>
             @endif
           </label>
           @endforeach
@@ -58,14 +58,14 @@
         <div class="filterBy">
           <h5 class="text-uppercase">Price</h5>
           @if($order === 'none')
-            <p><a href="/showProduct/{{ $selectedCategory }}/High" class="category_filter">High to Low</a></p>
-            <p><a href="/showProduct/{{ $selectedCategory }}/Low" class="category_filter">Low to High</a></p>
+            <p><a href="/showProduct/{{ urlencode($selectedCategory) }}/High" class="category_filter">High to Low</a></p>
+            <p><a href="/showProduct/{{ urlencode($selectedCategory) }}/Low" class="category_filter">Low to High</a></p>
           @elseif($order === 'ASC')
-            <p><a href="/showProduct/{{ $selectedCategory }}/High" class="category_filter">High to Low</a></p>
-            <p><a href="/showProduct/{{ $selectedCategory }}/Low" class="category_selected"><strong>• Low to High</strong></a></p>
+            <p><a href="/showProduct/{{ urlencode($selectedCategory) }}/High" class="category_filter">High to Low</a></p>
+            <p><a href="/showProduct/{{ urlencode($selectedCategory) }}/Low" class="category_selected"><strong>• Low to High</strong></a></p>
           @elseif($order === 'DESC')
-            <p><a href="/showProduct/{{ $selectedCategory }}/High" class="category_selected"><strong>• High to Low</strong></a></p>
-            <p><a href="/showProduct/{{ $selectedCategory }}/Low" class="category_filter">Low to High</a></p>
+            <p><a href="/showProduct/{{ urlencode($selectedCategory) }}/High" class="category_selected"><strong>• High to Low</strong></a></p>
+            <p><a href="/showProduct/{{ urlencode($selectedCategory) }}/Low" class="category_filter">Low to High</a></p>
           @endif
         </div>
       </div>
@@ -85,11 +85,12 @@
         @endif
       
       @foreach($category as $c)
+    
       <label class="d-block">
-        @if($c->category === $selectedCategory)
-        <p><a href="/showProduct/{{ urlencode($c->category) }}" class="category_selected"><strong>• {{ $c->category }}</strong></a></p>
+        @if($c->name === $selectedCategory)
+        <p><a href="/showProduct/{{ urlencode($c->name) }}" class="category_selected"><strong>• {{ $c->name }}</strong></a></p>
           @else
-        <p><a href="/showProduct/{{ urlencode($c->category) }}" class="category_filter">{{ $c->category }}</a></p>
+        <p><a href="/showProduct/{{ urlencode($c->name) }}" class="category_filter">{{ $c->name }}</a></p>
         @endif
       </label>
       @endforeach
@@ -98,14 +99,14 @@
     <div class="filterBy">
       <h5 class="text-uppercase">Price</h5>
       @if($order === 'none')
-        <p><a href="/showProduct/{{ $selectedCategory }}/High" class="category_filter">High to Low</a></p>
-        <p><a href="/showProduct/{{ $selectedCategory }}/Low" class="category_filter">Low to High</a></p>
+        <p><a href="/showProduct/{{ urlencode($selectedCategory) }}/High" class="category_filter">High to Low</a></p>
+        <p><a href="/showProduct/{{ urlencode($selectedCategory) }}/Low" class="category_filter">Low to High</a></p>
       @elseif($order === 'ASC')
-        <p><a href="/showProduct/{{ $selectedCategory }}/High" class="category_filter">High to Low</a></p>
-        <p><a href="/showProduct/{{ $selectedCategory }}/Low" class="category_selected"><strong>• Low to High</strong></a></p>
+        <p><a href="/showProduct/{{ urlencode($selectedCategory) }}/High" class="category_filter">High to Low</a></p>
+        <p><a href="/showProduct/{{ urlencode($selectedCategory) }}/Low" class="category_selected"><strong>• Low to High</strong></a></p>
       @elseif($order === 'DESC')
-        <p><a href="/showProduct/{{ $selectedCategory }}/High" class="category_selected"><strong>• High to Low</strong></a></p>
-        <p><a href="/showProduct/{{ $selectedCategory }}/Low" class="category_filter">Low to High</a></p>
+        <p><a href="/showProduct/{{ urlencode($selectedCategory) }}/High" class="category_selected"><strong>• High to Low</strong></a></p>
+        <p><a href="/showProduct/{{ urlencode($selectedCategory) }}/Low" class="category_filter">Low to High</a></p>
       @endif
     </div>
   </div>

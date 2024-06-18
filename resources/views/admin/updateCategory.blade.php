@@ -1,6 +1,6 @@
 
 @extends('layout')
-@section('title','Update Item')
+@section('title','Update Category')
 @section('style')
 <link rel="stylesheet" href="{{ asset('/css/addItem.css') }}"/>
 @endsection
@@ -33,19 +33,19 @@
         <div class="d-flex align-items-center  px-5  mt-5">
             <i class="fas fa-align-right primary-text fs-4 me-3" id="menu-toggle"></i>
             <div class="flex-grow-1"></div>
-            <a href="/viewItem"><button class="btn btn-primary back-btn">Back</button></a>
+            <a href="/viewCategory"><button class="btn btn-primary back-btn">Back</button></a>
         </div>
     
 
         <div class="container-fluid px-4">
-          <form action="/updateItem/{{$product->id}}" method="post" class="item-form" enctype="multipart/form-data">
+          <form action="/updateCategory/{{$product->id}}" method="post" class="item-form" enctype="multipart/form-data">
             @method('put')
             @csrf
           
-            <h1 class=" fw-bold text-center text-uppercase">Update Item</h1>
+            <h1 class=" fw-bold text-center text-uppercase">Update Category</h1>
           
                 <div class="form-group">
-                  <label for="id">Item ID</label>
+                  <label for="id">Category ID</label>
                   <input type="hidden" id="id" name="id" class="form-control" value="{{$product->id}}"> 
                   <div class="unchanged">
                     {{$product->id}}
@@ -53,7 +53,7 @@
                 </div>
           
                 <div class="form-group">
-                  <label for="name">Item Name</label>
+                  <label for="name">Category Name</label>
                   <input type="text" id="name" name="name" class="form-control" value="{{old('name', $product->name)}}">
                   @error('name')
                   <p class="text-danger">{{ $message }}</p>
@@ -61,59 +61,7 @@
               </div>
           
               <div class="form-group">
-                <label for="price">Price (IDR)</label>
-                <input type="text" id="price" name="price" class="form-control" value="{{old('price', $product->price)}}">
-                @error('price')
-                <p class="text-danger">{{ $message }}</p>
-                @enderror
-            </div>
-          
-            <div class="form-group">
-              <label for="category">Category</label>
-              <select name="category_id" id="category" class="form-control">
-                  <option value="select">Select a category</option>
-                  @foreach($category as $c)
-                      @if($product->category_id === $c->id)
-                       <option value="{{ $c->id }}" selected>{{ $c->name }}</option>
-                      @else
-                        <option value="{{ $c->id }}">{{ $c->name }}</option>
-                      @endif
-                  @endforeach
-              </select>
-              @error('category')
-              <p class="text-danger">{{ $message }}</p>
-              @enderror
-          </div>
-          
-          <div class="form-group">
-            <div class="update-image mb-3">
-              <label for="image">Update Image</label> <br>
-              <input type="file" class="form-control" name="image" id="image">
-            </div>
-            <div class="update-image">
-              <label for="">Old Image File</label>
-              <div class="unchanged unchanged-img mb-2">
-                {{$product->image}}
-              </div>
-            </div>
-            @error('image')
-            <p class="text-danger">{{ $message }}</p>
-            @enderror
-          </div>
-          
-              <div class="preview">
-                @if (File::exists(public_path($product->image)))
-                  <img id="preview-image" src="{{ asset($product->image) }}"
-                  alt="preview image" style="max-height: 120px">
-                @else
-                  <img id="preview-image" src="{{$product->image}}"
-                  alt="preview image" style="max-height: 120px">
-                @endif
-              </div>
-          
-          
-              <div class="form-group">
-                <label for="desc">Description</label>
+                <label for="desc">Category Description</label>
                 <textarea class="form-control" cols="30" rows="5" name="description" id="desc">{{ old('description', $product->description) }}</textarea> 
                 @error('description')
                 <p class="text-danger">{{ $message }}</p>
@@ -122,7 +70,7 @@
           
             <div class="button mt-3 mb-5">
               
-              <button type="submit" class="btn btn-primary  ">Update Item</button>
+              <button type="submit" class="btn btn-primary  ">Update Category</button>
             </div>
           </form>
 

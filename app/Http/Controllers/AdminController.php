@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Item;
 use App\Models\TransactionHeader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
     public function viewManageItem()
     {
-        $products = Item::whereNotIn('category', ['Custom'])->latest()->filter()->paginate(10);
+        $products = Item::whereNotIn('category_id', function ($query) {
+            $query->select('id')->from('categories')->where('name', 'Custom');
+        })->latest()->filter()->paginate(10);
         return view('admin.manageItem', compact('products'));
     }
     public function viewOrder()
@@ -63,22 +67,25 @@ class AdminController extends Controller
 
     public function viewAddItem()
     {
-        $category = Item::select('category')->distinct()->get();
+        $category = Category::where('name', '!=', 'Custom')->get();
 
         return view('admin.addItem', compact('category'));
     }
 
     public function runAddItem(Request $req)
     {
-
-        $validator = $req->validate([
+        $validator = Validator::make($req->all(), [
             'id' => 'required|unique:items|string|min:3|max:3',
             'name' => 'required|unique:items|string|max:20',
             'price' => 'required|numeric|gte:500',
             'description' => 'required|string|max:500',
             'image' => 'required|image',
-            'category' => 'required|in:Second,Recycle',
+            'category_id' => 'required',
         ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
         $image = $req->file('image');
         $imageName = date('YmdHi') . $image->getClientOriginalName();
@@ -90,14 +97,22 @@ class AdminController extends Controller
         }
         $image->move($destinationPath, $imageName);
 
-        $validator['image'] = $imageURL;
-        Item::create($validator);
+        $item = new Item([
+            'id' => $req->id,
+            'name' => $req->name,
+            'price' => $req->price,
+            'description' => $req->description,
+            'image' => $imageURL,
+            'category_id' => $req->category_id,
+        ]);
+        $item->save();
         return redirect('/viewItem')->with('success', 'Item Successfully Added!');
     }
 
     public function viewUpdateItem(Item $product)
     {
-        $category = Item::select('category')->distinct()->get();
+
+        $category = Category::where('name', '!=', 'Custom')->get();
 
         return view('admin.updateItem', [
             'title' => "updateItem",
@@ -108,10 +123,11 @@ class AdminController extends Controller
 
     public function runUpdateItem(Request $req, Item $product)
     {
+
         $rules = [
             'price' => 'required|numeric|gte:500',
             'description' => 'required|string|max:500',
-            'category' => 'required|in:Recycle,Second',
+            'category_id' => 'required',
         ];
 
         if ($req->name != $product->name) {
@@ -143,5 +159,71 @@ class AdminController extends Controller
     {
         Item::destroy($product->id);
         return redirect('/viewItem')->with('success', 'Item Successfully Deleted!');
+    }
+
+    public function viewManageCategory()
+    {
+
+        $category = Category::where('name', '!=', 'Custom')->latest()->filter()->paginate(10);
+        return view('admin.manageCategory', compact('category'));
+    }
+
+    public function deleteCategory(Category $product)
+    {
+        Category::destroy($product->id);
+        Item::where('category_id', $product->id)->delete();
+        return redirect('/viewCategory')->with('success', 'Item Successfully Deleted!');
+    }
+
+    public function viewAddCategory()
+    {
+        $category = Category::where('name', '!=', 'Custom')->get();
+
+        return view('admin.addCategory', compact('category'));
+    }
+
+    public function runAddCategory(Request $req)
+    {
+        $validator = Validator::make($req->all(), [
+            'name' => 'required|unique:items|string|max:20',
+            'description' => 'required|string|max:500',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $category = new Category([
+            'name' => $req->name,
+            'description' => $req->description,
+        ]);
+        $category->save();
+        return redirect('/viewCategory')->with('success', 'Category Successfully Added!');
+    }
+
+    public function viewUpdateCategory(Category $product)
+    {
+
+        return view('admin.updateCategory', [
+            'title' => "updateItem",
+            "product" => $product,
+        ]);
+    }
+
+    public function runUpdateCategory(Request $req, Category $product)
+    {
+
+        $rules = [
+            'description' => 'required|string|max:500',
+        ];
+
+        if ($req->name != $product->name) {
+            $rules['name'] = 'required|unique:items|string|max:20';
+        }
+
+        $validator = $req->validate($rules);
+        Category::where('id', $product->id)->update($validator);
+
+        return redirect('/viewCategory')->with('success', 'Category Successfully Updated!');
     }
 }

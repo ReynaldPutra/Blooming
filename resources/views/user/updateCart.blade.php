@@ -29,7 +29,7 @@
             </div>
             <div class="more">
               <h5>Category</h5>
-              <h6>{{$product->category}}</h6>
+              <h6>{{$product->category->name}}</h6>
               <h5>Price</h5>
               <h6>Rp {{number_format($product->price,0,',','.')}}</h6>
               <h5>Description</h5>
