@@ -9,6 +9,10 @@
     height: auto;
 }
 
+#deleteForm {
+    padding: 0;
+}
+
 .checkout-form {
     min-height: 20em;
 }

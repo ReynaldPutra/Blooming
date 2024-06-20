@@ -35,6 +35,10 @@ td {
     height: 2.2em;
 }
 
+#deleteForm {
+    padding: 0;
+}
+
 .no-items {
     padding-top: 10em;
     min-height: 70vh;

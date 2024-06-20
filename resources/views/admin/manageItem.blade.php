@@ -87,14 +87,9 @@
                       <td>Rp {{number_format($p->price,0,',','.')}}</td>
                       <td>{{$p->category->name}}</td>
                       <td class="update-delete" class="btn-group">
-                        <a href="/updateItem/{{$p->id}}" class="btn btn-sm btn-primary update mt-2">Update</a>
-                        <form action="/deleteItem/{{$p->id}}" method="post" class="btn btn-sm " style="padding:0; margin-left:0">
-                          @method('delete')
-                          @csrf
-                          <input type="hidden" name="id" value="{{$p->id}}" >
-                          <button  onclick="return confirm('Are You Sure To Delete This Product?')" type="submit"  class="btn btn-sm btn-danger delete">Delete</button>
-                        </form>
-                      </td>
+                        <a href="/updateItem/{{$p->id}}" class="btn btn-sm btn-primary update ">Update</a>
+                        <button class="btn btn-sm btn-danger delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{$p->id}}">Delete</button>
+                    </td>
                     </tr>
                   @endforeach
                   </tbody>
@@ -113,6 +108,29 @@
 
         </div>
     </div>
+</div>
+
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="deleteModalLabel">Delete Item</h5>
+          </div>
+          <div class="modal-body">
+              Are you sure you want to delete this item?
+          </div>
+          <div class="modal-footer">
+              <form id="deleteForm" action="/deleteItem" method="post">
+                  @method('delete')
+                  @csrf
+                  <input type="hidden" name="id" id="deleteItemId">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+          </div>
+      </div>
+  </div>
 </div>
 @endsection
 
@@ -144,5 +162,16 @@
             toggleButton.classList.add("fa-align-left");
         }
     };
+
+    var deleteModal = document.getElementById('deleteModal');
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var itemId = button.getAttribute('data-id');
+        var deleteForm = document.getElementById('deleteForm');
+        var deleteItemId = document.getElementById('deleteItemId');
+
+        deleteForm.action = '/deleteItem/' + itemId;
+        deleteItemId.value = itemId;
+    });
 </script>
 @endsection

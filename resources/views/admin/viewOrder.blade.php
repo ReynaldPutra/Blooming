@@ -80,7 +80,27 @@
                                 @if($order->delivery_status == 'Delivered')
                                     <button type="button" class="btn  btn-md btn_delivered" disabled>Delivered</button>
                                 @else
-                                    <a href="/runUpdateDeliver/{{ $order->id }}"><button  onclick="return confirm('Are You Sure To Deliver This Product?')" type="button" class="btn  btn-md btn_delivery">Deliver</button></a>
+                                <button type="button" class="btn btn-md btn_delivery" data-bs-toggle="modal" data-bs-target="#deliveryModal{{ $order->id }}">
+                                    Deliver
+                                </button>
+
+                                <div class="modal fade" id="deliveryModal{{ $order->id }}" tabindex="-1" aria-labelledby="deliveryModalLabel{{ $order->id }}" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deliveryModalLabel{{ $order->id }}">Confirm Delivery</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to deliver this product?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                <a href="/runUpdateDeliver/{{ $order->id }}" class="btn btn_delivery">Confirm Delivery</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 @endif
 
                             </td>

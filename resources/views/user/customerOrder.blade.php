@@ -18,6 +18,7 @@
                     @if($errors->any())
                         <div class="alert alert-danger" role="alert">
                             {{$errors->first()}}
+                            <button  type="button" class="close float-end border-1 bg-danger text-light border-danger ms-auto px-2 rounded" data-bs-dismiss="alert">×</button>
                         </div>
                     @endif
                     @if(Session::has('message'))
@@ -31,7 +32,7 @@
                             <div class="row size_deg mb-4">
                                 <div class="col-6 col-md-2 mb-3">
                                     <div class="form-check ">
-                                        <input class="form-check-input" type="radio" name="size" id="sizeSmall" value="Small 5 Stem"  checked>
+                                        <input class="form-check-input" type="radio" name="size" id="sizeSmall" value="Small 5 Stem"  checked required>
                                         <label class="form-check-label" for="sizeSmall">
                                             <img class="img-fluid mb-3" src="/asset/small.png" alt="small" />
                                             <h5>Small <br>5 stem</h5>
@@ -40,7 +41,7 @@
                                 </div>
                                 <div class="col-6 col-md-2 mb-3">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="size" id="sizeMedium" value="Medium 15 Stem" >
+                                        <input class="form-check-input" type="radio" name="size" id="sizeMedium" value="Medium 15 Stem" required>
                                         <label class="form-check-label" for="sizeMedium">
                                             <img class="img-fluid mb-3" src="/asset/medium.png" alt="medium" />
                                             <h5>Medium <br>15 stem</h5>
@@ -49,7 +50,7 @@
                                 </div>
                                 <div class="col-6 col-md-2 mb-3">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="size" id="sizeLarge" value="Large 30 Stem" >
+                                        <input class="form-check-input" type="radio" name="size" id="sizeLarge" value="Large 30 Stem" required>
                                         <label class="form-check-label" for="sizeLarge">
                                             <img class="img-fluid mb-3" src="/asset/large.png" alt="large" />
                                             <h5>Large <br>30 stem</h5>
@@ -64,7 +65,7 @@
                             <div class="row flower mb-4">
                                 <div class="col-6 col-md-2 mb-3">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="flower[]" id="peachRose" value="Peach Rose">
+                                        <input class="form-check-input" type="checkbox" name="flower[]" id="peachRose" value="Peach Rose" checked>
                                         <label class="form-check-label" for="peachRose">
                                             <img class="img-fluid" src="/asset/Flowers-01.png" alt="peachRose" />
                                         </label>
@@ -72,7 +73,7 @@
                                 </div>
                                 <div class="col-6 col-md-2 mb-3">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="flower[]" id="whiteRose" value="White Rose">
+                                        <input class="form-check-input" type="checkbox" name="flower[]" id="whiteRose" value="White Rose" >
                                         <label class="form-check-label" for="whiteRose">
                                             <img class="img-fluid" src="/asset/Flowers-02.png" alt="whiteRose" />
                                         </label>
@@ -80,7 +81,7 @@
                                 </div>
                                 <div class="col-6 col-md-2 mb-3">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="flower[]" id="pinkRose" value="Pink Rose">
+                                        <input class="form-check-input" type="checkbox" name="flower[]" id="pinkRose" value="Pink Rose" >
                                         <label class="form-check-label" for="pinkRose">
                                             <img class="img-fluid" src="/asset/Flowers-03.png" alt="pinkRose" />
                                         </label>
@@ -88,7 +89,7 @@
                                 </div>
                                 <div class="col-6 col-md-2 mb-3">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="flower[]" id="redRose" value="Red Rose">
+                                        <input class="form-check-input" type="checkbox" name="flower[]" id="redRose" value="Red Rose" >
                                         <label class="form-check-label" for="redRose">
                                             <img class="img-fluid" src="/asset/Flowers-04.png" alt="redRose" />
                                         </label>
@@ -96,7 +97,7 @@
                                 </div>
                                 <div class="col-6 col-md-2 mb-3">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="flower[]" id="pinkCarnation" value="Pink Carnation">
+                                        <input class="form-check-input" type="checkbox" name="flower[]" id="pinkCarnation" value="Pink Carnation" >
                                         <label class="form-check-label" for="pinkCarnation">
                                             <img class="img-fluid" src="/asset/Flowers-05.png" alt="pinkCarnation" />
                                         </label>
@@ -104,7 +105,7 @@
                                 </div>
                                 <div class="col-6 col-md-2 mb-3">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="flower[]" id="purpleCarnation" value="Purple Carnation">
+                                        <input class="form-check-input" type="checkbox" name="flower[]" id="purpleCarnation" value="Purple Carnation" >
                                         <label class="form-check-label" for="purpleCarnation">
                                             <img class="img-fluid" src="/asset/Flowers-06.png" alt="purpleCarnation" />
                                         </label>
@@ -112,7 +113,7 @@
                                 </div>
                                 <div class="col-6 col-md-2 mb-3">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="flower[]" id="sunFlower" value="Sunflower">
+                                        <input class="form-check-input" type="checkbox" name="flower[]" id="sunFlower" value="Sunflower" >
                                         <label class="form-check-label" for="sunFlower">
                                             <img class="img-fluid" src="/asset/Flowers-07.png" alt="sunFlower" />
                                         </label>
@@ -120,7 +121,7 @@
                                 </div>
                                 <div class="col-6 col-md-2 mb-3">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="flower[]" id="yellowPomPom" value="Yellow PomPom">
+                                        <input class="form-check-input" type="checkbox" name="flower[]" id="yellowPomPom" value="Yellow PomPom" >
                                         <label class="form-check-label" for="yellowPomPom">
                                             <img class="img-fluid" src="/asset/Flowers-08.png" alt="yellowPomPom" />
                                         </label>
@@ -128,7 +129,7 @@
                                 </div>
                                 <div class="col-6 col-md-2 mb-3">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="flower[]" id="whitePomPom" value="White PomPom">
+                                        <input class="form-check-input" type="checkbox" name="flower[]" id="whitePomPom" value="White PomPom" >
                                         <label class="form-check-label" for="whitePomPom">
                                             <img class="img-fluid" src="/asset/Flowers-09.png" alt="whitePomPom" />
                                         </label>
@@ -136,7 +137,7 @@
                                 </div>
                                 <div class="col-6 col-md-2 mb-3">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="flower[]" id="softPinkGompie" value="Soft Pink Gompie">
+                                        <input class="form-check-input" type="checkbox" name="flower[]" id="softPinkGompie" value="Soft Pink Gompie" >
                                         <label class="form-check-label" for="softPinkGompie">
                                             <img class="img-fluid" src="/asset/Flowers-10.png" alt="softPinkGompie" />
                                         </label>
@@ -297,6 +298,7 @@
                             </div>
                         </div>
                         <input type="hidden" name="total_price" id="hidden-total-price" value="0">
+                        <input type="hidden" name="image_url" id="hidden-image-url" value="/asset/small.png">
                         <button type="submit" class="btn btn-primary">Add to Cart</button>
                     </form>
                 </div>
@@ -309,6 +311,41 @@
 
 @section('script')
 <script>
+
+    const sizeImages = {
+        'Small 5 Stem': '/asset/small.png',
+        'Medium 15 Stem': '/asset/medium.png',
+        'Large 30 Stem': '/asset/large.png'
+    };
+
+    // Get all size radio buttons
+    const sizeRadios = document.querySelectorAll('input[name="size"]');
+
+    // Function to update image based on selected size
+    function updateImage() {
+        const selectedSize = document.querySelector('input[name="size"]:checked').value;
+        const imageURL = sizeImages[selectedSize];
+        const imageElement = document.getElementById('sizeImage');
+        if (imageElement) {
+            imageElement.src = imageURL;
+        }
+        const hiddenImageInput = document.getElementById('hidden-image-url');
+        if (hiddenImageInput) {
+            hiddenImageInput.value = imageURL;
+        }
+    }
+
+    // Add event listeners to size radio buttons
+    sizeRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            updateImage();
+            limitCheckboxSelection(3, 'flower'); // Add this line to re-validate after size change
+        });
+    });
+
+    // Initial image update on page load
+    updateImage();
+
     function limitCheckboxSelection(maxAllowed, checkboxGroup) {
     var checkboxes = document.getElementsByName(checkboxGroup +'[]');
     var checkedCount = 0;

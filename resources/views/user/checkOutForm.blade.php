@@ -158,7 +158,7 @@
                                 @if (Storage::disk('public')->exists($cart_items->cartDetail()->get()[$i]->item()->first()->image))
                                 <img src="{{Storage::url($cart_items->cartDetail()->get()[$i]->item()->first()->image)}}" alt="card-image" width="90" height="90">
                                 @else
-                                <img src="{{$cart_items->cartDetail()->get()[$i]->item()->first()->image}}" alt="card-image" width="90" height="90">
+                                <img src="{{asset($cart_items->cartDetail()->get()[$i]->item()->first()->image)}}" alt="card-image" width="90" height="90">
                                 @endif
                             <td>{{$cart_items->cartDetail()->get()[$i]->item()->first()->name}}</td>
                             <td>Rp {{ number_format($cart_items->cartDetail()->get()[$i]->item()->first()->price,0,',','.')}}</td>

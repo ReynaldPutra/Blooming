@@ -42,7 +42,7 @@
             @if (Storage::disk('public')->exists($cartDetail->item->image))
               <img src="{{ Storage::url($cartDetail->item->image) }}" alt="card-image" width="200" height="200">
             @else
-              <img src="{{ $cartDetail->item->image }}" alt="card-image" width="200" height="200">
+              <img src="{{ asset($cartDetail->item->image) }}" alt="card-image" width="200" height="200">
             @endif
           <td>{{ $cartDetail->item->name }}</td>
           <td>Rp {{ number_format($cartDetail->item->price,0,',','.') }}</td>
@@ -62,9 +62,13 @@
                 @endforeach
 
                 <strong>Filler</strong> <br>
-                @foreach($cartDetail->detail_item->fillers as $filler)
-                <li>{{ $filler }}<br></li>
-                @endforeach
+                @if(isset($cartDetail->detail_item->fillers))
+                  @foreach($cartDetail->detail_item->fillers as $filler)
+                      <li>{{ $filler }}<br></li>
+                  @endforeach
+                  @else
+                  <li>No fillers.</li>
+              @endif
 
                 <strong>Leaves</strong> <br>
                 <li>{{ $cartDetail->detail_item->leaves }}<br></li>
@@ -86,8 +90,9 @@
               <input type="hidden" name="item_id" value="{{ $cartDetail->item_id }}">
               <div id="action">
               <a href="/updateCartqty/{{ $cartDetail->item->id }}"><button type="button" class="btn btn-primary btn-sm">Update</button></a>
-              <button onclick="return confirm('Are You Sure To Delete This Cart?')" class="btn btn-danger btn-sm" formaction="/deleteCartItem" type="submit">Delete</button>
-              </div>
+              <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" data-cart-id="{{ $cartDetail->cart_id }}" data-item-id="{{ $cartDetail->item_id }}">Delete</button>
+
+            </div>
           </td>
         </tr>
         </form>
@@ -103,4 +108,47 @@
     <h3 class="text-center pb-5 mt-5 pt-5">Cart is empty! Let’s go shopping :)</h3>
   @endif
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Delete Cart</h5>
+      </div>
+      <div class="modal-body p-4">
+        Are you sure you want to delete this item from the cart?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <form method="POST" id="deleteForm" action="/deleteCartItem">
+          @csrf
+          <input type="hidden" name="item_id" id="deleteItemId" value="">
+          <input type="hidden" name="cart_id" id="deleteCartId" value="">
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+@endsection
+
+@section('script')
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var deleteModal = document.getElementById('deleteModal');
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+      var button = event.relatedTarget; // Button that triggered the modal
+      var itemId = button.getAttribute('data-item-id'); // Extract info from data-* attributes
+      var cartId = button.getAttribute('data-cart-id');
+      var modalItemInput = deleteModal.querySelector('#deleteItemId');
+      var modalCartInput = deleteModal.querySelector('#deleteCartId');
+      modalItemInput.value = itemId;
+      modalCartInput.value = cartId;
+    });
+  });
+</script>
+
+
 @endsection

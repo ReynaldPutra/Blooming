@@ -76,12 +76,7 @@
 
                       <td class="update-delete" class="btn-group">
                         <a href="/updateCategory/{{$p->id}}" class="btn btn-sm btn-primary update ">Update</a>
-                        <form action="/deleteCategory/{{$p->id}}" method="post" class="btn btn-sm " style="padding:0; margin-left:0">
-                          @method('delete')
-                          @csrf
-                          <input type="hidden" name="id" value="{{$p->id}}" >
-                          <button  onclick="return confirm('Are You Sure To Delete This Category? All the Item with this Category will be Delete !!')" type="submit"  class="btn btn-sm btn-danger delete">Delete</button>
-                        </form>
+                        <button class="btn btn-sm btn-danger delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{$p->id}}">Delete</button>
                       </td>
                     </tr>
                   @endforeach
@@ -94,14 +89,37 @@
           @else
           <div class="no-items mt-5">
             <h3 class="text-center">Oops!</h3>
-            <h5 class="text-center">No items yet</h5>
-            <p class="text-center"><a href="/addItem" class="text-decoration-none" >Add an item first 👉</a></p>
+            <h5 class="text-center">No Category yet</h5>
+            <p class="text-center"><a href="/addCategory" class="text-decoration-none" >Add an Category first 👉</a></p>
           </div>
         @endif
 
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="deleteModalLabel">Delete Category</h5>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to delete this category? This action will delete all associated items and cannot be undone.
+          </div>
+          <div class="modal-footer">
+              <form id="deleteForm" action="/deleteCategory" method="post">
+                  @method('delete')
+                  @csrf
+                  <input type="hidden" name="id" id="deleteItemId">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
+
 @endsection
 
 @section('script')
@@ -132,5 +150,16 @@
             toggleButton.classList.add("fa-align-left");
         }
     };
+
+    var deleteModal = document.getElementById('deleteModal');
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var itemId = button.getAttribute('data-id');
+        var deleteForm = document.getElementById('deleteForm');
+        var deleteItemId = document.getElementById('deleteItemId');
+
+        deleteForm.action = '/deleteCategory/' + itemId;
+        deleteItemId.value = itemId;
+    });
 </script>
 @endsection

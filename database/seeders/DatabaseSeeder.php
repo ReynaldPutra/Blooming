@@ -23,13 +23,13 @@ class DatabaseSeeder extends Seeder
         Category::create(['name' => 'Artificial Flower', 'description' => 'DIY Hand Made Flower']);
         $customCategory = Category::create(['name' => 'Custom', 'description' => 'Custom Made Flower']);
 
-        Item::factory(20)->create();
+        Item::factory(33)->create();
         Item::create(
             [
                 'id' => Item::generateId(),
                 'name' => 'Custom Flower',
                 'price' => 150000,
-                'image' => "https://picsum.photos/seed/custom/640/480/",
+                'image' => "/asset/small.png",
                 'category_id' => $customCategory->id,
                 'description' => 'This is Custom Order',
             ]

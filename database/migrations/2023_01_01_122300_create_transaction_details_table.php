@@ -15,7 +15,7 @@ class CreateTransactionDetailsTable extends Migration
     {
         Schema::create('transaction_details', function (Blueprint $table) {
             $table->char('item_id', 3)->foreignId()->restricted('items', 'id');
-            $table->foreignId('transaction_id')->restricted('transaction_headers', 'id');
+            $table->foreignId('transaction_id')->restricted('transaction_headers', 'id')->onDelete('cascade');
             $table->primary(['transaction_id', 'item_id']);
             $table->integer('qty');
             $table->json('detail_item')->nullable();

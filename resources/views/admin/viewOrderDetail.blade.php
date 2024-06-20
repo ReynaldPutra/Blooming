@@ -136,10 +136,12 @@
                             <tr>
                                 <th scope="row">{{$i+1}}</th>
                                 <td>
+                                    
                                     @if (Storage::disk('public')->exists($orderDetail->transactionDetail()->get()[$i]->item()->first()->image))
-                                    <img src="{{Storage::url($orderDetail->transactionDetail()->get()[$i]->item()->first()->image)}}" alt="card-image" width="90" height="90">
+                                        <img src="{{Storage::url($orderDetail->transactionDetail()->get()[$i]->item()->first()->image)}}" alt="card-image" width="90" height="90">
                                     @else
-                                    <img src="{{$orderDetail->transactionDetail()->get()[$i]->item()->first()->image}}" alt="card-image" width="90" height="90">
+                                    
+                                    <img src="{{asset($orderDetail->transactionDetail()->get()[$i]->item()->first()->image)}}" alt="card-image" width="90" height="90">
                                     @endif
                                 <td>{{$orderDetail->transactionDetail()->get()[$i]->item()->first()->name}}</td>
                                 <td>Rp {{number_format($orderDetail->transactionDetail()->get()[$i]->item()->first()->price,0,',','.')}}</td>

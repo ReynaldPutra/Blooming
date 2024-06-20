@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CartDetail;
 use App\Models\Category;
 use App\Models\Item;
+use App\Models\TransactionDetail;
 use App\Models\TransactionHeader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -170,7 +172,29 @@ class AdminController extends Controller
 
     public function deleteCategory(Category $product)
     {
+
         Category::destroy($product->id);
+
+        //Cart Detail
+        CartDetail::whereIn('item_id', function ($query) use ($product) {
+            $query->select('id')
+                ->from('items')
+                ->where('category_id', $product->id);
+        })->delete();
+
+        //Transaction History
+        $headerIdsToDelete = TransactionDetail::whereHas('item', function ($query) use ($product) {
+            $query->select('id')
+                ->from('items')
+                ->where('category_id', $product->id);
+        })->pluck('transaction_id')->unique()->toArray();
+
+        if (!empty($headerIdsToDelete)) {
+            TransactionHeader::whereIn('id', $headerIdsToDelete)->delete();
+            TransactionDetail::whereIn('transaction_id', $headerIdsToDelete)->delete();
+        }
+
+        //Item
         Item::where('category_id', $product->id)->delete();
         return redirect('/viewCategory')->with('success', 'Item Successfully Deleted!');
     }

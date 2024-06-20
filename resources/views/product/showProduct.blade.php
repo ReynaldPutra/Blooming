@@ -155,8 +155,9 @@
 </div>
 
 @else
-<div class="trash">
-  <img src="https://www.bagbazaars.com/assets/img/no-product-found.png" alt="">
+<div class="no-items text-center">
+  <h5>No products found.</h5>
+  <p>We couldn't find any products matching your search.</p>
 </div>
 @endif
 </div>

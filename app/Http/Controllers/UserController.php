@@ -105,6 +105,7 @@ class UserController extends Controller
 
     public function runDeleteCartItem(Request $req)
     {
+
         if (!Session::get('user') || Carts::where('user_id', '=', strval(Session::get('user')['id']))->get()->count() == 0) {
             return redirect()->route('login');
         }
@@ -235,6 +236,17 @@ class UserController extends Controller
     public function runAddCartCustom(Request $req)
     {
 
+        $req->validate([
+            'size' => 'required', // Ensure size radio button is selected
+            'flower' => 'required|array|min:1', // Ensure at least one flower checkbox is selected
+            'fillers' => 'array', // Optional: define rules for fillers if required
+            'leaves' => 'required', // Ensure one leaf radio button is selected
+            'color' => 'required', // Ensure one paper color radio button is selected
+            'ribbon' => 'required', // Ensure one ribbon radio button is selected
+            'total_price' => 'required|numeric', // Ensure total_price is required and numeric
+            'image_url' => 'required', // Ensure image_url is required
+        ]);
+
         $detailItem = json_encode($req->except('_token', 'total_price'));
 
         if (!Session::get('user')) {
@@ -252,6 +264,7 @@ class UserController extends Controller
 
         if ($itemCustom) {
             $itemCustom->price = $req->total_price;
+            $itemCustom->image = $req->image_url;
             $itemCustom->save();
         }
 
