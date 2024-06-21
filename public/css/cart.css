@@ -59,6 +59,14 @@ tbody {
     color: #3d8361;
 }
 
+.cart-table {
+    width: 100%;
+}
+
+.cart-table th {
+    white-space: nowrap;
+}
+
 .table-responsive {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */

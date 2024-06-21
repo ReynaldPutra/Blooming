@@ -80,9 +80,12 @@ class AdminController extends Controller
             'id' => 'required|unique:items|string|min:3|max:3',
             'name' => 'required|unique:items|string|max:20',
             'price' => 'required|numeric|gte:500',
-            'description' => 'required|string|max:500',
+            'category_id' => 'required|exists:categories,id',
             'image' => 'required|image',
-            'category_id' => 'required',
+            'description' => 'required|string|max:500',
+        ], [
+            'category_id.required' => 'Please select a category.',
+            'category_id.exists' => 'Please select a category.',
         ]);
 
         if ($validator->fails()) {
@@ -125,35 +128,39 @@ class AdminController extends Controller
 
     public function runUpdateItem(Request $req, Item $product)
     {
-
-        $rules = [
+        $validator = Validator::make($req->all(), [
+            'name' => 'required|unique:items,name,' . $product->id . '|string|max:20',
             'price' => 'required|numeric|gte:500',
+            'category_id' => 'required|exists:categories,id',
+            'image' => 'nullable|image',
             'description' => 'required|string|max:500',
-            'category_id' => 'required',
-        ];
+        ], [
+            'category_id.required' => 'Please select a category.',
+            'category_id.exists' => 'Please select a valid category.',
+        ]);
 
-        if ($req->name != $product->name) {
-            $rules['name'] = 'required|unique:items|string|max:20';
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        if ($req->has('image')) {
-            $rules['image'] = 'required|image';
-            $validator = $req->validate($rules);
-            if ($product->image !== 'images/default-image.jpg') {
-                Storage::delete('public/' . $product->image);
-            }
-
+        // If image is uploaded, handle image processing
+        if ($req->hasFile('image')) {
             $image = $req->file('image');
             $imageName = date('YmdHi') . $image->getClientOriginalName();
             Storage::putFileAs('public/images', $image, $imageName);
             $imageURL = 'images/' . $imageName;
-            $validator['image'] = $imageURL;
-            Item::where('id', $product->id)->update($validator);
         } else {
-            $validator = $req->validate($rules);
-            $validator['image'] = $product->image;
-            Item::where('id', $product->id)->update($validator);
+            // If no new image is uploaded, retain the existing image URL
+            $imageURL = $product->image;
         }
+
+        // Update item data
+        $product->name = $req->input('name');
+        $product->price = $req->input('price');
+        $product->category_id = $req->input('category_id');
+        $product->description = $req->input('description');
+        $product->image = $imageURL;
+        $product->save();
         return redirect('/viewItem')->with('success', 'Item Successfully Updated!');
     }
 

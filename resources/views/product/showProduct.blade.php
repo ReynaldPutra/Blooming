@@ -12,11 +12,9 @@
     <h1 class="mb-1 mt-5 fw-bold">OUR FLOWERS</h1>
     <p class="mb-3">All Product Is Available </p>
     <form action="/showProduct" type="get" class="searchbar mx-auto mb-4">
-      <div class="input-group justify-content-center ">
-        <input type="text" class="form-control " name="search" value = "{{request('search')}}" placeholder="Search product..." aria-label="Search product..." aria-describedby="button-addon2" >
-        <div class="input-group-append">
-          <button class="btn btn-primary" type="submit">Search</button>
-        </div>
+      <div class="input-group justify-content-center">
+        <input type="text" class="form-control" name="search" value="{{ request('search') }}" placeholder="Search product..." aria-label="Search product..." aria-describedby="button-addon2">
+        <button class="btn btn-primary" type="submit" id="button-addon2">Search</button>
       </div>
     </form>
     <div class="filter_button">
@@ -116,7 +114,7 @@
   
     <div class="product_category">
   
-      <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-4 py-3">
+      <div class="row row-cols-2 row-cols-md-2 row-cols-xl-4 g-4 py-3">
         @foreach ($products as $p)
         <div class="col mx-auto " >
           <a href="/products/{{$p->id}}">

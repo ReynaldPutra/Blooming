@@ -62,7 +62,7 @@
                     <a href="/showProduct/{{  urlencode($category_1[0]->category->name) }}" class="ms-auto">View All</a>
                   </div>
 
-                  <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-4 py-3">
+                  <div class="row row-cols-2 row-cols-md-2 row-cols-xl-4 g-4 py-3">
                     @foreach ($category_1 as $category_1)
                     <div class="col mx-auto" >
                       <a href="/products/{{$category_1->id}}">
@@ -91,7 +91,7 @@
                     <h2 class="text-uppercase">{{ $category_2[0]->category->name }}</h2>
                     <a href="/showProduct/{{ urlencode($category_2[0]->category->name) }}" class="ms-auto">View All</a>
                   </div>
-                  <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-4 py-3">
+                  <div class="row row-cols-2 row-cols-md-2 row-cols-xl-4 g-4 py-3">
                    
                     @foreach ($category_2 as $category_2)
                     <div class="col mx-auto" >

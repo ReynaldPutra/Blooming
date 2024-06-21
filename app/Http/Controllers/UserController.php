@@ -110,7 +110,7 @@ class UserController extends Controller
             return redirect()->route('login');
         }
         CartDetail::where([['cart_id', '=', $req->cart_id], ['item_id', '=', $req->item_id]])->delete();
-        return back();
+        return back()->with('success', 'Cart Deleted');
     }
 
     public function viewTransaction()

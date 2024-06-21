@@ -17,10 +17,6 @@
             <div class="row">
                 <div class="col-md-6 col-sm-12 col-xs-12">
                     <div class="checkout-form mb-5">
-                        @if($errors->any())
-                                <div class="alert alert-danger" role="alert">{{$errors->first()}}</div>
-                            
-                        @endif
                         @if(Session::has('message'))
                             <p class="alert alert-success">{{ Session::get('message') }}</p>
                         @endif
@@ -30,31 +26,52 @@
                             <h3 class="mb-3">Sender</h3>
                             <div class="form-group mb-3">
                                 <label for="email">Sender Email <span class="required">*</span></label>
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{Session::get('user')['email']}}" required>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{Session::get('user')['email']}}" >
+                                <div id="emailValidationMessage" class="text-danger"></div>
+
+                                @error('email')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
 
                             <div class="form-group mb-3">
                                 <label for="senderName">Sender Name <span class="required">*</span></label>
-                                <input type="text" class="form-control me-3" id="senderName" name="senderName" placeholder="Sender Name" required>
+                                <input type="text" class="form-control me-3" id="senderName" name="senderName" placeholder="Sender Name" >
+                                <div id="senderNameValidationMessage" class="text-danger"></div>
+
+                                @error('senderName')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
 
                             <div class="form-group mb-3">
                                 <label for="senderPhone">Sender Phone <span class="required">*</span></label>
-                                <input type="number" class="form-control me-3 mb-3" id="senderPhone" name="senderPhone" placeholder="08XX-XXXX-XXXX" required>
+                                <input type="number" class="form-control me-3 mb-3" id="senderPhone" name="senderPhone" placeholder="08XXXXXXXXXX" >
                                 <div id="senderPhoneValidationMessage" class="text-danger"></div>
+                                @error('senderPhone')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
 
 
                             <h3 class="mb-3">Delivery</h3>
                             <div class="form-group mb-3">
                                 <label for="recipientName">Recipient Name <span class="required">*</span></label>
-                                    <input type="text" class="form-control me-3" id="recipientName" name="recipientName" placeholder="Recipient Name" required>
+                                    <input type="text" class="form-control me-3" id="recipientName" name="recipientName" placeholder="Recipient Name" >
+                                    <div id="recipientNameValidationMessage" class="text-danger"></div>
+
+                                    @error('recipientName')
+                                    <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                             </div>
 
                             <div class="form-group mb-3">
                                 <label for="recipientNumber">Recipient Phone <span class="required">*</span></label>
-                                <input type="number" class="form-control me-3 mb-3" id="recipientNumber" name="recipientNumber" placeholder="08XX-XXXX-XXXX" required >
-                                <div id="recipientPhoneValidationMessage" class="text-danger"></div>
+                                <input type="number" class="form-control me-3 mb-3" id="recipientNumber" name="recipientNumber" placeholder="08XXXXXXXXXX"  >
+                                <div id="recipientNumberValidationMessage" class="text-danger"></div>
+                                @error('recipientNumber')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
 
                             <div class="form-group mb-3">
@@ -66,11 +83,22 @@
                                     <input type="radio" class="me-2 form-check-input" id="motorcycle" name="deliveryOption" value="motorcycle" onclick="setDeliveryCost('motorcycle')">
                                     <label for="motorcycle" class="me-3 fs-6">Motorcycle</label>
                                 </div>
+                                <div id="deliveryOptionValidationMessage" class="text-danger"></div>
+
+                                @error('deliveryOption')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
 
                             <div class="form-group mb-3">
                                 <label for="datepicker" class="form-label">Delivery Date <span class="required">*</span></label>
-                                <input type="text" class="form-control" id="datepicker" name="datepicker" placeholder="Select date" required>
+                                <input type="text" class="form-control" id="datepicker" name="datepicker" placeholder="Select date" >
+                                
+                                <div id="datepickerValidationMessage" class="text-danger"></div>
+
+                                @error('datepicker')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
 
                             <div class="form-group mb-3">
@@ -79,24 +107,48 @@
                                     <option value="9am - 2pm">9am - 2pm</option>
                                     <option value="3pm - 5pm">3pm - 5pm</option>
                                 </select>
+                                <div id="deliveryTimeValidationMessage" class="text-danger"></div>
+
+                                @error('deliveryTime')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
 
                             <div class="form-group mb-3">
                                 <label for="province">Province <span class="required">*</span></label>
-                                <input type="text" class="form-control me-3 mb-3" id="province" name="province" placeholder="Province" required>
+                                <input type="text" class="form-control me-3 mb-3" id="province" name="province" placeholder="Province" >
+                                <div id="provinceValidationMessage" class="text-danger"></div>
+
+                                @error('province')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
 
                             <div class="form-group mb-3">
                             <label for="city">City <span class="required">*</span></label>
                                 <div class="d-flex mb-3">
-                                    <input type="text" class="form-control me-3" id="city" name="city" placeholder="City" required>
-                                    <input type="number" class="form-control" id="postalCode" name="postalCode" placeholder="Postal Code" required>
+                                    <input type="text" class="form-control me-3" id="city" name="city" placeholder="City" >
+                                    <input type="number" class="form-control" id="postalCode" name="postalCode" placeholder="Postal Code" >
                                 </div>
+                                <div id="cityValidationMessage" class="text-danger"></div>
+                                <div id="postalCodeValidationMessage" class="text-danger"></div>
+
+                                @error('city')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                                @error('postalCode')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
 
                             <div class="form-group mb-3">
                                 <label for="deliveryAddress">Delivery Address <span class="required">*</span></label>
-                                <textarea class="form-control" name="deliveryAddress" id="deliveryAddress"  placeholder="Delivery Address" cols="30" rows="5" required></textarea>
+                                <textarea class="form-control" name="deliveryAddress" id="deliveryAddress"  placeholder="Delivery Address" cols="30" rows="5" ></textarea>
+                                <div id="deliveryAddressValidationMessage" class="text-danger"></div>
+
+                                @error('deliveryAddress')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
 
                             <h3 class="mb-3">Payment</h3>
@@ -118,12 +170,17 @@
                                         <div class="detailPayment">
                                             <div class="text-center">
                                                 <h5 class="mt-2">Make a Payment to our QRIS</h5>
-                                                <img width="250" src="/asset/QrCode.svg" alt="#" /></a>
+                                                <img width="250" src="{{ asset('/asset/QrCode.svg') }}" alt="#" /></a>
                                             </div>
                                         </div>
                                     </li>
 
                                 </ul>
+                                <div id="paymentMethodValidationMessage" class="text-danger"></div>
+
+                                @error('paymentMethod')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
 
 
@@ -221,8 +278,12 @@
     calculateServiceCost(deliveryPrice);
     });
 
-    document.querySelector('form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent the form from submitting immediately
+document.querySelector('form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form submission if validation fails
+    
+    if (!validateForm()) {
+        return false;
+    }
     
     var modal = document.getElementById('loadingModal');
     var loader = document.getElementById('loader');
@@ -296,37 +357,256 @@
     const senderPhoneValidationMessage = document.getElementById('senderPhoneValidationMessage');
     const recipientPhoneValidationMessage = document.getElementById('recipientPhoneValidationMessage');
 
-   
-    function validateSenderPhoneNumber() {
-        const phoneNumber = senderPhoneInput.value.trim();
+   //Validate Form
+function validateForm() {
+    var isValid = true;
+    var firstErrorField = null; // To store the first field with validation error
 
-        // Check if phone number starts with "08" and has a length of 10 to 13 digits
-        if (!phoneNumber.startsWith('08') || !/^\d{10,13}$/.test(phoneNumber)) {
-            senderPhoneValidationMessage.textContent = 'Phone number must start with "08" and have a length of 10 to 13 digits.';
-            return false;
-        } else {
-            senderPhoneValidationMessage.textContent = ''; // Clear previous error message
-            return true;
+    // Validate email
+    var email = document.getElementById('email').value.trim();
+    if (!validateEmail(email)) {
+        isValid = false;
+        displayValidationError('email', 'Please enter a valid email address.');
+        if (firstErrorField === null) {
+            firstErrorField = 'email';
         }
+    } else {
+        hideValidationError('email');
     }
 
-    function validateRecipientPhoneNumber() {
-        const phoneNumber = recipientNumberInput.value.trim();
-
-        // Check if phone number starts with "08" and has a length of 10 to 13 digits
-        if (!phoneNumber.startsWith('08') || !/^\d{10,13}$/.test(phoneNumber)) {
-            recipientPhoneValidationMessage.textContent = 'Phone number must start with "08" and have a length of 10 to 13 digits.';
-            return false;
-        } else {
-            recipientPhoneValidationMessage.textContent = ''; // Clear previous error message
-            return true;
+    // Validate senderName
+    var senderName = document.getElementById('senderName').value.trim();
+    if (senderName === '') {
+        isValid = false;
+        displayValidationError('senderName', 'Sender Name is required.');
+        if (firstErrorField === null) {
+            firstErrorField = 'senderName';
         }
+    } else {
+        hideValidationError('senderName');
     }
 
-    senderPhoneInput.addEventListener('input', validateSenderPhoneNumber);
-    recipientNumberInput.addEventListener('input', validateRecipientPhoneNumber);
+    // Validate senderPhone
+    var senderPhone = document.getElementById('senderPhone').value.trim();
+    if (!validatePhoneNumber(senderPhone)) {
+        isValid = false;
+        displayValidationError('senderPhone', 'Sender Phone must start with "08" and have 10 to 13 digits.');
+        if (firstErrorField === null) {
+            firstErrorField = 'senderPhone';
+        }
+    } else {
+        hideValidationError('senderPhone');
+    }
+
+    // Validate recipientName
+    var recipientName = document.getElementById('recipientName').value.trim();
+    if (recipientName === '') {
+        isValid = false;
+        displayValidationError('recipientName', 'Recipient Name is required.');
+        if (firstErrorField === null) {
+            firstErrorField = 'recipientName';
+        }
+    } else {
+        hideValidationError('recipientName');
+    }
+
+    // Validate recipientNumber
+    var recipientNumber = document.getElementById('recipientNumber').value.trim();
+    if (!validatePhoneNumber(recipientNumber)) {
+        isValid = false;
+        displayValidationError('recipientNumber', 'Recipient Phone must start with "08" and have 10 to 13 digits.');
+        if (firstErrorField === null) {
+            firstErrorField = 'recipientNumber';
+        }
+    } else {
+        hideValidationError('recipientNumber');
+    }
+
+    // Validate deliveryOption
+    var deliveryOption = document.querySelector('input[name="deliveryOption"]:checked');
+    if (!deliveryOption) {
+        isValid = false;
+        displayValidationError('deliveryOption', 'Please select a delivery option.');
+        if (firstErrorField === null) {
+            firstErrorField = 'deliveryOption';
+        }
+    } else {
+        hideValidationError('deliveryOption');
+    }
+
+    // Validate datepicker (delivery date)
+    var deliveryDate = document.getElementById('datepicker').value.trim();
+    if (deliveryDate === '') {
+        isValid = false;
+        displayValidationError('datepicker', 'Delivery Date is required.');
+        if (firstErrorField === null) {
+            firstErrorField = 'datepicker';
+        }
+    } else {
+        hideValidationError('datepicker');
+    }
+
+    // Validate deliveryTime
+    var deliveryTime = document.getElementById('deliveryTime').value.trim();
+    if (deliveryTime === '') {
+        isValid = false;
+        displayValidationError('deliveryTime', 'Please select a delivery time.');
+        if (firstErrorField === null) {
+            firstErrorField = 'deliveryTime';
+        }
+    } else {
+        hideValidationError('deliveryTime');
+    }
+
+    // Validate province
+    var province = document.getElementById('province').value.trim();
+    if (province === '') {
+        isValid = false;
+        displayValidationError('province', 'Province is required.');
+        if (firstErrorField === null) {
+            firstErrorField = 'province';
+        }
+    } else {
+        hideValidationError('province');
+    }
+
+    // Validate city
+    var city = document.getElementById('city').value.trim();
+    if (city === '') {
+        isValid = false;
+        displayValidationError('city', 'City is required.');
+        if (firstErrorField === null) {
+            firstErrorField = 'city';
+        }
+    } else {
+        hideValidationError('city');
+    }
+
+    // Validate postalCode
+    var postalCode = document.getElementById('postalCode').value.trim();
+    if (postalCode === '') {
+        isValid = false;
+        displayValidationError('postalCode', 'Postal Code is required.');
+        if (firstErrorField === null) {
+            firstErrorField = 'postalCode';
+        }
+    } else if (postalCode.length > 7) {
+        isValid = false;
+        displayValidationError('postalCode', 'Postal Code should not exceed 7 characters.');
+        if (firstErrorField === null) {
+            firstErrorField = 'postalCode';
+        }
+    } else {
+        hideValidationError('postalCode');
+    }
+
+    // Validate deliveryAddress
+    var deliveryAddress = document.getElementById('deliveryAddress').value.trim();
+    if (deliveryAddress === '') {
+        isValid = false;
+        displayValidationError('deliveryAddress', 'Delivery Address is required.');
+        if (firstErrorField === null) {
+            firstErrorField = 'deliveryAddress';
+        }
+    } else {
+        hideValidationError('deliveryAddress');
+    }
+
+    // Validate paymentMethod
+    var paymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
+    if (!paymentMethod) {
+        isValid = false;
+        displayValidationError('paymentMethod', 'Please select a payment method.');
+        if (firstErrorField === null) {
+            firstErrorField = 'paymentMethod';
+        }
+    } else {
+        hideValidationError('paymentMethod');
+    }
+
+    // Scroll to the first error field if validation fails
+    if (firstErrorField) {
+        scrollToField(firstErrorField);
+    }
+
+    return isValid;
+}
+
+// Function to scroll to the specified field
+function scrollToField(fieldId) {
+    var element = document.getElementById(fieldId);
+    if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        element.classList.add('highlight-error');
+    }
+}
 
 
+function validateEmail(email) {
+    // Regular expression for email validation
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+}
+
+function validatePhoneNumber(phoneNumber) {
+    // Regular expression for phone number validation
+    var re = /^08[0-9]{8,11}$/;
+    return re.test(phoneNumber);
+}
+
+function displayValidationError(fieldId, message) {
+    // Display error message for the specified field
+    var validationMessage = document.getElementById(fieldId + 'ValidationMessage');
+    if (validationMessage) {
+        validationMessage.textContent = message;
+    }
+    var inputField = document.getElementById(fieldId);
+    if (inputField) {
+        inputField.classList.add('highlight-error');
+    }
+}
+
+function hideValidationError(fieldId) {
+    // Clear error message and remove highlight for the specified field
+    var validationMessage = document.getElementById(fieldId + 'ValidationMessage');
+    if (validationMessage) {
+        validationMessage.textContent = '';
+    }
+    var inputField = document.getElementById(fieldId);
+    if (inputField) {
+        inputField.classList.remove('highlight-error');
+    }
+}
+
+document.querySelectorAll('input, select, textarea').forEach(function(input) {
+    input.addEventListener('input', function() {
+        var fieldId = input.id;
+            if (fieldId === 'senderPhone' || fieldId === 'recipientNumber') {
+                // Validate phone number dynamically
+                var phoneNumber = input.value.trim();
+                if (!validatePhoneNumber(phoneNumber)) {
+                    displayValidationError(fieldId, 'Phone number must start with "08" and have 10 to 13 digits.');
+                } else {
+                    hideValidationError(fieldId);
+                }
+            }else if(fieldId === 'email'){
+                var email = input.value.trim();
+                if (!validateEmail(email)) {
+                    displayValidationError(fieldId, 'Please enter a valid email address.');
+                } else {
+                    hideValidationError(fieldId);
+                }
+            } else {
+                hideValidationError(fieldId); // Hide error for other fields on input change
+            }
+    });
+});
+
+$('#datepicker').on('changeDate', function(e) {
+        if (e.date) {
+            hideValidationError('datepicker'); // Call hideValidationError when date is selected
+        }
+    });
 
 </script>
 @endsection

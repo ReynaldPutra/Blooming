@@ -28,7 +28,8 @@
             </div>
             <div id="collapse{{$loop->iteration}}" class="collapse @if($loop->iteration == 1) show @endif" aria-labelledby="heading{{$loop->iteration}}" data-parent="#accordion">
                 <div class="card-body">
-                    <table class="table table-striped">
+                    <div class="table-responsive mb-5">
+                    <table class="table table-striped transaction-table">
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col">No</th>
@@ -48,7 +49,7 @@
                                     @if (Storage::disk('public')->exists($transaction_detail->item->image))
                                         <img src="{{ Storage::url($transaction_detail->item->image) }}" alt="card-image" width="80" height="80">
                                     @else
-                                        <img src="{{ $transaction_detail->item->image }}" alt="card-image" width="80" height="80">
+                                        <img src="{{ asset($transaction_detail->item->image) }}" alt="card-image" width="80" height="80">
                                     @endif
                                 </td>
                                 <td>{{ $transaction_detail->item->name }}</td>
@@ -84,6 +85,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    </div>
                     <div class="d-flex justify-content-between history_detail">
                         <div>
                             @if($history->delivery_status === "Processing")

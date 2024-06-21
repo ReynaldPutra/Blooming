@@ -45,7 +45,7 @@
           @endif
 
           <div class="table-responsive">
-            <table class="table table-striped table-hover align-middle mt-4">
+            <table class="table table-striped table-hover align-middle mt-4 order-table">
                 <thead class="table-dark">
                     <tr>
                         <th scope="col">#</th>

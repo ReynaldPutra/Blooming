@@ -18,10 +18,6 @@
     font-weight: 600;
 }
 
-/* .size_deg img {
-    max-height: ;
-} */
-
 input[type="radio"]:checked {
     background-color: #b09774 !important;
     border-color: #b09774 !important;
@@ -45,5 +41,9 @@ input[type="checkbox"]:focus {
 @media (max-width: 768px) {
     .hero-content {
         font-size: 12px;
+    }
+
+    .btn {
+        width: 100%;
     }
 }

@@ -42,7 +42,7 @@
             @method('put')
             @csrf
           
-            <h1 class=" fw-bold text-center text-uppercase">Update Item</h1>
+            <h1 class=" fw-bold text-center text-uppercase mt-4">Update Item</h1>
           
                 <div class="form-group">
                   <label for="id">Item ID</label>
@@ -54,7 +54,7 @@
           
                 <div class="form-group">
                   <label for="name">Item Name</label>
-                  <input type="text" id="name" name="name" class="form-control" value="{{old('name', $product->name)}}">
+                  <input type="text" id="name" name="name" class="form-control" value="{{$product->name}}">
                   @error('name')
                   <p class="text-danger">{{ $message }}</p>
                   @enderror
@@ -62,7 +62,7 @@
           
               <div class="form-group">
                 <label for="price">Price (IDR)</label>
-                <input type="text" id="price" name="price" class="form-control" value="{{old('price', $product->price)}}">
+                <input type="text" id="price" name="price" class="form-control" value="{{ $product->price}}">
                 @error('price')
                 <p class="text-danger">{{ $message }}</p>
                 @enderror
@@ -80,8 +80,8 @@
                       @endif
                   @endforeach
               </select>
-              @error('category')
-              <p class="text-danger">{{ $message }}</p>
+              @error('category_id')
+                <p class="text-danger">{{ $message }}</p>
               @enderror
           </div>
           
@@ -114,7 +114,7 @@
           
               <div class="form-group">
                 <label for="desc">Description</label>
-                <textarea class="form-control" cols="30" rows="5" name="description" id="desc">{{ old('description', $product->description) }}</textarea> 
+                <textarea class="form-control" cols="30" rows="5" name="description" id="desc">{{  $product->description }}</textarea> 
                 @error('description')
                 <p class="text-danger">{{ $message }}</p>
                 @enderror

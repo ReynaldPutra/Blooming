@@ -42,7 +42,7 @@
             @method('put')
             @csrf
           
-            <h1 class=" fw-bold text-center text-uppercase">Update Category</h1>
+            <h1 class=" fw-bold text-center text-uppercase mt-4">Update Category</h1>
           
                 <div class="form-group">
                   <label for="id">Category ID</label>

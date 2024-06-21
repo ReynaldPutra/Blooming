@@ -8,11 +8,17 @@ th {
     color: #1e1e1e;
     font-size: smaller;
     font-weight: 700;
+    white-space: nowrap;
 }
 
 td {
     min-height: 4em;
     font-size: smaller;
+    white-space: nowrap;
+}
+
+.desc {
+    white-space: wrap;
 }
 
 .item-img {
@@ -124,5 +130,11 @@ td {
 
     #wrapper.toggled #sidebar-wrapper {
         margin-left: -15rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .searchbar {
+        width: 100%;
     }
 }

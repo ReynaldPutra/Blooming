@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Carts;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 
 class ProfileController extends Controller
@@ -40,6 +40,13 @@ class ProfileController extends Controller
         $user->username = $request->input('username');
         $user->email = $request->input('email');
         $user->save();
+
+        $userSessionData = Session::get('user');
+        $userSessionData['username'] = $request->input('username');
+        $userSessionData['email'] = $request->input('email');
+        Session::put('user', $userSessionData);
+
+        Session::regenerate();
 
         return redirect('/editProfile')->with('success', 'Profile Successfully Updated!');
     }

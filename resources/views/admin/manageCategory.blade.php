@@ -45,12 +45,11 @@
           </div>
           @endif
 
+   
           <form action="/viewCategory" type="get" class="searchbar mx-auto mb-5 mt-4">
-            <div class="input-group justify-content-center ">
-              <input type="text" class="form-control " name="search" value = "{{request('search')}}" placeholder="Search product..." aria-label="Search product..." aria-describedby="button-addon2" >
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="submit">Search</button>
-              </div>
+            <div class="input-group justify-content-center">
+              <input type="text" class="form-control" name="search" value="{{ request('search') }}" placeholder="Search product..." aria-label="Search product..." aria-describedby="button-addon2">
+              <button class="btn btn-primary" type="submit" id="button-addon2">Search</button>
             </div>
           </form>
 
@@ -62,7 +61,7 @@
                     <th>No</th>
                     <th>Category ID</th>
                     <th>Category Name</th>
-                    <th>Category Description</th>
+                    <th class="desc">Category Description</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -72,7 +71,7 @@
                       <td>{{$loop->iteration}}</td>
                       <td>{{$p->id}}</td>
                       <td>{{$p->name}}</td>
-                      <td>{{$p->description}}</td>
+                      <td class="desc">{{$p->description}}</td>
 
                       <td class="update-delete" class="btn-group">
                         <a href="/updateCategory/{{$p->id}}" class="btn btn-sm btn-primary update ">Update</a>

@@ -17,9 +17,9 @@
 
   <nav class="navbar navbar-expand-lg navbar-light">
     @if(optional(Session::get('user'))->role === 'admin')
-      <a class="navbar-brand pe-4" href="{{ url('/dashboard') }}"><img width="250" src="/asset/logo.svg" alt="#" /></a>
+      <a class="navbar-brand pe-4" href="{{ url('/dashboard') }}"><img width="250" src="{{ asset('/asset/logo.svg') }}" alt="#" /></a>
     @else
-      <a class="navbar-brand pe-4" href="{{ url('/') }}"><img width="250" src="/asset/logo.svg" alt="#" /></a>
+      <a class="navbar-brand pe-4" href="{{ url('/') }}"><img width="250" src="{{ asset('/asset/logo.svg') }}" alt="#" /></a>
     @endif
         <button class="navbar-toggler navbar-light mb-2 border-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -94,7 +94,7 @@
       <div class=" container text-md-left">
         <div class="row text-md-left">
           <div class="col-md-3 col-lg-3 col-xl-3 me-4 mt-3">
-            <img src="asset/logo_white.svg" width="250px" class="mb-2" alt="logo">
+            <img src="{{ asset('asset/logo_white.svg') }}" width="250px" class="mb-2" alt="logo">
             <p style="margin-left:3px">Premier florist shop, curated bouquets, unforgettable moments, nature's grace, enchanting floral arrangements</p>
           </div>
           <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">

@@ -63,7 +63,7 @@
                     <th>Item ID</th>
                     <th>Item Image</th>
                     <th>Item Name</th>
-                    <th>Item Description</th>
+                    <th class="desc">Item Description</th>
                     <th>Item Price</th>
                     <th>Item Category</th>
                     <th>Action</th>
@@ -83,7 +83,7 @@
 
                       </td>
                       <td>{{$p->name}}</td>
-                      <td>{{$p->description}}</td>
+                      <td class="desc">{{$p->description}}</td>
                       <td>Rp {{number_format($p->price,0,',','.')}}</td>
                       <td>{{$p->category->name}}</td>
                       <td class="update-delete" class="btn-group">

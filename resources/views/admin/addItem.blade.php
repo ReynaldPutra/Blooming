@@ -69,12 +69,12 @@
                 <div class="form-group">
                     <label for="category">Category</label>
                     <select name="category_id" id="category" class="form-control">
-                        <option value="select">Select a category</option>
+                        <option >Select a category</option>
                         @foreach($category as $c)
                             <option value="{{ $c->id }}">{{ $c->name }}</option>
                         @endforeach
                     </select>
-                    @error('category')
+                    @error('category_id')
                     <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
@@ -94,9 +94,9 @@
     
                 <div class="form-group">
                     <label for="desc">Description</label>
-                    <textarea class="form-control" cols="30" rows="5" name="description" id="desc"  value="{{ old('description') }}" required ></textarea> 
+                    <textarea class="form-control" cols="30" rows="5" name="description" id="desc"  value="{{ old('description') }}" ></textarea> 
                     @error('description')
-                    <p class="text-danger">{{ $message }}</p>
+                        <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
     
@@ -157,5 +157,13 @@
                 reader.readAsDataURL(this.files[0]);
             });
         });
+
+document.getElementById('myForm').addEventListener('submit', function(event) {
+    var categorySelect = document.getElementById('category');
+    if (categorySelect.value === "") {
+        event.preventDefault();
+        alert('Please select a valid category.');
+    }
+});
 </script>
 @endsection
