@@ -102,11 +102,11 @@
           </div>
           
               <div class="preview">
-                @if (File::exists(public_path($product->image)))
-                  <img id="preview-image" src="{{ asset($product->image) }}"
+                @if (Storage::disk('public')->exists($product->image))
+                  <img id="preview-image" src="{{Storage::url($product->image) }}"
                   alt="preview image" style="max-height: 120px">
                 @else
-                  <img id="preview-image" src="{{$product->image}}"
+                  <img id="preview-image" src="{{ asset($product->image) }}"
                   alt="preview image" style="max-height: 120px">
                 @endif
               </div>

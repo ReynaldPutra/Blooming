@@ -119,11 +119,10 @@
         <div class="col mx-auto " >
           <a href="/products/{{$p->id}}">
             <div class="card">
-              @if (File::exists(public_path($p->image)))
-            
-                <img src="{{ asset($p->image) }}" alt="card-image" class="card-img-top img_product">
+              @if (Storage::disk('public')->exists($p->image))
+                <img src="{{Storage::url($p->image)}}" alt="card-image" class="card-img-top img_product">
               @else
-                <img src="{{$p->image}}" alt="card-image" class="card-img-top img_product">
+                <img src="{{ asset($p->image) }}" alt="card-image" class="card-img-top img_product">
               @endif
               
               <div class="card-body">

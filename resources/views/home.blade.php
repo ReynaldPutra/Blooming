@@ -67,10 +67,10 @@
                     <div class="col mx-auto" >
                       <a href="/products/{{$category_1->id}}">
                         <div class="card ">
-                          @if (File::exists(public_path($category_1->image)))
-                            <img src="{{ asset($category_1->image) }}" class="card-img-top img_product" alt="...">
+                          @if (Storage::disk('public')->exists($category_1->image))
+                            <img src="{{Storage::url($category_1->image) }}" class="card-img-top img_product" alt="...">
                           @else
-                            <img src="{{ $category_1->image }}" class="card-img-top img_product" alt="...">
+                            <img src="{{ asset($category_1->image) }}" class="card-img-top img_product" alt="...">
                           @endif
                           <div class="card-body">
                             <h5 class="card-title">{{ $category_1->name }}</h5>
@@ -97,10 +97,10 @@
                     <div class="col mx-auto" >
                       <a href="/products/{{$category_2->id}}">
                         <div class="card ">
-                          @if (File::exists(public_path($category_2->image)))
-                            <img src="{{ asset($category_2->image) }}" class="card-img-top img_product" alt="...">
+                          @if (Storage::disk('public')->exists($category_2->image))
+                            <img src="{{Storage::url($category_2->image) }}" class="card-img-top img_product" alt="...">
                           @else
-                            <img src="{{ $category_2->image }}" class="card-img-top img_product" alt="...">
+                            <img src="{{ asset($category_2->image) }}" class="card-img-top img_product" alt="...">
                           @endif
                           <div class="card-body">
                             <h5 class="card-title">{{ $category_2->name }}</h5>
@@ -114,11 +114,7 @@
                   </div>
                 </div>
                 @endisset
-                {{-- @if ($categories_count === 0)
-                <div class="alert alert-info">
-                    No categories available.
-                </div>
-            @endif --}}
+                
         </div>
     </section>
 @endsection

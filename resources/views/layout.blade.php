@@ -8,8 +8,8 @@
 
     @include('style/css')
      <link rel="stylesheet" href="{{ asset('/css/layout.css') }}"/>
-     <link rel="icon" type="image/svg" href="asset/icon_tab.svg">
-     <script defer src="js/script.js"></script>
+     <link rel="icon" type="image/svg" href="{{ asset('asset/icon_tab.svg') }}">
+     <script defer src="{{ asset('js/script.js') }}"></script>
      @yield('style')
 
 </head>

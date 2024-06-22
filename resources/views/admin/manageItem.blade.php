@@ -75,10 +75,10 @@
                       <td>{{$loop->iteration}}</td>
                       <td>{{$p->id}}</td>
                       <td>
-                        @if (File::exists(public_path($p->image)))
-                          <img class="item-img" src="{{ asset($p->image) }}" alt="product-image">
+                        @if  (Storage::disk('public')->exists($p->image))
+                          <img class="item-img" src="{{Storage::url($p->image) }}" alt="product-image">
                         @else
-                          <img class="item-img" src="{{$p->image}}" alt="product-image">
+                          <img class="item-img" src="{{ asset($p->image) }}" alt="product-image">
                         @endif
 
                       </td>

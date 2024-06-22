@@ -13,10 +13,10 @@
   <div class="row row-cols-1 row-cols-md-2  g-4 py-3">
     <div class="col mx-auto img-col" >
       <div class="img-box">
-        @if (File::exists(public_path($product->image)))
-          <img src="{{ asset($product->image) }}" alt="product-image">
+        @if  (Storage::disk('public')->exists($product->image))
+          <img src="{{Storage::url($product->image) }}" alt="product-image">
         @else
-          <img src="{{$product->image}}" alt="product-image">
+          <img src="{{ asset($product->image) }}" alt="product-image">
         @endif
       </div>
     </div>

@@ -96,7 +96,9 @@ class AdminController extends Controller
         $imageName = date('YmdHi') . $image->getClientOriginalName();
         $imageURL = 'images/' . $imageName;
 
-        $destinationPath = public_path('images');
+        // $destinationPath = public_path('images');
+        // Hosting Path
+        $destinationPath = base_path('../public_html/images');
         if (!File::exists($destinationPath)) {
             File::makeDirectory($destinationPath, 0755, true);
         }
