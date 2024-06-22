@@ -10,7 +10,7 @@
 @if($product)
 <div class="container">
   <h1 class="mb-1 mt-5 mb-4 fw-bold text-center">UPDATE CART</h1>
-  <div class="row row-cols-1 row-cols-md-2  g-4 py-3">
+  <div class="row row-cols-1 row-cols-md-2  g-4 py-3 product-detail">
     <div class="col mx-auto img-col" >
       <div class="img-box">
         @if (Storage::disk('public')->exists($product->image))

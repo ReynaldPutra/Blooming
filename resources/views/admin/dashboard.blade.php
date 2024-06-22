@@ -74,13 +74,16 @@
                 <h3 class="fs-4 mb-3">Recent Orders</h3>
                 <div class="col">
                     <div class="table-responsive">
-                        <table class="table bg-white rounded shadow-sm  table-hover">
+                        <table class="table table-striped bg-white rounded shadow-sm  table-hover">
                             <thead >
                                 <tr>
                                     <th scope="col" width="50">#</th>
+                                    <th scope="col">Transaction ID</th>
                                     <th scope="col">Reciever Name</th>
                                     <th scope="col">Reciever Address</th>
-                                    <th scope="col">Transaction ID</th>
+                                    <th scope="col">Delivery Status</th>
+                                    <th scope="col">Payment Status</th>
+
                                 </tr>
                             </thead>
 
@@ -88,9 +91,15 @@
                                 @foreach($order as $order )
                                 <tr>
                                     <th scope="row">{{ $loop->iteration }}</th>
+                                    <td>{{ $order->id }}</td>
                                     <td>{{ $order->receiver_name }}</td>
                                     <td>{{ $order->delivery_address }}</td>
-                                    <td>{{ $order->id }}</td>
+                                    @if($order->delivery_status == 'Delivered')
+                                        <td style="color:green;"><strong>{{ $order->delivery_status }}</strong></td>
+                                    @else
+                                        <td>{{ $order->delivery_status }}</td>
+                                    @endif
+                                    <td>{{ $order->payment_status }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

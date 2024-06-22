@@ -38,10 +38,6 @@ form {
     max-width: 30em;
 }
 
-.back-btn {
-    width: 10em;
-}
-
 textarea {
     resize: none;
 }

@@ -8,6 +8,10 @@
     max-width: 1400px;
 }
 
+.img {
+    width: 25%;
+    height: 25%;
+}
 .text_deg {
     width: 700px;
     font-size: 14px;

@@ -71,7 +71,11 @@
                             <td>{{ $order->delivery_date }}</td>
                             <td>{{ $order->delivery_option }}</td>
                             <td>{{ $order->delivery_time }}</td>
-                            <td>{{ $order->delivery_status }}</td>
+                            @if($order->delivery_status == 'Delivered')
+                                <td style="color:green;"><strong>{{ $order->delivery_status }}</strong></td>
+                            @else
+                                <td>{{ $order->delivery_status }}</td>
+                            @endif
                             <td>{{ $order->payment_status }}</td>
                             <td>
                                 <a href="/viewOrderDetail/{{ $order->id }}"><button type="button" class="btn btn-primary btn-md" >Detail</button></a>

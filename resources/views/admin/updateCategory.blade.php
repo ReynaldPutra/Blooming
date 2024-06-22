@@ -33,7 +33,7 @@
         <div class="d-flex align-items-center  px-5  mt-5">
             <i class="fas fa-align-right primary-text fs-4 me-3" id="menu-toggle"></i>
             <div class="flex-grow-1"></div>
-            <a href="/viewCategory"><button class="btn btn-primary back-btn">Back</button></a>
+            <a href="/viewCategory"><button class="btn btn-primary btn-md">Back</button></a>
         </div>
     
 

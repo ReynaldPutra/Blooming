@@ -37,7 +37,7 @@
 
 
         <div class="container-fluid px-4">
-          <h1 class=" fw-bold text-center text-uppercase">Manage Order</h1>
+          <h1 class=" fw-bold text-center text-uppercase pt-4">Manage Order</h1>
           @if(session()->has('success'))
           <div class="alert alert-dark alert-dismissible fade show d-flex" role="alert">
             <span>{{session('success')}}</span>
