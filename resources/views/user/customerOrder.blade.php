@@ -30,29 +30,29 @@
                         <div class="form-group mb-3">
                             <h4 class="mb-3"><strong>Choose Size</strong></h4>
                             <div class="row size_deg mb-4">
-                                <div class="col-6 col-md-2 mb-3">
+                                <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                     <div class="form-check ">
                                         <input class="form-check-input" type="radio" name="size" id="sizeSmall" value="Small 5 Stem"  checked required>
                                         <label class="form-check-label" for="sizeSmall">
-                                            <img class="img-fluid mb-3" src="{{ asset('/asset/small.webp')}}" alt="small" loading="lazy"/>
+                                            <i class="sprite sprite-small"></i>
                                             <h5>Small <br>5 stem</h5>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-6 col-md-2 mb-3">
+                                <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="size" id="sizeMedium" value="Medium 15 Stem" required>
                                         <label class="form-check-label" for="sizeMedium">
-                                            <img class="img-fluid mb-3" src="{{ asset('/asset/medium.webp')}}" alt="medium" loading="lazy"/>
+                                            <i class="sprite sprite-medium"></i>
                                             <h5>Medium <br>15 stem</h5>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-6 col-md-2 mb-3">
+                                <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="size" id="sizeLarge" value="Large 30 Stem" required>
                                         <label class="form-check-label" for="sizeLarge">
-                                            <img class="img-fluid mb-3" src="{{ asset('/asset/large.webp')}}" alt="large" loading="lazy"/>
+                                            <i class="sprite sprite-large"></i>
                                             <h5>Large <br>30 stem</h5>
                                         </label>
                                     </div>
@@ -63,83 +63,83 @@
                         <div class="form-group mb-3">
                             <h4  id="flower-header" class="mb-3"><strong>Flower</strong></h4>
                             <div class="row flower mb-4">
-                                <div class="col-6 col-md-2 mb-3">
+                                <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="flower[]" id="peachRose" value="Peach Rose" checked>
                                         <label class="form-check-label" for="peachRose">
-                                            <img class="img-fluid" src="{{ asset('/asset/Flowers-01.webp')}}" alt="peachRose" loading="lazy"/>
+                                            <i class="sprite sprite-Flowers-01"></i>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-6 col-md-2 mb-3">
+                                <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="flower[]" id="whiteRose" value="White Rose" >
                                         <label class="form-check-label" for="whiteRose">
-                                            <img class="img-fluid" src="{{ asset('/asset/Flowers-02.webp')}}" alt="whiteRose" loading="lazy"/>
+                                            <i class="sprite sprite-Flowers-02"></i>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-6 col-md-2 mb-3">
+                                <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="flower[]" id="pinkRose" value="Pink Rose" >
                                         <label class="form-check-label" for="pinkRose">
-                                            <img class="img-fluid" src="{{ asset('/asset/Flowers-03.webp')}}" alt="pinkRose" loading="lazy"/>
+                                            <i class="sprite sprite-Flowers-03"></i>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-6 col-md-2 mb-3">
+                                <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="flower[]" id="redRose" value="Red Rose" >
                                         <label class="form-check-label" for="redRose">
-                                            <img class="img-fluid" src="{{ asset('/asset/Flowers-04.webp')}}" alt="redRose" loading="lazy"/>
+                                            <i class="sprite sprite-Flowers-04"></i>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-6 col-md-2 mb-3">
+                                <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="flower[]" id="pinkCarnation" value="Pink Carnation" >
                                         <label class="form-check-label" for="pinkCarnation">
-                                            <img class="img-fluid" src="{{ asset('/asset/Flowers-05.webp')}}" alt="pinkCarnation" loading="lazy"/>
+                                            <i class="sprite sprite-Flowers-05"></i>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-6 col-md-2 mb-3">
+                                <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="flower[]" id="purpleCarnation" value="Purple Carnation" >
                                         <label class="form-check-label" for="purpleCarnation">
-                                            <img class="img-fluid" src="{{ asset('/asset/Flowers-06.webp')}}" alt="purpleCarnation" loading="lazy"/>
+                                            <i class="sprite sprite-Flowers-06"></i>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-6 col-md-2 mb-3">
+                                <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="flower[]" id="sunFlower" value="Sunflower" >
                                         <label class="form-check-label" for="sunFlower">
-                                            <img class="img-fluid" src="{{ asset('/asset/Flowers-07.webp')}}" alt="sunFlower" loading="lazy"/>
+                                            <i class="sprite sprite-Flowers-07"></i>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-6 col-md-2 mb-3">
+                                <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="flower[]" id="yellowPomPom" value="Yellow PomPom" >
                                         <label class="form-check-label" for="yellowPomPom">
-                                            <img class="img-fluid" src="{{ asset('/asset/Flowers-08.webp')}}" alt="yellowPomPom" loading="lazy"/>
+                                            <i class="sprite sprite-Flowers-08"></i>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-6 col-md-2 mb-3">
+                                <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="flower[]" id="whitePomPom" value="White PomPom" >
                                         <label class="form-check-label" for="whitePomPom">
-                                            <img class="img-fluid" src="{{ asset('/asset/Flowers-09.webp')}}" alt="whitePomPom" loading="lazy" />
+                                            <i class="sprite sprite-Flowers-09"></i>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-6 col-md-2 mb-3">
+                                <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="flower[]" id="softPinkGompie" value="Soft Pink Gompie" >
                                         <label class="form-check-label" for="softPinkGompie">
-                                            <img class="img-fluid" src="{{ asset('/asset/Flowers-10.webp')}}" alt="softPinkGompie" loading="lazy"/>
+                                            <i class="sprite sprite-Flowers-10"></i>
                                         </label>
                                     </div>
                                 </div>
@@ -149,19 +149,19 @@
 
                         <h4 class="mb-3"><strong>Fillers</strong></h4>
                         <div class="row mb-4">
-                            <div class="col-6 col-md-2 mb-3">
+                            <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="fillers[]" id="caspea" value="Caspea">
                                     <label class="form-check-label" for="caspea">
-                                        <img class="img-fluid" src="{{ asset('/asset/filler-1.webp')}}" alt="caspea" loading="lazy"/>
+                                        <i class="sprite sprite-filler-1"></i>
                                     </label>
                                 </div>
                             </div>
-                            <div class="col-6 col-md-2 mb-3">
+                            <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="fillers[]" id="whiteCarnationSpray" value="White Carnation Spray">
                                     <label class="form-check-label" for="whiteCarnationSpray">
-                                        <img class="img-fluid" src="{{ asset('/asset/filler-2.webp')}}" alt="whiteCarnationSpray" loading="lazy"/>
+                                        <i class="sprite sprite-filler-2"></i>
                                     </label>
                                 </div>
                             </div>
@@ -172,35 +172,35 @@
 
                         <h4 class="mb-3"><strong>Leaves</strong></h4>
                         <div class="row mb-4">
-                            <div class="col-6 col-md-2 mb-3">
+                            <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="leaves" id="silverDollar" value="Silver Dollar" required checked>
                                     <label class="form-check-label" for="silverDollar">
-                                        <img class="img-fluid" src="{{ asset('/asset/leaf-1.webp')}}" alt="silverDollar" loading="lazy"/>
+                                        <i class="sprite sprite-leaf-1"></i>
                                     </label>
                                 </div>
                             </div>
-                            <div class="col-6 col-md-2 mb-3">
+                            <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="leaves" id="ruskus" value="Ruskus" required>
                                     <label class="form-check-label" for="ruskus">
-                                        <img class="img-fluid" src="{{ asset('/asset/leaf-2.webp')}}" alt="ruskus" loading="lazy"/>
+                                        <i class="sprite sprite-leaf-2"></i>
                                     </label>
                                 </div>
                             </div>
-                            <div class="col-6 col-md-2 mb-3">
+                            <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="leaves" id="populus" value="Populus" required>
                                     <label class="form-check-label" for="populus">
-                                        <img class="img-fluid" src="{{ asset('/asset/leaf-3.webp')}}" alt="populus" loading="lazy"/>
+                                        <i class="sprite sprite-leaf-3"></i>
                                     </label>
                                 </div>
                             </div>
-                            <div class="col-6 col-md-2 mb-3">
+                            <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="leaves" id="parvifolia" value="Parvifolia" required>
                                     <label class="form-check-label" for="parvifolia">
-                                        <img class="img-fluid" src="{{ asset('/asset/leaf-4.webp')}}" alt="parvifolia" loading="lazy"/>
+                                        <i class="sprite sprite-leaf-4"></i>
                                     </label>
                                 </div>
                             </div>
@@ -209,43 +209,43 @@
                         <div class="form-group mb-3">
                             <h4 class="mb-3"><strong>Choose Paper</strong></h4>
                             <div class="row">
-                                <div class="col-6 col-md-2 mb-3">
+                                <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="color" id="brown" value="Brown" required checked>
                                         <label class="form-check-label" for="brown">
-                                            <img class="img-fluid" src="{{ asset('/asset/paper-1.webp')}}" alt="brown" loading="lazy"/>
+                                            <i class="sprite sprite-paper-1"></i>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-6 col-md-2 mb-3">
+                                <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="color" id="darkPink" value="Dark Pink" required>
                                         <label class="form-check-label" for="darkPink">
-                                            <img class="img-fluid" src="{{ asset('/asset/paper-2.webp')}}" alt="darkPink" loading="lazy"/>
+                                            <i class="sprite sprite-paper-2"></i>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-6 col-md-2 mb-3">
+                                <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="color" id="black" value="Black" required>
                                         <label class="form-check-label" for="black">
-                                            <img class="img-fluid" src="{{ asset('/asset/paper-3.webp')}}" alt="black" loading="lazy"/>
+                                            <i class="sprite sprite-paper-3"></i>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-6 col-md-2 mb-3">
+                                <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="color" id="creme" value="Creme" required>
                                         <label class="form-check-label" for="creme">
-                                            <img class="img-fluid" src="{{ asset('/asset/paper-4.webp')}}" alt="creme" loading="lazy"/>
+                                            <i class="sprite sprite-paper-4"></i>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-6 col-md-2 mb-3">
+                                <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="color" id="transparent" value="Transparent" required>
                                         <label class="form-check-label" for="transparent">
-                                            <img class="img-fluid" src="{{ asset('/asset/paper-5.webp')}}" alt="transparent" loading="lazy"/>
+                                            <i class="sprite sprite-paper-5"></i>
                                         </label>
                                     </div>
                                 </div>
@@ -255,43 +255,43 @@
                         <div class="form-group mb-3">
                             <h4 class="mb-3"><strong>Choose Ribbon</strong></h4>
                             <div class="row">
-                                <div class="col-6 col-md-2 mb-3">
+                                <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="ribbon" id="ribbonblue" value="Blue" required checked>
                                         <label class="form-check-label" for="ribbonblue">
-                                            <img class="img-fluid" src="{{ asset('/asset/ribbon-1.webp')}}" alt="ribbonblue" loading="lazy"/>
+                                            <i class="sprite sprite-ribbon-1"></i>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-6 col-md-2 mb-3">
+                                <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="ribbon" id="ribbongreen" value="Green" required>
                                         <label class="form-check-label" for="ribbongreen">
-                                            <img class="img-fluid" src="{{ asset('/asset/ribbon-2.webp')}}" alt="ribbongreen" loading="lazy"/>
+                                            <i class="sprite sprite-ribbon-2"></i>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-6 col-md-2 mb-3">
+                                <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="ribbon" id="ribbondarkPink" value="Dark Pink" required>
                                         <label class="form-check-label" for="ribbondarkPink">
-                                            <img class="img-fluid" src="{{ asset('/asset/ribbon-3.webp')}}" alt="ribbondarkPink" loading="lazy"/>
+                                            <i class="sprite sprite-ribbon-3"></i>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-6 col-md-2 mb-3">
+                                <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="ribbon" id="ribbonbrown" value="Brown" required>
                                         <label class="form-check-label" for="ribbonbrown">
-                                            <img class="img-fluid" src="{{ asset('/asset/ribbon-4.webp')}}" alt="ribbonbrown" loading="lazy"/>
+                                            <i class="sprite sprite-ribbon-4"></i>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-6 col-md-2 mb-3">
+                                <div class="col-5 col-xl-2 col-lg-3 col-md-4 col-sm-5 mb-3 col-deg">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="ribbon" id="ribboncreme" value="Creme" required>
                                         <label class="form-check-label" for="ribboncreme">
-                                            <img class="img-fluid" src="{{ asset('/asset/ribbon-5.webp')}}" alt="ribboncreme" loading="lazy"/>
+                                            <i class="sprite sprite-ribbon-5"></i>
                                         </label>
                                     </div>
                                 </div>
