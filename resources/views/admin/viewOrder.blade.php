@@ -1,6 +1,6 @@
 
 @extends('layout')
-@section('title','Update Item')
+@section('title','Manage Order')
 @section('style')
 <link rel="stylesheet" href="{{ asset('/css/viewOrder.css') }}"/>
 @endsection

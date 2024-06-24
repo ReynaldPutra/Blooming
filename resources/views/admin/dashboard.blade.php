@@ -1,6 +1,6 @@
 
 @extends('layout')
-@section('title','Update Item')
+@section('title','Dashboard')
 @section('style')
 <link rel="stylesheet" href="{{ asset('/css/dashboard.css') }}"/>
 @endsection

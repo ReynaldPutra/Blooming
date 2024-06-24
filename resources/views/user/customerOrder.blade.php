@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title','Product Detail')
+@section('title','Custom Order')
 
 @section('style')
 <link rel="stylesheet" href="{{ asset('/css/customOrder.css') }}"/>

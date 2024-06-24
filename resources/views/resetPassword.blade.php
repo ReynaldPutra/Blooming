@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title','changePassword')
+@section('title','Reset Password')
 @section('style')
 <link rel="stylesheet" href="{{ asset('/css/changePassword.css') }}"/>
 @endsection
