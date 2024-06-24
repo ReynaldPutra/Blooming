@@ -76,7 +76,13 @@
                             @else
                                 <td>{{ $order->delivery_status }}</td>
                             @endif
-                            <td>{{ $order->payment_status }}</td>
+                            @if($order->payment_status == 'Paid')
+                                <td style="color:blue;"><strong>{{ $order->payment_status }}</strong></td>
+                            @else
+                                <td>{{ $order->payment_status }}</td>
+                            @endif
+
+                            
                             <td>
                                 <a href="/viewOrderDetail/{{ $order->id }}"><button type="button" class="btn btn-primary btn-md" >Detail</button></a>
                             </td>
